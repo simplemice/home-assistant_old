@@ -12,14 +12,14 @@
   * ZX01 (N5105 DDR4 8GB 254GB DDR4)
     
 * Containers:
-  * HAOS
-  * MQTT
-  * Zigbee2MQTT
-  * ESPHome
-  * Node-Red
-  * MariaDB
-  * Frigate
-  * Plex
+  * [HAOS](https://tteck.github.io/Proxmox)
+  * [MQTT](https://tteck.github.io/Proxmox)
+  * [Zigbee2MQTT](https://tteck.github.io/Proxmox)
+  * [ESPHome](https://tteck.github.io/Proxmox)
+  * [Node-Red](https://tteck.github.io/Proxmox)
+  * [MariaDB](https://tteck.github.io/Proxmox)
+  * [Frigate](https://www.homeautomationguy.io/blog/running-frigate-on-proxmox)
+  * [Plex](https://tteck.github.io/Proxmox)
   
 ### Network
 * Hardware
