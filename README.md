@@ -6,5 +6,8 @@
     This is my <a href="https://home-assistant.io">Home Assistant</a> configuration which is running on <a href="https://www.proxmox.com">Proxmox</a> 
   </h4>
 </div>
-![UI](screenshots/Screenshot_PC.png)
-![UI](screenshots/Screenshot_Mob.jpg)
+
+<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_PC.png" alt="UI" style="max-width: 100%;">
+
+<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_Mob.jpg" alt="UI" style="max-width: 100%;">
+
