@@ -7,7 +7,7 @@
   </h4>
 </div>
 
-<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_PC.png" alt="UI" style="max-width: 100%;">
+<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_PC.png" alt="UI" style="max-width: 50%;">
 
-<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_Mob.jpg" alt="UI" style="max-width: 100%;">
+<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_Mob.jpg" alt="UI" style="max-width: 50%;">
 
