@@ -32,7 +32,7 @@
   * Raspberry Pi 3 for [Spotify Monitor](https://github.com/simplemice/Nowify)
   * Ulanzi Smart Pixel Clock
 
-## Devices
+## Devices (Over 100+ Items)
 
 ### Lights
 * Xiaomi
@@ -69,7 +69,8 @@
 
 ########################################################################
 
+* Screenshots at folder
+
+
 [Buy Me Coffee](https://www.buymeacoffee.com/simplemice)
 
-
-* Screenshots
