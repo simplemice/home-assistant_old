@@ -69,7 +69,7 @@
 
 ########################################################################
 
-[Buy Me Coffy](https://www.buymeacoffee.com/simplemice)
+[Buy Me Coffee](https://www.buymeacoffee.com/simplemice)
 
 
 * Screenshots
