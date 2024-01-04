@@ -11,15 +11,15 @@
 * Hardware
   * [ZX01](https://aliexpress.com/i/1005001921619318.html) - Intel N5105/8GB/256GB
     
-* Containers:
-  * [HAOS](https://tteck.github.io/Proxmox)
-  * [MQTT](https://tteck.github.io/Proxmox)
-  * [Zigbee2MQTT](https://tteck.github.io/Proxmox)
-  * [ESPHome](https://tteck.github.io/Proxmox)
-  * [Node-Red](https://tteck.github.io/Proxmox)
-  * [MariaDB](https://tteck.github.io/Proxmox)
-  * [Frigate](https://www.homeautomationguy.io/blog/running-frigate-on-proxmox)
-  * [Plex](https://tteck.github.io/Proxmox)
+* [Containers:](https://tteck.github.io/Proxmox)
+  * [HAOS](https://www.home-assistant.io)
+  * [MQTT](https://mqtt.org/)
+  * [Zigbee2MQTT](https://www.zigbee2mqtt.io)
+  * [ESPHome](https://esphome.io)
+  * [Node-Red](https://nodered.org)
+  * [MariaDB](https://mariadb.org)
+  * [Frigate](https://frigate.video) - [How to install and configure](https://www.homeautomationguy.io/blog/running-frigate-on-proxmox)
+  * [Plex](https://www.plex.tv)
   
 ### Network
 * Hardware
