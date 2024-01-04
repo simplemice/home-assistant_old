@@ -9,7 +9,7 @@
 
 #### Proxmox
 * Hardware
-  * ZX01 (N5105 DDR4 8GB 254GB DDR4)
+  * [ZX01](https://aliexpress.com/i/1005001921619318.html) - Intel N5105/8GB/256GB
     
 * Containers:
   * [HAOS](https://tteck.github.io/Proxmox)
