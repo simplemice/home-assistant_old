@@ -1,0 +1,38 @@
+living_room:
+  icon: mdi:sofa
+  floor: ''
+  disabled: false
+  sort_order: 2
+kitchen:
+  icon: mdi:countertop
+  floor: ''
+  disabled: false
+  sort_order: 4
+house:
+  icon: mdi:home-assistant
+  floor: ''
+  disabled: false
+services:
+  icon: ''
+  floor: ''
+  disabled: true
+garage:
+  sort_order: 1
+  icon: mdi:garage
+  floor: ''
+  disabled: false
+bedroom:
+  sort_order: 3
+  icon: mdi:bed
+  floor: ''
+  disabled: false
+backyard:
+  sort_order: 6
+  icon: mdi:palm-tree
+  floor: ''
+  disabled: false
+bathroom:
+  sort_order: 5
+  icon: mdi:shower
+  floor: ''
+  disabled: false

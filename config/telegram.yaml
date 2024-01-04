@@ -1,0 +1,6 @@
+- platform: polling
+  api_key: !secret tg_api
+  parse_mode: "html"
+  allowed_chat_ids:
+    - !secret tg_group
+    - !secret tg_me

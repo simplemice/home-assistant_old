@@ -1,0 +1,14 @@
+chips:
+- entity: sensor.rain_sensor
+  type: entity
+- entity: sensor.sun_next_setting
+  type: entity
+- entity: sensor.sun_next_rising
+  type: entity
+- entity: sensor.zhimi_airmonitor_v1
+  type: entity
+- entity: sensor.u_s_air_pollution_level
+  type: entity
+- entity: sensor.owm_pollution_fine_particles_pm2_5
+  type: entity
+type: custom:mushroom-chips-card

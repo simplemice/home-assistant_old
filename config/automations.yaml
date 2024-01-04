@@ -1,0 +1,3865 @@
+- id: '1693476400189'
+  alias: Lights - Kitchen Ambient Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.kitchen_presense
+    to: 'on'
+    id: kitchen_ambient_on
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  - platform: state
+    entity_id:
+    - binary_sensor.kitchen_presense
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+    id: kitchen_ambient_off
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - kitchen_ambient_on
+        - type: is_illuminance
+          condition: device
+          device_id: 1cdc5457e7129ea85c88f9264af3f5d5
+          entity_id: 372dfbd336537d84eec28a46a749a3d2
+          domain: sensor
+          below: 20
+        - condition: time
+          after: 08:00:00
+          before: '19:00:00'
+          weekday:
+          - sun
+          - sat
+          - fri
+          - thu
+          - wed
+          - tue
+          - mon
+      sequence:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.kitchen_ambient_day_mode
+        data: {}
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - kitchen_ambient_on
+        - type: is_illuminance
+          condition: device
+          device_id: 1cdc5457e7129ea85c88f9264af3f5d5
+          entity_id: 372dfbd336537d84eec28a46a749a3d2
+          domain: sensor
+          below: 20
+        - condition: time
+          after: '19:00:00'
+          before: 08:00:00
+          weekday:
+          - sun
+          - sat
+          - fri
+          - thu
+          - wed
+          - tue
+          - mon
+      sequence:
+      - service: scene.turn_on
+        data: {}
+        target:
+          entity_id: scene.kitchen_ambient_after_sunset
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - kitchen_ambient_off
+        - condition: state
+          entity_id: light.kitchen_ambient
+          state: 'on'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id:
+          - light.kitchen_bottom_ambient
+          - light.kitchen_upper_ambient
+  mode: single
+- id: '1693477596736'
+  alias: Lights - Livingroom Sofa Ambient Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.sofa_presense
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.micebook_status
+      state: 'on'
+    - condition: state
+      entity_id: switch.livingroom_curtains
+      state: 'off'
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.sofa_presense
+        state: 'off'
+      sequence:
+      - service: light.turn_on
+        data:
+          rgb_color:
+          - 200
+          - 10
+          - 255
+          brightness_pct: 30
+          transition: 10
+        target:
+          entity_id:
+          - light.sofa_ambient
+      - service: light.turn_on
+        data:
+          rgb_color:
+          - 255
+          - 0
+          - 89
+          brightness_pct: 10
+          transition: 10
+        target:
+          entity_id:
+          - light.lumi_gateway_v3_light
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.sofa_presense
+        state: 'on'
+      sequence:
+      - service: light.turn_on
+        data:
+          rgb_color:
+          - 200
+          - 10
+          - 255
+          brightness_pct: 100
+          transition: 10
+        target:
+          entity_id:
+          - light.sofa_ambient
+      - service: light.turn_on
+        data:
+          rgb_color:
+          - 255
+          - 0
+          - 123
+          brightness_pct: 40
+          transition: 10
+        target:
+          entity_id:
+          - light.lumi_gateway_v3_light
+  mode: single
+- id: '1693481115791'
+  alias: Lights - Adaptive Lights Automation
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 0
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: sun
+        before: sunset
+        after: sunrise
+      sequence:
+      - service: switch.turn_off
+        data: {}
+        target:
+          entity_id:
+          - switch.adaptive_lighting_sleep_mode_garage
+          - switch.adaptive_lighting_sleep_mode_lightstrip
+    - conditions:
+      - condition: sun
+        before: sunrise
+        after: sunset
+      sequence:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id:
+          - switch.adaptive_lighting_sleep_mode_garage
+          - switch.adaptive_lighting_sleep_mode_lightstrip
+  mode: single
+- id: '1693483735459'
+  alias: Climate - Bedroom Button Control
+  description: ''
+  use_blueprint:
+    path: xiaomi_button.yaml
+    input:
+      action_sensor: sensor.bedroom_button_action
+      single_action:
+      - service: switch.turn_on
+        data: {}
+        alias: Aircon Dry Mode
+        target:
+          entity_id: switch.dry_mode_switch
+      double_action:
+      - service: switch.turn_on
+        data: {}
+        alias: Aircon Cold Mode
+        target:
+          entity_id: switch.cold_mode_switch
+      hold_action:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.turn_off_switch
+        alias: Climate Off
+      triple_action:
+      - if:
+        - condition: state
+          entity_id: fan.zhimi_fa1_4020_fan
+          state: 'off'
+        then:
+        - service: fan.turn_on
+          data: {}
+          target:
+            entity_id: fan.zhimi_fa1_4020_fan
+        else:
+        - service: fan.turn_off
+          data: {}
+          target:
+            entity_id: fan.zhimi_fa1_4020_fan
+        alias: Bedroom Fan
+- id: '1693484009785'
+  alias: Kitchen - Button Automation
+  description: ''
+  use_blueprint:
+    path: xiaomi_button.yaml
+    input:
+      action_sensor: sensor.kitchen_button_action
+      single_action:
+      - if:
+        - condition: state
+          entity_id: switch.kitchen_kettle
+          state: 'off'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id: switch.kitchen_kettle
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.kitchen_kettle
+        alias: Kettle
+      double_action:
+      - if:
+        - condition: state
+          entity_id: fan.kitchen_power_strip_switch
+          state: 'off'
+        then:
+        - service: fan.turn_on
+          data: {}
+          target:
+            entity_id: fan.kitchen_power_strip_switch
+        else:
+        - service: fan.turn_off
+          data: {}
+          target:
+            entity_id: fan.kitchen_power_strip_switch
+        alias: Fan
+      hold_action:
+      - if:
+        - condition: state
+          entity_id: light.kitchen_wall_switch_center
+          state: 'off'
+        then:
+        - service: light.turn_on
+          data: {}
+          target:
+            entity_id: light.kitchen_wall_switch_center
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id: light.kitchen_wall_switch_center
+        alias: Kitchen Upstair Light
+- id: '1693484336480'
+  alias: Lights - Camera Night Light Automation
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 0
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: sun
+        before: sunrise
+        after: sunset
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          entity_id: light.camera_night_light
+    - conditions:
+      - condition: sun
+        before: sunset
+        after: sunrise
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.camera_night_light
+  mode: single
+- id: '1693541619909'
+  alias: Awtrix - Weather
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_weather_app.yaml
+    input:
+      awtrix_displays:
+      - 878172095c71c90ce783d87cec0ac1af
+      toggle_helper: input_boolean.awtrix_weather
+      my_sensor: weather.openweathermap
+      show_windspeed: false
+      background_color:
+      - 0
+      - 0
+      - 0
+      text_color:
+      - 157
+      - 10
+      - 255
+      switch_to_app: true
+      duration: '15'
+      scrollspeed: 50
+- id: '1693728515514'
+  alias: Awtrix - Home Temp
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_create_sensor_app.yaml
+    input:
+      awtrix_displays:
+      - 878172095c71c90ce783d87cec0ac1af
+      toggle_helper: input_boolean.awtrix_home_temp
+      my_template_sensor: Inside - {{ states('sensor.livingroom_temp_temperature')
+        }} °C / {{ states('sensor.livingroom_temp_humidity') }} %
+      text_color:
+      - 157
+      - 10
+      - 255
+      my_sensor: sensor.livingroom_temp_temperature
+      my_icon: '13593'
+      switch_to_app: true
+      duration: '19'
+      scrollspeed: 50
+- id: '1693729411553'
+  alias: Lights - Bedroom Wardrobe Lights Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_wardrobe_door_contact
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.bedroom_wardrobe_door_contact
+        state: 'on'
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          entity_id:
+          - light.bedroom_wardrobe_light
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.bedroom_wardrobe_door_contact
+        state: 'off'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id:
+          - light.bedroom_wardrobe_light
+  mode: single
+- id: '1693752783893'
+  alias: Lights - Bedside Lamp Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_motion_group
+    to: 'on'
+    id: bedroom_motion_on
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_motion_group
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - bedroom_motion_on
+        - condition: time
+          after: '17:00:00'
+          before: '20:00:00'
+          weekday:
+          - sun
+          - sat
+          - fri
+          - thu
+          - wed
+          - tue
+          - mon
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: 100
+          rgb_color:
+          - 157
+          - 10
+          - 255
+        target:
+          entity_id: light.bedside_lamp
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - bedroom_motion_on
+        - condition: time
+          after: '20:00:00'
+          before: 08:00:00
+          weekday:
+          - sun
+          - sat
+          - fri
+          - thu
+          - wed
+          - tue
+          - mon
+      sequence:
+      - service: light.turn_on
+        data:
+          brightness_pct: 10
+          rgb_color:
+          - 157
+          - 10
+          - 255
+        target:
+          entity_id: light.bedside_lamp
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.bedroom_motion_group
+        state: 'off'
+        for:
+          hours: 0
+          minutes: 1
+          seconds: 0
+      sequence:
+      - service: light.turn_off
+        data:
+          transition: 90
+        target:
+          entity_id: light.bedside_lamp
+  mode: single
+- id: '1693809312342'
+  alias: Awtrix - Outside Temp
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_create_sensor_app.yaml
+    input:
+      my_sensor: sensor.outside_temp
+      my_template_sensor: Outside - {{ states('sensor.outside_temp') }} °C / {{ states('sensor.garage_temp_humidity')
+        }} %
+      my_icon: '13593'
+      awtrix_displays:
+      - 878172095c71c90ce783d87cec0ac1af
+      toggle_helper: input_boolean.awtrix_outside_temp
+      text_color:
+      - 157
+      - 10
+      - 255
+      switch_to_app: true
+      duration: '19'
+      scrollspeed: 50
+- id: '1693991874207'
+  alias: Backyard - Button Automation
+  description: ''
+  use_blueprint:
+    path: xiaomi_button.yaml
+    input:
+      action_sensor: sensor.backyard_button_action
+      single_action:
+      - service: switch.toggle
+        data: {}
+        target:
+          entity_id:
+          - switch.backyard_light
+- id: '1693998540638'
+  alias: Awtrix - Rain Forecast
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_rain_forecast.yaml
+    input:
+      awtrix_displays:
+      - 878172095c71c90ce783d87cec0ac1af
+      toggle_helper: input_boolean.awtrix_rain
+      my_sensor: weather.openweathermap
+      graph_type: line
+      graph_color:
+      - 157
+      - 10
+      - 255
+      my_text: No rain
+      lifetime: '10'
+- id: '1694008693413'
+  alias: Livingroom - Master Cube Automation
+  description: ''
+  use_blueprint:
+    path: Zigbee2MQTT-Xiaomi_Cube.yaml
+    input:
+      topic: zigbee2mqtt/MCube
+      doubletap_face_0:
+      - alias: Livingroom Lightstip
+        if:
+        - condition: state
+          entity_id: light.lightstrip
+          state: 'off'
+        then:
+        - service: light.turn_on
+          data: {}
+          target:
+            entity_id:
+            - light.lightstrip
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id:
+            - light.lightstrip
+      slide_face_0:
+      - if:
+        - condition: state
+          entity_id: switch.livingroom_curtains
+          state: 'off'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id: switch.livingroom_curtains
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.livingroom_curtains
+        alias: Livingroom Curtains
+      shake:
+      - service: alarmo.disarm
+        data:
+          entity_id: alarm_control_panel.home
+          code: '5412'
+      flipped90_face_0:
+      - if:
+        - condition: state
+          entity_id: switch.livingroom_tv
+          state: 'off'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id: switch.livingroom_tv
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.livingroom_tv
+        alias: Livingroom TV
+      rotate_cw_face_0:
+      - alias: Lightstrip Up
+        service: light.turn_on
+        data:
+          brightness_step_pct: 10
+        target:
+          entity_id:
+          - light.lightstrip
+      rotate_ccw_face_0:
+      - alias: Lightstrip Down
+        service: light.turn_on
+        data:
+          brightness_step_pct: -10
+        target:
+          entity_id:
+          - light.lightstrip
+      flipped180_face_0:
+      - if:
+        - condition: state
+          entity_id: input_boolean.guest_mode
+          state: 'off'
+        then:
+        - service: input_boolean.turn_on
+          data: {}
+          target:
+            entity_id: input_boolean.guest_mode
+        else:
+        - service: input_boolean.turn_off
+          data: {}
+          target:
+            entity_id: input_boolean.guest_mode
+        alias: Guest Mode
+      rotate_cw_face_1:
+      - service: media_player.media_next_track
+        data: {}
+        target:
+          entity_id: media_player.spotify_simplemice
+      rotate_ccw_face_1:
+      - service: media_player.media_previous_track
+        data: {}
+        target:
+          entity_id: media_player.spotify_simplemice
+      doubletap_face_1:
+      - if:
+        - condition: state
+          entity_id: media_player.spotify_simplemice
+          state: playing
+        then:
+        - service: media_player.media_pause
+          data: {}
+          target:
+            entity_id: media_player.spotify_simplemice
+        else:
+        - service: script.1698025648038
+          data: {}
+        alias: Spotify Play/Stop
+      flipped180_face_1: []
+      slide_face_1: []
+      flipped90_face_1: []
+      rotate_cw_face_2:
+      - service: media_player.volume_up
+        data: {}
+        target:
+          entity_id: media_player.spotify_simplemice
+      rotate_ccw_face_2:
+      - service: media_player.volume_down
+        data: {}
+        target:
+          entity_id: media_player.spotify_simplemice
+- id: '1683728092844'
+  alias: Laundry - Finish Automation
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.laundry_timer
+    id: laundry_finish
+  - platform: tag
+    tag_id: 20624072-f14c-4a2d-b2ae-9214dbbb5ecb
+    id: tag_scanned
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - laundry_finish
+      sequence:
+      - service: notify.alexa_media_bedroom_speaker
+        data:
+          message: Laundry finish, please go to pickup
+      - service: notify.mobile_app_micemob
+        data:
+          message: TTS
+          data:
+            tts_text: Laundry finish, please go to pickup
+            media_stream: alarm_stream_max
+      - service: notify.mobile_app_micemob
+        data:
+          message: Laundry finish, please go to pickup
+      - service: notify.telegram_to_me
+        data:
+          message: Laundry finish, please go to pickup
+      - service: notify.persistent_notification
+        data:
+          message: Laundry finish, please go to pickup
+      - repeat:
+          sequence:
+          - service: notify.alexa_media_bedroom_speaker
+            data:
+              message: Do Not Forget For Laundry!
+              title: Laundry Finish
+          - service: notify.mobile_app_micemob
+            data:
+              message: TTS
+              data:
+                tts_text: Laundry finish, please go to pickup
+                media_stream: alarm_stream_max
+          - delay:
+              hours: 0
+              minutes: 10
+              seconds: 0
+              milliseconds: 0
+          until:
+          - condition: state
+            entity_id: input_boolean.awtrix_laundry_timer
+            state: 'off'
+    - conditions:
+      - condition: trigger
+        id:
+        - tag_scanned
+      sequence:
+      - service: input_boolean.turn_off
+        data: {}
+        target:
+          entity_id: input_boolean.awtrix_laundry_timer
+      - service: notify.alexa_media_bedroom_speaker
+        data:
+          message: Okay, Now Laundry Finish
+  mode: single
+- id: '1694078655796'
+  alias: Alarm - Safe Alarm Automation
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: cae6ff81-94ec-48c3-bc7b-fd54e3997e5d
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: alarm_control_panel.safe
+      state: armed_home
+    then:
+    - service: alarm_control_panel.alarm_disarm
+      data:
+        code: '5412'
+      target:
+        entity_id: alarm_control_panel.safe
+    - service: notify.alexa_media_bedroom_speaker
+      data:
+        message: Safe Alarm Disarmed!
+    - service: notify.alexa_media_bedroom_speaker
+      data:
+        message: <audio src="soundbank://soundlibrary/alarms/car_alarms/car_alarm_05"/>
+        data:
+          type: tts
+    else:
+    - service: alarm_control_panel.alarm_arm_home
+      data: {}
+      target:
+        entity_id: alarm_control_panel.safe
+    - service: notify.alexa_media_bedroom_speaker
+      data:
+        message: Safe Alarm Armed!
+    - service: notify.alexa_media_bedroom_speaker
+      data:
+        message: <audio src="soundbank://soundlibrary/alarms/car_alarms/car_alarm_05"/>
+        data:
+          type: tts
+  mode: single
+- id: '1694139913118'
+  alias: Livingroom - Curtains Automation
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: c711da4d-74d1-42f2-ba00-ecdb7daf008b
+    id: curtaintag
+  - platform: state
+    entity_id:
+    - binary_sensor.all_doors
+    to: 'off'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - curtaintag
+      sequence:
+      - if:
+        - condition: state
+          entity_id: switch.livingroom_curtains
+          state: 'off'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id: switch.livingroom_curtains
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.livingroom_curtains
+        enabled: true
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: switch.livingroom_curtains
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.all_doors
+          state: 'off'
+        - condition: time
+          after: '17:00:00'
+          before: 08:00:00
+          weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+          - sun
+      sequence:
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: Do you want close curtains ?
+          event_id: alexa_notification_curtains
+          alexa_device: media_player.bedroom_speaker
+  mode: single
+- id: '1694183089444'
+  alias: Laundry - Start Automation
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id: device_tracker.simplemice_360
+    zone: zone.laundry
+    event: enter
+  - platform: zone
+    entity_id: device_tracker.micemob
+    zone: zone.laundry
+    event: enter
+  - platform: zone
+    entity_id: person.simplemice
+    zone: zone.laundry
+    event: enter
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: '10:00:00'
+      before: '12:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+  action:
+  - service: script.laundry_start
+    data: {}
+  - service: notify.mobile_app_micemob
+    data:
+      message: Laundry Timer For 2h Started
+  mode: single
+- id: '1694512118978'
+  alias: Lights - Bathroom Light Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bathroom_presense
+    to: 'on'
+    id: presense_on
+  - platform: state
+    entity_id:
+    - binary_sensor.bathroom_presense
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    id: presense_off
+  - platform: state
+    entity_id:
+    - light.kitchen_wall_switch_right
+    to: 'off'
+    id: manual_off
+  - platform: state
+    entity_id:
+    - light.kitchen_wall_switch_right
+    to: 'on'
+    id: manual_on
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - presense_on
+        - manual_on
+      sequence:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.bathroom_light
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - manual_off
+          - presense_off
+        - condition: state
+          entity_id: light.kitchen_wall_switch_right
+          state: 'on'
+      sequence:
+      - if:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: person.simplemice
+            state: home
+          - condition: state
+            entity_id: binary_sensor.bed_presense
+            state: 'off'
+        then:
+        - service: tts.amazon_polly_say
+          data:
+            cache: false
+            entity_id: media_player.bedroom_speaker
+            message: "{{ [\n    'Lights out at Mice Home! It looks like you left the
+              lights on, but no worries—I have taken care of it for you. Save energy!',\n
+              \   'Oops, it seems the lights were left on at Mice Home. No problem!
+              I have turned them off for you. Enjoy the peace',\n    'A gentle reminder
+              from Mice Home: the lights were still on, but fear not—I have turned
+              them off to conserve energy. Keep it bright when needed',\n    'Light
+              alert at Mice Home! It looks like the lights were left on, so I have
+              taken the liberty of turning them off. Save energy and enjoy the serenity!'\n
+              \ ]|random }}\n"
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.bathroom_light
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.bathroom_light
+  mode: single
+- id: '1694522892639'
+  alias: Micebook - Turn Off Automation
+  description: Night Mode
+  trigger:
+  - alias: Micebook Turn Off
+    platform: state
+    entity_id:
+    - binary_sensor.micebook_status
+    to: 'off'
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: '20:00:00'
+      before: 06:00:00
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+      alias: Confirm Time After 20:00 Before 6:00
+    - condition: state
+      entity_id: device_tracker.micemob
+      state: home
+      alias: Confirm Micemob is Home
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.sleep_door_checker
+  - service: switch.turn_off
+    target:
+      entity_id: switch.kitchen_kettle
+    data: {}
+  - service: fan.turn_off
+    data: {}
+    target:
+      entity_id:
+      - fan.kitchen_power_strip_switch
+      - fan.dmaker_p28_19b6_fan
+      - fan.dmaker_p23_42a8_fan
+    alias: All Fans Off
+  - if:
+    - condition: state
+      entity_id: switch.livingroom_tv
+      state: 'on'
+    then:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.livingroom_tv
+    alias: Livingroom TV Off
+  - alias: Ambient & Lightstrip Off
+    service: light.turn_off
+    data:
+      transition: 120
+    target:
+      entity_id:
+      - light.livingroom_night_ambient
+      - light.lightstrip
+      - light.awtrix_44dff8_matrix
+      - light.tv_table_ambient
+      - light.sofa_ambient
+      - light.wled_matrix
+      device_id:
+      - 1cc8e86ebd79f2b9c2fc59cb67aab20a
+      - 18ec10c0ec1ddb0c7629081ddce2ec8c
+  - service: light.turn_on
+    data:
+      rgb_color:
+      - 255
+      - 0
+      - 255
+      transition: 120
+      brightness_pct: 40
+    target:
+      entity_id:
+      - light.lumi_gateway_v3_light
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.4
+    target:
+      device_id: 5a2dfa8cf487aa2b61d22b6ff54b945a
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: script.activate_alexa_actionable_notification
+    data_template:
+      text: Do You Want Set Alarm on Phone ?
+      event_id: alexa_notification_mobalarm
+      alexa_device: media_player.bedroom_speaker
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 30
+      milliseconds: 0
+  - repeat:
+      sequence:
+      - service: notify.alexa_media_bedroom_speaker
+        data:
+          message: Please, Check All Doors For Closed State
+      - delay:
+          hours: 0
+          minutes: 1
+          seconds: 0
+          milliseconds: 0
+      until:
+      - condition: state
+        entity_id: input_boolean.sleep_door_checker
+        state: 'off'
+  - service: fan.turn_off
+    target:
+      entity_id:
+      - fan.dmaker_p23_42a8_fan
+      - fan.kitchen_power_strip_switch
+    data: {}
+  mode: single
+- id: '1694785263480'
+  alias: Notification - Low battery level
+  description: ''
+  use_blueprint:
+    path: low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      actions:
+      - service: notify.mobile_app_micemob
+        data:
+          message: Low Battery Device Found {{sensors}}
+- id: '1694858283012'
+  alias: Awtrix - Current playing song
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_spotify.yaml
+    input:
+      awtrix_light: 878172095c71c90ce783d87cec0ac1af
+      media_player: media_player.spotify_simplemice
+      icon_in: '18207'
+      text_color:
+      - 157
+      - 10
+      - 255
+- id: '1695045321540'
+  alias: Alarm - Bedroom Safe Triggered
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - alarm_control_panel.safe
+    to: triggered
+  condition: []
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Alarm! Bedroom Safe Open Now!
+      title: Alarm!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Alarm! Bedroom Safe Open Now!
+      title: Alarm!
+  - service: xiaomi_aqara.play_ringtone
+    data:
+      gw_mac: 04:CF:8C:A9:DA:39
+      ringtone_id: '1'
+      ringtone_vol: 15
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: I Think You Are Open Safe? Hmmmmm..... May Be I Call Police?
+  - service: script.notification_door_bell
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1695050093305'
+  alias: Awtrix - Laundry Timer
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_create_sensor_app.yaml
+    input:
+      awtrix_displays:
+      - 878172095c71c90ce783d87cec0ac1af
+      toggle_helper: input_boolean.awtrix_laundry_timer
+      my_sensor: timer.laundry_timer
+      my_template_sensor: Laundry PickUp - {{ (as_timestamp(state_attr('timer.laundry_timer',
+        'finishes_at'))) | timestamp_custom('%X') }}
+      my_icon: '42893'
+      text_color:
+      - 157
+      - 10
+      - 255
+      lifetime: '3600'
+- id: '1695121337922'
+  alias: Notification - Cooking Complete
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.careli_maf01_68e5_air_fryer
+    from: cooking
+    to: shutdown
+  - platform: state
+    entity_id:
+    - sensor.careli_maf01_68e5_air_fryer
+    from: cooking
+    to: standby
+  - platform: state
+    entity_id:
+    - sensor.careli_maf01_68e5_air_fryer
+    to: cooked
+    from: cooking
+  - platform: state
+    entity_id:
+    - sensor.chunmi_n23l01_bcf8_oven
+    from: cooking
+    to: cook finish
+  - platform: state
+    entity_id:
+    - sensor.chunmi_eh3_e09c_cooker
+    from: running
+    to: keepwarm
+  - platform: state
+    entity_id:
+    - sensor.chunmi_eh3_e09c_cooker
+    from: running
+    to: idle
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.cooking_timer
+  condition:
+  - condition: time
+    after: 08:00:00
+    before: '20:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: notify.mobile_app_micemob
+    data:
+      message: Cooking Complete, Enjoy Your Food!
+      title: Cooking Complete!
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.cooking_timer_finish
+  - service: tts.amazon_polly_say
+    data:
+      cache: false
+      entity_id: media_player.bedroom_speaker
+      message: "{{ [\n    'Time to eat. Please wash up and head to the kitchen.',\n
+        \   'Food is now being served in the kitchen.',\n    'If you are hungry, the
+        wait is over. Wash Up.',\n    'It is time to wash up and head to the kitchen.'\n
+        \ ]|random }}\n"
+  mode: single
+- id: '1695203532458'
+  alias: Alarm - Away with Snapshot
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - person.simplemice
+    to: not_home
+    from: home
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: device_tracker.micemob
+    state: not_home
+  action:
+  - service: script.take_snapshot_of_states_before_away
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: fan.turn_off
+    data: {}
+    target:
+      entity_id:
+      - fan.all_fans
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.all_ambient
+      - light.all_lights
+      - light.wled_matrix
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.livingroom_curtains
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.garage_camera_notification
+      - input_boolean.backyard_camera_notification
+  - service: alarm_control_panel.alarm_arm_away
+    data:
+      code: '5412'
+    target:
+      entity_id: alarm_control_panel.home
+  - if:
+    - condition: state
+      entity_id: media_player.spotify_simplemice
+      state: playing
+    then:
+    - service: media_player.media_pause
+      target:
+        entity_id: media_player.spotify_simplemice
+      data: {}
+  - service: notify.mobile_app_micemob
+    data:
+      message: You Are Away - all states saved, all turned off, Alarm ON !
+      title: Away Alarm Mode
+  mode: single
+- id: '1695203661551'
+  alias: Alarm - Return to Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - device_tracker.micemob
+    from: not_home
+    to: home
+  condition: []
+  action:
+  - service: alarm_control_panel.alarm_arm_home
+    data:
+      code: '5412'
+    target:
+      entity_id: alarm_control_panel.home
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.go_away_states
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.garage_camera_notification
+      - input_boolean.backyard_camera_notification
+  - service: notify.mobile_app_micemob
+    data:
+      message: Alarm Off & All states restored to ON !
+      title: Away Alarm Mode
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: scene.reload
+    data: {}
+  mode: single
+- id: '1695297243953'
+  alias: Notification - Door Bell
+  description: ''
+  use_blueprint:
+    path: xiaomi_button.yaml
+    input:
+      action_sensor: sensor.door_bell_action
+      single_action:
+      - service: xiaomi_aqara.play_ringtone
+        data:
+          gw_mac: 04:CF:8C:A9:DA:39
+          ringtone_id: '10'
+          ringtone_vol: 15
+      - service: script.notification_door_bell
+        metadata: {}
+        data: {}
+      double_action:
+      - service: xiaomi_aqara.play_ringtone
+        data:
+          gw_mac: 04:CF:8C:A9:DA:39
+          ringtone_id: '10'
+          ringtone_vol: 15
+      - service: script.notification_door_bell
+        metadata: {}
+        data: {}
+      triple_action:
+      - service: xiaomi_aqara.play_ringtone
+        data:
+          gw_mac: 04:CF:8C:A9:DA:39
+          ringtone_id: '10'
+          ringtone_vol: 15
+      - service: script.notification_door_bell
+        metadata: {}
+        data: {}
+      hold_action: []
+- id: '1695300755807'
+  alias: Notification - Garage Motion Detected
+  description: ''
+  use_blueprint:
+    path: Camera Snapshot Notify.yaml
+    input:
+      motion_sensor: binary_sensor.garage_door_motion_occupancy
+      camera: camera.garage
+      notify_device: 3816e92cf1dd4fe946cf4b81342b1633
+      notification_message: '{{ motion_sensor_name }} detected !'
+      blocker_entity: input_boolean.garage_camera_notification
+- id: '1695456587711'
+  alias: Awtrix - Cooking Timer
+  description: ''
+  use_blueprint:
+    path: homeassistant/awtrix_create_sensor_app.yaml
+    input:
+      awtrix_displays:
+      - 878172095c71c90ce783d87cec0ac1af
+      toggle_helper: input_boolean.cooking_timer_finish
+      my_sensor: timer.laundry_timer
+      my_template_sensor: Cooking Complete at - {{ (as_timestamp(state_attr('timer.cooking_timer',
+        'finishes_at'))) | timestamp_custom('%X') }}
+      my_icon: '42893'
+      text_color:
+      - 157
+      - 10
+      - 255
+      lifetime: '3600'
+- id: '1695456672541'
+  alias: Start Cooking Timer
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - timer.cooking_timer
+    to: active
+  condition: []
+  action:
+  - service: script.cooking_timer
+    data: {}
+  mode: single
+- id: '1695486112506'
+  alias: Awtrix - Clock Reload Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - device_tracker.ulanzi_clock
+    to: home
+  - minutes: /59
+    platform: time_pattern
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.awtrix_weather
+      - input_boolean.awtrix_rain
+      - input_boolean.awtrix_outside_temp
+      - input_boolean.awtrix_home_temp
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id:
+      - input_boolean.awtrix_weather
+      - input_boolean.awtrix_rain
+      - input_boolean.awtrix_outside_temp
+      - input_boolean.awtrix_home_temp
+  mode: single
+- id: '1695552035480'
+  alias: Bedroom - WakeUp Mode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bed_presense
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: 07:30:00
+      before: 09:00:00
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+    - condition: state
+      entity_id: binary_sensor.bedroom_door_contact
+      state: 'on'
+  action:
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.bedroom_speaker
+    data:
+      volume_level: 0.5
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.audible_notifications
+    data: {}
+  - service: media_player.volume_set
+    target:
+      entity_id: media_player.bedroom_speaker
+    data:
+      volume_level: 0.8
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: tts.amazon_polly_say
+    data:
+      cache: false
+      entity_id: media_player.bedroom_speaker
+      message: "{{ [\n         \"Good Morning! Time to rise and shine at Mice House.
+        \",\n         \"Good Morning from Mice House. Glad to see everyone made it.
+        \", \n         \"Birds are awake, and so is Mice House. Good morning everyone!\",\n
+        \        \"Good morning. Mice House is up and online.\" \n         ] | random
+        }}\n"
+  - service: alarm_control_panel.alarm_arm_home
+    data:
+      code: '5412'
+    target:
+      entity_id: alarm_control_panel.home
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.kitchen_kettle
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.awtrix_44dff8_matrix
+      - light.tv_table_ambient
+      - light.wled_matrix
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.micebook
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.turn_off_switch
+  - service: climate.turn_off
+    data: {}
+    target:
+      entity_id: climate.bedroom_aircon
+  - service: fan.turn_off
+    target:
+      entity_id: fan.zhimi_fa1_4020_fan
+    data: {}
+  - service: select.select_option
+    target:
+      entity_id: select.wled_matrix_preset
+    data:
+      option: Octopus
+  - service: fan.turn_on
+    target:
+      entity_id:
+      - fan.kitchen_power_strip_switch
+    data: {}
+  mode: single
+- id: '1696212260400'
+  alias: Livingroom -  Curtains Open Ambient Off
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - switch.livingroom_curtains
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_off
+    data:
+      transition: 10
+    target:
+      entity_id:
+      - light.sofa_ambient
+      - light.lumi_gateway_v3_light
+      - light.livingroom_wardrobe_ambient
+      - light.livingroom_door_ambient
+  mode: single
+- id: '1696855473800'
+  alias: Lights - Kitchen Wall Wireless Switch
+  description: ''
+  use_blueprint:
+    path: TS0043_z2m.yaml
+    input:
+      switch: sensor.kitchen_scene_switch_action
+      button_one_short_press:
+      - alias: Backyard Light
+        service: switch.toggle
+        data: {}
+        target:
+          entity_id:
+          - switch.backyard_light
+      button_one_double_press:
+      - if:
+        - condition: state
+          entity_id: switch.kitchen_fan
+          state: 'off'
+        then:
+        - service: fan.turn_on
+          data: {}
+          target:
+            entity_id: fan.kitchen_power_strip_switch
+        else:
+        - service: fan.turn_off
+          data: {}
+          target:
+            entity_id: fan.kitchen_power_strip_switch
+        alias: Kitchen Fan
+      button_two_short_press:
+      - alias: Kitchen Ambient
+        if:
+        - condition: state
+          entity_id: light.kitchen_ambient
+          state: 'off'
+        then:
+        - service: light.turn_on
+          data:
+            rgb_color:
+            - 246
+            - 9
+            - 226
+            brightness_pct: 100
+          target:
+            entity_id:
+            - light.kitchen_ambient
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id:
+            - light.kitchen_ambient
+      button_two_double_press:
+      - alias: Kitchen Light
+        if:
+        - condition: state
+          entity_id: switch.kitchen_light
+          state: 'off'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id:
+            - switch.kitchen_light
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id:
+            - switch.kitchen_light
+      button_three_short_press:
+      - alias: Bathroom Light
+        if:
+        - condition: state
+          entity_id: switch.bathroom_light
+          state: 'off'
+        then:
+        - service: switch.turn_on
+          data: {}
+          target:
+            entity_id:
+            - switch.bathroom_light
+        else:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id:
+            - switch.bathroom_light
+      button_three_double_press:
+      - alias: Livingroom Lightstrip
+        if:
+        - condition: state
+          entity_id: light.lightstrip
+          state: 'off'
+        then:
+        - service: light.turn_on
+          data: {}
+          target:
+            entity_id:
+            - light.lightstrip
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id:
+            - light.lightstrip
+      button_three_long_press:
+      - alias: Livingroom Ambient
+        service: light.toggle
+        data:
+          transition: 90
+        target:
+          entity_id:
+          - light.livingroom_night_ambient
+          - light.lumi_gateway_v3_light
+          - light.tv_table_ambient
+      button_two_long_press:
+      - alias: Kitchen Ambient
+        if:
+        - condition: state
+          entity_id: light.kitchen_ambient
+          state: 'off'
+        then:
+        - service: light.turn_on
+          data:
+            rgb_color:
+            - 246
+            - 9
+            - 226
+            brightness_pct: 100
+          target:
+            entity_id:
+            - light.kitchen_ambient
+        else:
+        - service: light.turn_off
+          data: {}
+          target:
+            entity_id:
+            - light.kitchen_ambient
+- id: '1696857664884'
+  alias: Lights - Bedroom Wall Wireless Switch
+  description: ''
+  use_blueprint:
+    path: xiaomi_button.yaml
+    input:
+      action_sensor: sensor.bedroom_scene_switch_action
+      double_action:
+      - alias: Bedroom Fan
+        if:
+        - condition: device
+          device_id: 06e7da693a6ab84cd35825b43a1d22e7
+          domain: fan
+          entity_id: 57d498f126229eab2f7fffa8e8b4840c
+          type: is_off
+        then:
+        - service: fan.turn_on
+          data: {}
+          target:
+            area_id: bedroom
+        else:
+        - service: fan.turn_off
+          data: {}
+          target:
+            area_id: bedroom
+      hold_action:
+      - alias: Aircon Climate
+        choose:
+        - conditions:
+          - type: is_temperature
+            condition: device
+            device_id: 63af9f46a83df92ec07c9ab86e59d6ad
+            entity_id: fcbe701b1c58f7a11269eb337bea9f64
+            domain: sensor
+            above: 27
+          sequence:
+          - service: switch.turn_on
+            data: {}
+            target:
+              entity_id: switch.cold_mode_switch
+        - conditions:
+          - type: is_humidity
+            condition: device
+            device_id: 63af9f46a83df92ec07c9ab86e59d6ad
+            entity_id: 0ab2cc4cf9f1db531b228e9fb2c4be1d
+            domain: sensor
+            above: 60
+          sequence:
+          - service: switch.turn_on
+            data: {}
+            target:
+              entity_id: switch.dry_mode_switch
+- id: '1696917807151'
+  alias: Kitchen - Cooking Cube Actions
+  description: ''
+  use_blueprint:
+    path: Zigbee2MQTT-Xiaomi_Cube.yaml
+    input:
+      topic: zigbee2mqtt/KCube
+      doubletap_face_0:
+      - service: light.toggle
+        data: {}
+        target:
+          entity_id:
+          - light.kitchen_wall_switch_center
+      flipped90_face_0: []
+      flipped180_face_0: []
+      slide_face_0: []
+- id: '1697364686309'
+  alias: Notification - Garage Camera PopUp Window
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.garage_door_motion_occupancy
+    to: 'on'
+  - platform: state
+    entity_id:
+    - sensor.door_bell_action
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: state
+      entity_id: binary_sensor.micebook_status
+      state: 'on'
+  action:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 1
+      milliseconds: 0
+  - service: script.1697364362858
+    data: {}
+  mode: single
+- id: '1697511087681'
+  alias: Notification - Micemob Battery Low
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.micemob_battery_level
+  condition:
+  - condition: and
+    conditions:
+    - type: is_battery_level
+      condition: device
+      device_id: 3816e92cf1dd4fe946cf4b81342b1633
+      entity_id: c70c7c726b19feffe2fb7529dcdbdbee
+      domain: sensor
+      below: 30
+    - condition: time
+      after: 08:00:00
+      before: '20:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Micemob battery level is low, please charge phone!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Micemob battery level is low, please charge phone!
+  - service: notify.mobile_app_micebook
+    data:
+      message: Micemob battery level is low, please charge phone!
+  - service: notify.mobile_app_micemob
+    data:
+      message: TTS
+      data:
+        tts_text: Micemob battery level is low, please charge phone!
+        media_stream: alarm_stream_max
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  mode: single
+- id: '1697545615039'
+  alias: Notification - Garage Door Knock
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.livingroom_door_knock_vibration
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: state
+      entity_id: binary_sensor.livingroom_door_contact
+      state: 'off'
+      for:
+        hours: 0
+        minutes: 1
+        seconds: 0
+    - condition: state
+      entity_id: switch.livingroom_curtains
+      state: 'off'
+    - condition: time
+      after: 08:00:00
+      before: '21:00:00'
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+  action:
+  - service: xiaomi_aqara.play_ringtone
+    data:
+      gw_mac: 04:CF:8C:A9:DA:39
+      ringtone_id: '10'
+      ringtone_vol: 15
+  mode: single
+- id: '1697609821809'
+  alias: Notification - All Windows
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  - platform: state
+    entity_id:
+    - binary_sensor.all_doors
+    to: 'off'
+  - platform: state
+    entity_id:
+    - person.simplemice
+    to: not_home
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.bedroom_window_contact
+      state: 'on'
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Please Close All Windows!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Please Close All Windows!
+  mode: single
+- id: '1697813722940'
+  alias: Service - Update Micemob Device Tracker
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.micemob_ble
+  condition:
+  - condition: template
+    value_template: '{{ trigger.from_state.state != trigger.to_state.state }}'
+    enabled: true
+  action:
+  - service: device_tracker.see
+    data:
+      dev_id: micemob_track
+      location_name: "{% if trigger.to_state.state in ['livingroom', 'kitchen', 'bedroom',
+        'bathroom'] %}\n  home\n{% elif trigger.to_state.state == 'not_home' %}\n
+        \ not_home\n{% else %}\n  unknown\n{% endif %}\n"
+  mode: single
+- id: '1698029620925'
+  alias: Notification - Kitchen Water Tank Low
+  description: ''
+  trigger:
+  - type: value
+    platform: device
+    device_id: 9be7b2d13e72b6683f75158901d19ea5
+    entity_id: e46e9bc06cadd14b8a18f9eebe612743
+    domain: sensor
+    below: 15
+  condition:
+  - condition: time
+    after: 08:00:00
+    before: '22:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  action:
+  - repeat:
+      sequence:
+      - service: notify.mobile_app_micemob
+        data:
+          message: Kitchen Water Tank is Low, Please Add Water!
+      - service: notify.alexa_media_bedroom_speaker
+        data:
+          message: Kitchen Water Tank is Low, Please Add Water!
+      - service: text.set_value
+        data:
+          value: Please Add Tank Water!
+        target:
+          entity_id: text.xiaomi_x08e_2029_execute_text_directive
+      - delay:
+          hours: 0
+          minutes: 15
+          seconds: 0
+          milliseconds: 0
+      while:
+      - type: is_value
+        condition: device
+        device_id: 9be7b2d13e72b6683f75158901d19ea5
+        entity_id: e46e9bc06cadd14b8a18f9eebe612743
+        domain: sensor
+        below: 15
+  mode: single
+- id: '1698063598896'
+  alias: Media - Raspberry Monitor and TV Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.spotify_simplemice
+    to: playing
+    id: spotify_play
+  - platform: state
+    entity_id:
+    - media_player.spotify_simplemice
+    to: paused
+    id: pause
+  - platform: state
+    entity_id:
+    - media_player.spotify_simplemice
+    to: idle
+    id: idle
+  condition:
+  - condition: time
+    after: 07:30:00
+    before: '22:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  action:
+  - if:
+    - condition: and
+      conditions:
+      - condition: trigger
+        id:
+        - spotify_play
+      - condition: state
+        entity_id: person.simplemice
+        state: home
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id:
+        - switch.raspberry_outlet
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.livingroom_tv
+    else: []
+  mode: single
+- id: '1698121623236'
+  alias: 'Media - Spotify Music Playlist '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.playlist
+    to: Ethnic
+    id: Ethnic
+  - platform: state
+    entity_id:
+    - input_select.playlist
+    to: Chillout
+    id: Chil
+  - platform: state
+    entity_id:
+    - input_select.playlist
+    to: House
+    id: House
+  - platform: state
+    entity_id:
+    - input_select.playlist
+    to: Rain Sounds
+    id: Sleep
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Ethnic
+      sequence:
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.spotify_simplemice
+        data:
+          media_content_id: spotify:playlist:4E9g7VhMPd4uzlEIpIw4Qy
+          media_content_type: spotify://playlist
+        metadata:
+          title: 'rods playlist '
+          thumbnail: https://i.scdn.co/image/ab67616d0000b27343de9079ae02773c1fae9a26
+          media_class: playlist
+          children_media_class: track
+          navigateIds:
+          - {}
+          - media_content_type: spotify://current_user_playlists
+            media_content_id: current_user_playlists
+          - media_content_type: spotify://playlist
+            media_content_id: spotify:playlist:4E9g7VhMPd4uzlEIpIw4Qy
+    - conditions:
+      - condition: trigger
+        id:
+        - Chil
+      sequence:
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.spotify_simplemice
+        data:
+          media_content_id: spotify:playlist:0dIzE1HeaUz1kmPX6DTnpY
+          media_content_type: spotify://playlist
+        metadata:
+          title: Chill
+          thumbnail: https://mosaic.scdn.co/640/ab67616d0000b2731336b31b6a1799f0de5807acab67616d0000b27334559f859e2522719de48ff3ab67616d0000b2734408c01a8909ee878c2a42f2ab67616d0000b273b98aacb957a40d613445f92f
+          media_class: playlist
+          children_media_class: track
+          navigateIds:
+          - {}
+          - media_content_type: spotify://current_user_playlists
+            media_content_id: current_user_playlists
+          - media_content_type: spotify://playlist
+            media_content_id: spotify:playlist:0dIzE1HeaUz1kmPX6DTnpY
+    - conditions:
+      - condition: trigger
+        id:
+        - House
+      sequence:
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.spotify_simplemice
+        data:
+          media_content_id: spotify:playlist:6V4vFhgj6Lv7qOOsQsexEL
+          media_content_type: spotify://playlist
+        metadata:
+          title: house
+          thumbnail: https://i.scdn.co/image/ab67706c0000da84783651f28f479682f58a5e92
+          media_class: playlist
+          children_media_class: track
+          navigateIds:
+          - {}
+          - media_content_type: spotify://current_user_playlists
+            media_content_id: current_user_playlists
+          - media_content_type: spotify://playlist
+            media_content_id: spotify:playlist:6V4vFhgj6Lv7qOOsQsexEL
+    - conditions:
+      - condition: trigger
+        id:
+        - Sleep
+      sequence:
+      - service: media_player.play_media
+        target:
+          entity_id: media_player.spotify_simplemice
+        data:
+          media_content_id: spotify:playlist:68JXTKfqFZEWO1DQRdVndh
+          media_content_type: spotify://playlist
+        metadata:
+          title: sleep
+          thumbnail: https://i.scdn.co/image/ab67616d0000b273ac2fd4d587d556ae41bd64d7
+          media_class: playlist
+          children_media_class: track
+          navigateIds:
+          - {}
+          - media_content_type: spotify://current_user_playlists
+            media_content_id: current_user_playlists
+          - media_content_type: spotify://playlist
+            media_content_id: spotify:playlist:68JXTKfqFZEWO1DQRdVndh
+    enabled: true
+  mode: single
+- id: '1698906187040'
+  alias: Bedroom - Sleep Mode
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bed_presense
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    from: 'off'
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: '21:00:00'
+      before: 05:00:00
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: sensor.micemob_ble
+      state: bedroom
+      for:
+        hours: 0
+        minutes: 0
+        seconds: 0
+    - condition: state
+      entity_id: light.bedside_lamp
+      state: 'on'
+  action:
+  - service: alarm_control_panel.alarm_arm_night
+    data:
+      code: '5412'
+    target:
+      entity_id: alarm_control_panel.home
+  - service: light.turn_off
+    data:
+      transition: 90
+    target:
+      entity_id:
+      - light.all_ambient
+      - light.all_lights
+  - service: fan.turn_off
+    data: {}
+    target:
+      entity_id:
+      - fan.dmaker_p28_19b6_fan
+      - fan.dmaker_p23_42a8_fan
+      - fan.kitchen_power_strip_switch
+  - service: fan.turn_on
+    target:
+      entity_id: fan.zhimi_fa1_4020_fan
+    data: {}
+  - service: tts.amazon_polly_say
+    data:
+      cache: false
+      entity_id: media_player.bedroom_speaker
+      message: "{{ [ \n  \"Good Night from Mice House. \", \n  \"Time to shut down
+        this party. Good Night from Mice House. \",\n  \"I'm feeling tired. Think
+        I'll take a quick nap. Good Night!\",\n  \"Things are getting quiet. Time
+        to say Good Night.\",\n  \"We have come to the end of our broadcast day. Oh,
+        who am I kidding. I''ll be up all night watching over Mice House. \" \n  ]
+        | random }}\n"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.1
+    target:
+      device_id: 5a2dfa8cf487aa2b61d22b6ff54b945a
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.audible_notifications
+    data: {}
+  mode: single
+- id: '1699014845527'
+  alias: Lights - Kitchen Upstairs Light Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.kitchen_table_knock_vibration
+    to: 'on'
+    id: table_knock
+  - platform: state
+    entity_id:
+    - sensor.mifit_watch
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    to: kitchen
+    id: mifit_trigger
+  - platform: state
+    entity_id:
+    - binary_sensor.kitchen_presense
+    to: 'off'
+    id: presense_off
+  condition:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  action:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - presense_off
+        - condition: state
+          entity_id: light.kitchen_wall_switch_center
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.audible_notifications
+          state: 'on'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.kitchen_wall_switch_center
+      - service: tts.amazon_polly_say
+        data:
+          cache: false
+          entity_id: media_player.bedroom_speaker
+          message: "{{ [ \n    'Lights out at Mice Home! It looks like you left the
+            lights on, but no worries—I have taken care of it for you. Save energy!',\n
+            \   'Oops, it seems the lights were left on at Mice Home. No problem!
+            I have turned them off for you. Enjoy the peace',\n    'A gentle reminder
+            from Mice Home: the lights were still on, but fear not—I have turned them
+            off to conserve energy. Keep it bright when needed',\n    'Light alert
+            at Mice Home! It looks like the lights were left on, so I have taken the
+            liberty of turning them off. Save energy and enjoy the serenity!'\n  ]|random
+            }}\n"
+    - conditions:
+      - condition: trigger
+        id:
+        - table_knock
+      sequence:
+      - service: light.turn_on
+        data: {}
+        target:
+          entity_id: light.kitchen_wall_switch_center
+    - conditions:
+      - condition: and
+        conditions:
+        - type: is_illuminance
+          condition: device
+          device_id: 1cdc5457e7129ea85c88f9264af3f5d5
+          entity_id: 372dfbd336537d84eec28a46a749a3d2
+          domain: sensor
+          below: 30
+        - condition: trigger
+          id:
+          - mifit_trigger
+        - condition: state
+          entity_id: light.kitchen_wall_switch_center
+          state: 'off'
+      sequence:
+      - service: script.activate_alexa_actionable_notification
+        data_template:
+          text: You Want Light in The Kitchen ?
+          event_id: alexa_notification_kitchen_light
+          alexa_device: media_player.bedroom_speaker
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - presense_off
+        - condition: state
+          entity_id: light.kitchen_wall_switch_center
+          state: 'on'
+        - condition: state
+          entity_id: input_boolean.audible_notifications
+          state: 'off'
+      sequence:
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id: light.kitchen_wall_switch_center
+  mode: single
+- id: '1699614672547'
+  alias: Lights - Livingroom Ambient After Door Closed
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.all_doors
+    to: 'off'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.livingroom_door_contact
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.backyard_door_contact
+      state: 'off'
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: state
+      entity_id: light.livingroom_night_ambient
+      state: 'off'
+    - condition: time
+      after: 08:00:00
+      before: '23:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+  action:
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: tts.amazon_polly_say
+    data:
+      cache: false
+      entity_id: media_player.bedroom_speaker
+      message: "{{ [ \"Sunset vibes at Mice Home! I have set the mood with ambient
+        lights to enhance your evening.\",\n      \"As the sun sets at Mice Home,
+        I have activated ambient lights to create a warm and inviting atmosphere.
+        Feel free to customize the lighting to suit your mood.\",\n      'Sunset alert
+        at Mice Home! I have turned on ambient lights to usher in a relaxing evening.',\n
+        \     \"Daylight has given way to the night at Mice Home, and I have responded
+        by turning on ambient lights.\"\n  ] | random }}\n"
+  - service: light.turn_off
+    data:
+      transition: 90
+    target:
+      entity_id:
+      - light.lightstrip
+  - repeat:
+      sequence:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.after_sunset_ambient
+        metadata: {}
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 10
+          milliseconds: 0
+      count: 2
+  mode: single
+- id: '1699637491716'
+  alias: Notification - Check All Doors Before Sleep
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 2ddc642f-dc9a-4720-848c-108e2859e925
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.sleep_door_checker
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Doors Check Complete
+  mode: single
+- id: '1699719882064'
+  alias: Lights - Wakeup alarm with sunrise
+  description: ''
+  use_blueprint:
+    path: wake-up-light-alarm-with-sunrise-effect.yaml
+    input:
+      light_entity: light.bedside_lamp
+      timestamp_sensor: sensor.micemob_next_alarm
+      check_entity: input_boolean.wakeup_sunrise
+      sunrise_duration: 5
+      manual_time: 07:50:00
+- id: '1699755419413'
+  alias: Service - Set Morning Phone Alarm
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.micebook_status
+    to: 'off'
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: sensor.micemob_next_alarm
+      state: unavailable
+  action:
+  - alias: Set up variables for the actions
+    variables:
+      action_ack: '{{ ''Ack_'' ~ context.id }}'
+      action_setvol: '{{ ''SetVol_'' ~ context.id }}'
+      action_setal: '{{ ''SetAl_'' ~ context.id }}'
+  - alias: Work Alarm Warning Message and Responses
+    service: notify.mobile_app_micemob
+    data:
+      message: ''
+      title: Home Assistant
+      data:
+        image: https://i.imgur.com/DZRSkYB.png
+        actions:
+        - action: '{{ action_ack }}'
+          title: ‎ ‎‎ ‎ ‎  Ignore
+        - action: '{{ action_setvol }}'
+          title: ‎ ‎ ‎ ‎ Volume Up
+        - action: '{{ action_setal }}'
+          title: ‎ ‎‎  ‎ Alarm Set
+  - alias: Wait for a response
+    wait_for_trigger:
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_ack }}'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_setvol }}'
+    - platform: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: '{{ action_setal }}'
+  - alias: Perform the action
+    choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == action_ack }}'
+      sequence:
+      - service: notify.mobile_app_micemob
+        data:
+          message: clear_notification
+          data:
+            tag: phone-alarm-reminder
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == action_setal }}'
+      sequence:
+      - service: notify.mobile_app_micemob
+        data:
+          message: command_activity
+          data:
+            intent_package_name: com.google.android.deskclock
+            intent_action: android.intent.action.SET_ALARM
+            intent_extras: android.intent.extra.alarm.HOUR:{{ 7 }},android.intent.extra.alarm.MINUTES:{{
+              45 }},android.intent.extra.alarm.SKIP_UI:true,android.intent.extra.alarm.RINGTONE:VALUE_RINGTONE_SILENT
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.trigger.event.data.action == action_setvol }}'
+      sequence:
+      - service: notify.mobile_app_micemob
+        data:
+          message: command_volume_level
+          data:
+            media_stream: alarm_stream
+            command: 6
+  mode: single
+- id: '1699767390836'
+  alias: Livingroom - Curtains Yes
+  description: ''
+  trigger:
+  - platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: alexa_notification_curtains
+      event_response_type: ResponseYes
+  condition: []
+  action:
+  - if:
+    - condition: state
+      entity_id: switch.livingroom_curtains
+      state: 'on'
+    then:
+    - service: switch.turn_off
+      data: {}
+      target:
+        entity_id: switch.livingroom_curtains
+    - service: notify.alexa_media_bedroom_speaker
+      data:
+        message: Curtains Closed
+    else:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.livingroom_curtains
+    - service: notify.alexa_media_bedroom_speaker
+      data:
+        message: Curtains Open
+  mode: single
+- id: '1699767526925'
+  alias: Livingroom - Curtains No
+  description: ''
+  trigger:
+  - platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: alexa_notification_curtains
+      event_response_type: ResponseNone
+  condition: []
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Curtains will Be Still Open
+  mode: single
+- id: '1699768264701'
+  alias: Notification - Kitchen Light - Yes
+  description: ''
+  trigger:
+  - platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: alexa_notification_kitchen_light
+      event_response_type: ResponseYes
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.kitchen_wall_switch_center
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.kitchen_ambient
+  mode: single
+- id: '1699768328483'
+  alias: Notification - Kitchen Light - No
+  description: ''
+  trigger:
+  - platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: alexa_notification_kitchen_light
+      event_response_type: ResponseNone
+  condition: []
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: As You Want ;)
+  mode: single
+- id: '1699770579312'
+  alias: Notification - Phone Alarm Yes
+  description: ''
+  trigger:
+  - platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: alexa_notification_mobalarm
+      event_response_type: ResponseYes
+  condition: []
+  action:
+  - service: notify.mobile_app_micemob
+    data:
+      message: command_activity
+      data:
+        intent_package_name: com.google.android.deskclock
+        intent_extras: android.intent.extra.alarm.HOUR:7,android.intent.extra.alarm.MINUTES:40,android.intent.extra.alarm.MESSAGE:Wakeup,android.intent.extra.alarm.SKIP_UI:true
+        intent_action: android.intent.action.SET_ALARM
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Phone Alarm Set to 7:40
+  mode: single
+- id: '1699776828927'
+  alias: Notification - AQI Livingroom
+  description: ''
+  trigger:
+  - type: pm25
+    platform: device
+    device_id: bda050f5348d170d7485203a66160cdc
+    entity_id: 8256ebc88ca8162935c41bb0cf696206
+    domain: sensor
+    above: 50
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.gas_detector_gas
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.smoke_detector
+      state: 'off'
+    - condition: time
+      after: 08:00:00
+      before: '18:00:00'
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+  action:
+  - service: script.activate_alexa_actionable_notification
+    data_template:
+      text: Air Quality Not Good, Do You Want Turn Fans ?
+      event_id: alexa_notification_aqi
+      alexa_device: media_player.bedroom_speaker
+  mode: single
+- id: '1699776901566'
+  alias: Notification - AQI - Yes
+  description: ''
+  trigger:
+  - platform: event
+    event_type: alexa_actionable_notification
+    event_data:
+      event_id: alexa_notification_aqi
+      event_response_type: ResponseYes
+  condition: []
+  action:
+  - service: fan.turn_on
+    data: {}
+    target:
+      entity_id: fan.all_fans
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Turned All Fans On
+  mode: single
+- id: '1699872016119'
+  alias: Lights - TV Table Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.tv_table_ambient
+    to: 'off'
+  - platform: state
+    entity_id:
+    - sensor.micemob_ble
+    to: livingroom
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: state
+      entity_id: binary_sensor.bed_presense
+      state: 'off'
+    - condition: time
+      after: 07:30:00
+      before: '18:00:00'
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+  action:
+  - service: light.turn_on
+    data:
+      rgb_color:
+      - 0
+      - 250
+      - 246
+    target:
+      entity_id:
+      - light.tv_table_ambient
+  mode: single
+- id: '1699878799363'
+  alias: Notification - Rain Outside
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.rain_sensor
+    to: 'on'
+  condition:
+  - condition: time
+    after: 08:00:00
+    before: '20:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: <audio src="soundbank://soundlibrary/weather/thunder/thunder_10"/>
+      data:
+        type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      title: 'Notify:'
+      message: Rain Outside
+  - service: notify.mobile_app_micemob
+    data:
+      message: TTS
+      data:
+        tts_text: Rain Outside
+        media_stream: alarm_stream_max
+  - service: select.select_option
+    target:
+      entity_id: select.wled_matrix_preset
+    data:
+      option: Lightning
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: <audio src="soundbank://soundlibrary/weather/thunder/thunder_10"/>
+      data:
+        type: tts
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 15
+      milliseconds: 0
+  - service: select.select_option
+    target:
+      entity_id:
+      - select.wled_matrix_playlist
+    data:
+      option: Full Random
+  mode: single
+- id: '1701009991702'
+  alias: Alarm - Night Light For 10 min (Alarm off/on)
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_door_contact
+    to: 'on'
+    from: 'off'
+  condition:
+  - condition: time
+    after: '23:00:00'
+    before: 06:30:00
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  action:
+  - service: light.turn_on
+    data:
+      brightness_pct: 10
+    target:
+      entity_id:
+      - light.lumi_gateway_v3_light
+  - service: alarm_control_panel.alarm_arm_home
+    target:
+      entity_id: alarm_control_panel.home
+    data:
+      code: '5412'
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.lumi_gateway_v3_light
+  - service: alarm_control_panel.alarm_arm_night
+    target:
+      entity_id:
+      - alarm_control_panel.home
+      device_id: []
+      area_id: []
+    data:
+      code: '5412'
+  mode: single
+- id: '1702472901810'
+  alias: Lights - Garage Light Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.garage_door_motion_occupancy
+    to: 'on'
+    id: motion_on
+  - platform: state
+    entity_id:
+    - binary_sensor.garage_door_motion_occupancy
+    to: 'off'
+    id: motion_off
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  condition:
+  - condition: sun
+    before: sunrise
+    after: sunset
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - motion_on
+      sequence:
+      - service: light.turn_on
+        target:
+          entity_id: light.garage_bulb
+        data: {}
+    - conditions:
+      - condition: trigger
+        id:
+        - motion_off
+      sequence:
+      - service: light.turn_off
+        target:
+          entity_id: light.garage_bulb
+        data: {}
+  mode: single
+- id: '1702736782680'
+  alias: Alarm - Home Alarm Triggered
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - alarm_control_panel.home
+    to: triggered
+  condition: []
+  action:
+  - service: xiaomi_aqara.play_ringtone
+    data:
+      gw_mac: 04:CF:8C:A9:DA:39
+      ringtone_id: '1'
+      ringtone_vol: 15
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Home Alarm Triggered, Please Check Your House
+      title: Alarm!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Home Alarm Triggered, Please Check Your House
+      title: Alarm
+  - service: automation.trigger
+    target:
+      entity_id: automation.garage_motion_notification
+    data:
+      skip_condition: true
+  - service: script.notification_door_bell
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1702737214953'
+  alias: Notification - Backyard Motion Detected
+  description: ''
+  use_blueprint:
+    path: Camera Snapshot Notify.yaml
+    input:
+      motion_sensor: binary_sensor.backyard_motion
+      camera: camera.backyard
+      notify_device: 3816e92cf1dd4fe946cf4b81342b1633
+      notification_message: '{{ motion_sensor_name }} detected !'
+      blocker_entity: input_boolean.backyard_camera_notification
+- id: '1702781631789'
+  alias: Service - Update Micewatch Device Tracker
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.mifit_watch
+  condition:
+  - condition: template
+    value_template: '{{ trigger.from_state.state != trigger.to_state.state }}'
+    enabled: true
+  action:
+  - service: device_tracker.see
+    data:
+      dev_id: mifit_track
+      location_name: "{% if trigger.to_state.state in ['livingroom', 'kitchen', 'bedroom',
+        'bathroom'] %}\n  home\n{% elif trigger.to_state.state == 'not_home' %}\n
+        \ not_home\n{% else %}\n  unknown\n{% endif %}\n"
+  mode: single
+- id: '1703138038162'
+  alias: Notification - Amazfit Battery Low
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.amazfit_battery
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: 08:00:00
+      before: '20:00:00'
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: state
+      entity_id: sensor.amazfit_battery
+      state: '9'
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Amazfit battery level is low, please charge watches!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Amazfit battery level is low, please charge watches!
+  - service: notify.mobile_app_micebook
+    data:
+      message: Amazfit battery level is low, please charge watches!
+  - service: notify.mobile_app_micemob
+    data:
+      message: TTS
+      data:
+        tts_text: Amazfit battery level is low, please charge watches!
+        media_stream: alarm_stream_max
+  mode: single
+- id: '1703255276555'
+  alias: Notification - Toothbrush Battery Low
+  description: ''
+  trigger:
+  - type: battery_level
+    platform: device
+    device_id: cd5f27ee3a59bab94e9848fbc0948052
+    entity_id: 58557910ba1245074ed84da29caef1bf
+    domain: sensor
+    below: 10
+  condition:
+  - condition: time
+    after: 08:00:00
+    before: '18:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+  action:
+  - service: notify.mobile_app_micemob
+    data:
+      message: Toothbrush Battery Level Low, Please Charge!
+  - service: notify.mobile_app_micebook
+    data:
+      message: Toothbrush Battery Level Low, Please Charge!
+  - service: notify.alexa_media
+    data:
+      message: Toothbrush Battery Level Low, Please Charge!
+  mode: single
+- id: '1703255407786'
+  alias: Notification - Renew Toothbrush
+  description: ''
+  trigger:
+  - type: value
+    platform: device
+    device_id: 0ee7bbdf19100e1a0a5bd784d12b81f0
+    entity_id: ccb86db8e949d87856899a65577ffa65
+    domain: sensor
+    below: 10
+  condition:
+  - condition: time
+    after: 08:00:00
+    before: '18:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  action:
+  - service: notify.mobile_app_micebook
+    data:
+      message: Please Renew Toothbrush!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Please Renew Toothbrush!
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Please Renew Toothbrush!
+  mode: single
+- id: '1703734094826'
+  alias: Micebook - Remote Control Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_select.micebook_control
+    to: Hibernate
+    id: hibernate
+  - platform: state
+    entity_id:
+    - input_select.micebook_control
+    to: Shutdown
+    id: shutdown
+  - platform: state
+    entity_id:
+    - input_select.micebook_control
+    to: Reboot
+    id: reboot
+  - platform: state
+    entity_id:
+    - input_select.micebook_control
+    to: Suspend
+    id: suspend
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - hibernate
+      sequence:
+      - service: shell_command.hibernate_micebook
+        data: {}
+    - conditions:
+      - condition: trigger
+        id:
+        - suspend
+      sequence:
+      - service: shell_command.suspend_micebook
+        data: {}
+    - conditions:
+      - condition: trigger
+        id:
+        - shutdown
+      sequence:
+      - service: shell_command.turn_off_micebook
+        data: {}
+    - conditions:
+      - condition: trigger
+        id:
+        - reboot
+      sequence:
+      - service: shell_command.reboot_micebook
+        data: {}
+  mode: single
+- id: '1703782387416'
+  alias: Services - Counter Outgoing Guests
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.livingroom_door_motion_occupancy
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_door_motion_occupancy
+    state: 'on'
+  - condition: numeric_state
+    entity_id: counter.guest_counter
+    above: 0
+  action:
+  - service: counter.decrement
+    target:
+      entity_id:
+      - counter.guest_counter
+      device_id: []
+      area_id: []
+    data: {}
+  mode: single
+- id: '1703782613359'
+  alias: Services - Counter Incoming Guests
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.garage_door_motion_occupancy
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.livingroom_door_motion_occupancy
+    state: 'on'
+  action:
+  - service: counter.increment
+    target:
+      entity_id:
+      - counter.guest_counter
+      device_id: []
+      area_id: []
+    data: {}
+  mode: single
+- id: door_notifications
+  alias: Notifications - Door Are Still Open
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.livingroom_door_contact
+    - binary_sensor.backyard_door_contact
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    id: door_still_open
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: numeric_state
+      entity_id: sensor.outside_temp
+      below: 29
+      enabled: true
+    - condition: sun
+      before: sunrise
+      after: sunset
+  action:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.audible_notifications
+        state: 'on'
+      sequence:
+      - service: media_player.volume_set
+        target:
+          entity_id: media_player.bedroom_speaker
+        data:
+          volume_level: 0.8
+      - service: tts.amazon_polly_say
+        data:
+          cache: false
+          entity_id: media_player.bedroom_speaker
+          message: "{{ [\n     'Can a human be so kind and close it?',\n     'The
+            air quality in this house has actually improved.',\n     'Closing the
+            door would improve the internal climate of the house.',\n     'Hey. The
+            door was just opened and this is crazy. But now you know. So close it
+            maybe.',\n     'If at first you do not succeed in closing the door, please
+            try again. Like, Right now seems like a good time to try again.',\n     'And
+            the automatic door closer appears to be broken. So, you know what to do.
+            Time to get physical.',\n     'I would close it for you. But I lack legs.
+            And Arms.'\n ] | random }}\n"
+  initial_state: true
+- id: '1703944435391'
+  alias: Service - Guest Mode Automation
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - counter.guest_counter
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.captive_portal_clients
+        above: 0
+      sequence:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.guest_mode
+        data: {}
+      - service: tts.amazon_polly_say
+        data:
+          cache: false
+          entity_id: media_player.bedroom_speaker
+          message: "{{ [\n    'Welcome to guest mode at Mice Home! I have activated
+            the guest-friendly settings for you. Enjoy your stay!',\n    'Guest mode
+            engaged at Mice Home! I have tailored the settings to make your experience
+            comfortable. Have a great time!',\n    'Entering guest-friendly territory
+            at Mice Home! I have turned on guest mode to ensure a seamless and enjoyable
+            experience. Make yourself at home!',\n    'Guest mode initiated at Mice
+            Home! I have set up the space to cater to your needs. Enjoy your time
+            in guest mode!\"'\n  ]|random }}\n"
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.captive_portal_clients
+        below: 1
+      sequence:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.guest_mode
+        data: {}
+  mode: single
+- id: '1703945166010'
+  alias: Services - Counter Fix Guest
+  description: if no wifi client
+  trigger:
+  - platform: numeric_state
+    entity_id:
+    - counter.guest_counter
+    above: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: sensor.captive_portal_clients
+      state: '0'
+  action:
+  - wait_for_trigger:
+    - platform: numeric_state
+      entity_id:
+      - counter.guest_counter
+      above: 0
+    timeout:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: counter.reset
+    target:
+      entity_id: counter.guest_counter
+    data: {}
+  mode: single
+- id: '1703948805828'
+  alias: Time to close doors
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: person.simplemice
+    state: home
+  - condition: state
+    entity_id: input_boolean.audible_notifications
+    state: 'on'
+  action:
+  - service: tts.amazon_polly_say
+    data:
+      cache: false
+      entity_id: media_player.bedroom_speaker
+      message: "{{ [\n    'Closing time at Mice Home! I recommend closing doors for
+        added security and privacy. If you have any specific preferences or need assistance,
+        feel free to let me know. Safe and cozy vibes',\n    'Door check at Mice Home!
+        It is time to close up for the day. If you need help with any door closures
+        or have special preferences, just give me a shout. Wishing you a peaceful
+        evening!',\n    'Secure mode activated at Mice Hme! I suggest closing doors
+        to enhance safety and create a snug atmosphere. If there is anything else
+        you need, feel free to inform me. Sweet dreams!',\n    'Doors to serenity
+        closing at Mice Home! It is that time to secure your space. Enjoy the tranquility!'\n
+        \ ]|random }}\n"
+  mode: single
+- id: '1704197031759'
+  alias: Climate - Door Fan Automation
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 531b469f34bad4ae0ff7b6025d8e87a0
+    entity_id: 549a88f80f11e708095f5741276d56ff
+    domain: sensor
+    above: 32
+    id: turn_on
+  - type: temperature
+    platform: device
+    device_id: 531b469f34bad4ae0ff7b6025d8e87a0
+    entity_id: 549a88f80f11e708095f5741276d56ff
+    domain: sensor
+    below: 32
+    id: turn_off
+  condition:
+  - condition: time
+    after: 07:45:00
+    before: '22:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: state
+      entity_id: binary_sensor.bed_presense
+      state: 'off'
+  action:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - turn_on
+        - condition: state
+          entity_id: fan.dmaker_p28_19b6_fan
+          state: 'off'
+      sequence:
+      - if:
+        - condition: state
+          entity_id: input_boolean.audible_notifications
+          state: 'on'
+        then:
+        - service: fan.turn_on
+          target:
+            entity_id:
+            - fan.dmaker_p28_19b6_fan
+          data: {}
+        - service: tts.amazon_polly_say
+          data:
+            cache: false
+            entity_id: media_player.bedroom_speaker
+            message: "{{ [\n    'Fans activated at Mice Home! It seems the temperature
+              rose above 29 degrees, but not worry I have turned on the fans to keep
+              things cool. Enjoy the comfort!',\n    'Temperature alert at Mice Home!
+              Fans are now in action as it exceeded 29 degrees. Stay cool and relaxed!',\n
+              \   'Smart response at Mice Home! The temperature is high, and in the
+              spirit of comfort, I have initiated fans to cool things down. Enjoy
+              the pleasant atmosphere!',\n    'Breeze mode activated at Mice Home!
+              It looks like it is getting warm, so I took the liberty of turning on
+              the fans. Stay refreshed!'\n  ]|random }}\n"
+        else:
+        - service: fan.turn_on
+          target:
+            entity_id:
+            - fan.dmaker_p28_19b6_fan
+          data: {}
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - turn_off
+        - condition: state
+          entity_id: fan.dmaker_p28_19b6_fan
+          state: 'on'
+      sequence:
+      - if:
+        - condition: state
+          entity_id: input_boolean.audible_notifications
+          state: 'on'
+        then:
+        - service: fan.turn_off
+          target:
+            entity_id:
+            - fan.dmaker_p28_19b6_fan
+          data: {}
+        - service: tts.amazon_polly_say
+          data:
+            cache: false
+            entity_id: media_player.bedroom_speaker
+            message: "{{ [\n    'Fans at Mice Home have been turned off. The temperature
+              dropped below 29 degrees, ensuring energy efficiency. Stay comfortable!',\n
+              \   'Cooling pause at Mice Home! Since it is cooler now, I have switched
+              off the fans to conserve energy. Enjoy the pleasant atmosphere!',\n
+              \   'Temperature update from Mice Home: It is below 29 degrees, so I
+              have deactivated the fans. Save energy and relish the tranquility!',\n
+              \   'Fans at Mice Home are taking a break. The temperature is below
+              29 degrees, and I have turned them off for now. Enjoy the natural breeze!'\n
+              \ ]|random }}\n"
+        else:
+        - service: fan.turn_off
+          target:
+            entity_id:
+            - fan.dmaker_p28_19b6_fan
+          data: {}
+  mode: single
+- id: '1704198492847'
+  alias: Lights - Livingroom Lightstrip Automation
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -0:25:00
+    id: sunset
+  - type: illuminance
+    platform: device
+    device_id: eeb2922badef2325eb62a6000199fa17
+    entity_id: 46658705a5108d2559636aa170af924b
+    domain: sensor
+    below: 20
+    id: dark_inside
+  - type: illuminance
+    platform: device
+    device_id: eeb2922badef2325eb62a6000199fa17
+    entity_id: 46658705a5108d2559636aa170af924b
+    domain: sensor
+    above: 90
+    id: turn_off
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: time
+      after: 08:00:00
+      before: '19:00:00'
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - sunset
+        - dark_inside
+      sequence:
+      - service: tts.amazon_polly_say
+        data:
+          cache: false
+          entity_id: media_player.bedroom_speaker
+          message: "{{ [ \"It is dark inside the house due to the conditions outside
+            the house so I am turning on the inside lights.\",\n      \"When it gets
+            dark enough outside I turn on the inside lights. \",\n      'Lights, camera,
+            action! It is dark at Mice Home, so I have activated the lightstrip to
+            set the mood.',\n      'Darkness alert at Mice Home! Fear not, I have
+            summoned the lightstrip to brighten your surroundings.',\n      \"Since
+            I monitor the conditions inside and outside the Mice House I know all
+            the things. Like it is time to turn on the inside lights.\"\n  ] | random
+            }}\n"
+      - service: light.turn_on
+        data:
+          transition: 1500
+          brightness_pct: 100
+        target:
+          entity_id:
+          - light.lightstrip
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: state
+          entity_id: light.lightstrip
+          state: 'on'
+        - condition: trigger
+          id:
+          - turn_off
+      sequence:
+      - service: tts.amazon_polly_say
+        data:
+          cache: false
+          entity_id: media_player.bedroom_speaker
+          message: "{{ [ \"Radiance overload at Mice Home! The illuminance is above
+            100, so I am gracefully dimming down the lightstrip. If you need more
+            light later, just say me. Enjoy the natural brightness!\",\n     'Sunshine
+            is flooding in at Mice Home! With an illuminance above 100, I have gently
+            turned off the lightstrip',\n     'Luminosity alert at Mice Home! The
+            illuminance is soaring above 100, so I have gracefully turned off the
+            lightstrip',\n     \"Bathed in light at Mice Home! The illuminance has
+            surpassed 100, prompting me to gracefully turn off the lightstrip.\"\n
+            \ ] | random }}\n"
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id:
+          - light.lightstrip
+  mode: single
+- id: '1704199857966'
+  alias: Climate - Bedroom Night Automation
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 63af9f46a83df92ec07c9ab86e59d6ad
+    entity_id: fcbe701b1c58f7a11269eb337bea9f64
+    domain: sensor
+    above: 27
+    id: temp_on
+  - type: humidity
+    platform: device
+    device_id: 63af9f46a83df92ec07c9ab86e59d6ad
+    entity_id: 0ab2cc4cf9f1db531b228e9fb2c4be1d
+    domain: sensor
+    above: 70
+    id: hum_on
+  - type: temperature
+    platform: device
+    device_id: 63af9f46a83df92ec07c9ab86e59d6ad
+    entity_id: fcbe701b1c58f7a11269eb337bea9f64
+    domain: sensor
+    below: 24.5
+    id: temp_off
+  - type: humidity
+    platform: device
+    device_id: 63af9f46a83df92ec07c9ab86e59d6ad
+    entity_id: 0ab2cc4cf9f1db531b228e9fb2c4be1d
+    domain: sensor
+    below: 40
+    id: hum_off
+  - platform: state
+    entity_id:
+    - binary_sensor.bedroom_door_contact
+    to: 'off'
+    id: door_closed
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.bedroom_door_contact
+      state: 'off'
+    - condition: time
+      after: '20:00:00'
+      before: 08:00:00
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - temp_on
+        - door_closed
+      sequence:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.cold_mode_switch
+    - conditions:
+      - condition: trigger
+        id:
+        - hum_on
+        - door_closed
+      sequence:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.dry_mode_switch
+    - conditions:
+      - condition: trigger
+        id:
+        - temp_off
+        - hum_off
+      sequence:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.turn_off_switch
+  mode: single
+- id: '1704298002201'
+  alias: Climate - Black Fan Automation
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 531b469f34bad4ae0ff7b6025d8e87a0
+    entity_id: 549a88f80f11e708095f5741276d56ff
+    domain: sensor
+    above: 29
+    id: turn_on
+  - type: temperature
+    platform: device
+    device_id: 531b469f34bad4ae0ff7b6025d8e87a0
+    entity_id: 549a88f80f11e708095f5741276d56ff
+    domain: sensor
+    below: 29
+    id: turn_off
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: state
+      entity_id: binary_sensor.bed_presense
+      state: 'off'
+  action:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - turn_on
+        - condition: state
+          entity_id: fan.dmaker_p23_42a8_fan
+          state: 'off'
+      sequence:
+      - if:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: input_boolean.audible_notifications
+            state: 'on'
+        then:
+        - service: fan.turn_on
+          target:
+            entity_id:
+            - fan.dmaker_p23_42a8_fan
+          data: {}
+        - service: tts.amazon_polly_say
+          data:
+            cache: false
+            entity_id: media_player.bedroom_speaker
+            message: "{{ [\n    'It is getting warm at Mice Home! I noticed the temperature
+              is rising, so I have turned on the fan to keep things cool. Stay comfortable!',\n
+              \   'Hot day at Mice Home! I have turned on the fan to bring some coolness
+              to the space. Chill out and relax!',\n    'Temperature alert at Mice
+              Home! I have detected a rise in temperature and took the initiative
+              to turn on the fan for you. Enjoy the breeze!',\n    'Feeling the heat
+              at Mice Home? No worries! I have turned on the fan to create a refreshing
+              environment. Stay cool and relaxed'\n  ]|random }}\n"
+        else:
+        - service: fan.turn_on
+          target:
+            entity_id:
+            - fan.dmaker_p23_42a8_fan
+          data: {}
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - turn_off
+        - condition: state
+          entity_id: fan.dmaker_p23_42a8_fan
+          state: 'on'
+      sequence:
+      - if:
+        - condition: and
+          conditions:
+          - condition: state
+            entity_id: input_boolean.audible_notifications
+            state: 'on'
+        then:
+        - service: fan.turn_off
+          target:
+            entity_id:
+            - fan.dmaker_p23_42a8_fan
+          data: {}
+        - service: tts.amazon_polly_say
+          data:
+            cache: false
+            entity_id: media_player.bedroom_speaker
+            message: "{{ [\n    'No need for fans now! I have detected a temperature
+              below 29 degrees at Mice Home and turned them off for you. Stay cozy!',\n
+              \   'Fans at Mice Home have been deactivated. The current temperature
+              is below 29 degrees. Relax and enjoy the tranquility!',\n    'Temperature
+              check complete! Since it is below 29 degrees, I have turned off the
+              fans at Mice Home. Relax and enjoy!',\n    'Temperature update: below
+              29 degrees! Fans at Mice Home have been turned off for energy efficiency.
+              Enjoy the peaceful environment!'\n  ]|random }}\n"
+        else:
+        - service: fan.turn_off
+          target:
+            entity_id:
+            - fan.dmaker_p23_42a8_fan
+          data: {}
+  mode: single
+- id: '1704358249194'
+  alias: Notification - Do Not Forget For Laundry
+  description: ''
+  trigger:
+  - platform: calendar
+    event: start
+    offset: 0:0:0
+    entity_id: calendar.laundry
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: calendar.laundry
+      attribute: message
+      state: Laundry Day
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+    - condition: time
+      after: 08:00:00
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+      before: '15:00:00'
+  action:
+  - service: notify.alexa_media_bedroom_speaker
+    metadata: {}
+    data:
+      message: Do Not Forget For Laundry!
+  - service: notify.mobile_app_micemob
+    data:
+      message: '{{state_attr(trigger.entity_id, ''message'')}} Do not forget for {{
+        trigger.to_state.state }} - it is Today!
+
+        '
+  mode: single
+- id: '1704358687357'
+  alias: Notification - Youtube Live Stream Avaible
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.alex_kvazis_tekhnologii_umnogo_doma
+    - sensor.everything_smart_home
+    - sensor.fixtse
+    - sensor.home_automation_guy
+    - sensor.let_s_automate
+    - sensor.kpeyanski
+    - sensor.mark_watt_tech
+    - sensor.paul_hibbert_hibbert_home_tech
+    - sensor.resinchem_tech
+    - sensor.slackerlabs
+    - sensor.smart_home_junkie
+    - sensor.smart_home_solver
+    - sensor.the_hook_up
+    attribute: channel_is_live
+    to: true
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: time
+      after: 08:00:00
+      before: '20:00:00'
+      weekday:
+      - sun
+      - sat
+      - fri
+      - thu
+      - wed
+      - tue
+      - mon
+    - condition: state
+      entity_id: person.simplemice
+      state: home
+  action:
+  - service: notify.mobile_app_micemob
+    data:
+      message: '{{state_attr(trigger.entity_id, ''friendly_name'')}} is live,  video
+        title {{ trigger.to_state.state }}
+
+        '
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.bedroom_speaker
+      message: '{{state_attr(trigger.entity_id, ''friendly_name'')}} is live, video
+        title  {{ trigger.to_state.state }}
+
+        '
+  mode: single
+- id: '1704374481115'
+  alias: Notification - Bedroom Echo Adjust Volume
+  description: Spotify Paused/Off
+  trigger:
+  - platform: state
+    entity_id:
+    - media_player.spotify_simplemice
+    to: 'off'
+  - platform: state
+    entity_id:
+    - media_player.spotify_simplemice
+    to: paused
+  - platform: state
+    entity_id:
+    - media_player.spotify_simplemice
+    to: standby
+  condition:
+  - condition: state
+    entity_id: input_boolean.audible_notifications
+    state: 'on'
+  action:
+  - service: media_player.volume_set
+    metadata: {}
+    data:
+      volume_level: 0.8
+    target:
+      entity_id: media_player.bedroom_speaker
+  mode: single

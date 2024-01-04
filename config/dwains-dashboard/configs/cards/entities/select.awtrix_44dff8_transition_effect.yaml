@@ -1,0 +1,2 @@
+entity: select.wled_matrix_playlist
+type: custom:mushroom-select-card

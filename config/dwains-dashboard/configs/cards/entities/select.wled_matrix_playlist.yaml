@@ -1,0 +1,2 @@
+entity: select.wled_matrix_preset
+type: custom:mushroom-select-card

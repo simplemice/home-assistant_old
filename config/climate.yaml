@@ -1,0 +1,7 @@
+- platform: smartir
+  name: Bedroom AirCon
+  unique_id: bedroom_ac
+  device_code: 9991
+  controller_data: remote.bedroom_remote_hub
+  temperature_sensor: sensor.bedroom_temp_temperature
+  humidity_sensor: sensor.bedroom_temp_humidity

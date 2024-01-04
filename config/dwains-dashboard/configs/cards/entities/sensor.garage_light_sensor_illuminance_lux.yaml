@@ -1,0 +1,10 @@
+entity: sensor.garage_light_sensor_illuminance_lux
+max: 5000
+min: 0
+name: Garage Light Lux
+needle: true
+severity:
+  green: 0
+  red: 4000
+  yellow: 2000
+type: gauge

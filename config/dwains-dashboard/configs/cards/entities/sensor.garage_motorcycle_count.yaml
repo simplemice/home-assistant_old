@@ -1,0 +1,3 @@
+entity: sensor.garage_motorcycle_count
+state_color: true
+type: entity

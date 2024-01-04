@@ -1,0 +1,10 @@
+cameras:
+- camera_entity: camera.backyard
+col_span: '2'
+col_span_lg: '2'
+col_span_xl: '2'
+position: top
+row_span: '2'
+row_span_lg: '2'
+row_span_xl: '2'
+type: custom:frigate-card

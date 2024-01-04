@@ -1,0 +1,3 @@
+cameras:
+- camera_entity: camera.backyard
+type: custom:frigate-card

@@ -1,0 +1,20 @@
+zigbee2mqtt:
+  title: "Zigbee2MQTT"
+  url: "http://192.168.3.5:8098"
+  icon: mdi:zigbee
+  require_admin: true
+nodered:
+  title: "Node Red"
+  url: "http://192.168.3.8:1880"
+  icon: mdi:nodejs
+  require_admin: true
+esphome:
+  title: "ESPHome"
+  url: "http://192.168.3.7:6052"
+  icon: mdi:chip
+  require_admin: true
+frigate:
+  title: "Frigate"
+  url: "http://192.168.3.9:5000/"
+  icon: mdi:cctv
+  require_admin: true

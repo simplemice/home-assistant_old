@@ -1,0 +1,109 @@
+blueprint: energy.yaml
+card:
+  cards:
+  - cards:
+    - name: $01_24_hours_box_title$
+      styles:
+        card:
+        - text-transform: uppercase
+        - color: var(--dwains-theme-accent)
+        - font-size: 125%
+        - border-radius: 0%
+        - font-weight: 100
+        - letter-spacing: 10px
+        - height: 70px
+      type: custom:button-card
+    - cards:
+      - aspect_ratio: 1/0.43
+        color: rgb(41, 158, 200)
+        entity: $04_24_hours_first_entity$
+        icon: $03_24_hours_first_entity_icon$
+        name: $02_24_hours_first_entity_name$
+        show_state: true
+        size: 40%
+        state:
+        - color: var(--disabled-text-color)
+          value: 'off'
+        - color: rgb(41, 158, 194)
+          value: 'on'
+        styles:
+          name:
+          - text-transform: uppercase
+          - font-size: 10px
+          state:
+          - text-transform: uppercase
+          - font-size: 15px
+          - font: bold
+        type: custom:button-card
+      type: horizontal-stack
+    - name: $11_30_days_box_title$
+      styles:
+        card:
+        - text-transform: uppercase
+        - color: var(--dwains-theme-accent)
+        - font-size: 125%
+        - border-radius: 0%
+        - font-weight: 100
+        - letter-spacing: 10px
+        - height: 70px
+      type: custom:button-card
+    - cards:
+      - aspect_ratio: 1/0.43
+        color: rgb(41, 158, 200)
+        entity: $14_30_days_first_entity$
+        icon: $13_30_days_first_entity_icon$
+        name: $12_30_days_first_entity_name$
+        show_state: true
+        size: 40%
+        state:
+        - color: var(--disabled-text-color)
+          value: 'off'
+        - color: rgb(41, 158, 194)
+          value: 'on'
+        styles:
+          name:
+          - text-transform: uppercase
+          - font-size: 10px
+          state:
+          - text-transform: uppercase
+          - font-size: 15px
+          - font: bold
+        type: custom:button-card
+      type: horizontal-stack
+    item_classes: col-xs-12 col-sm-4
+    type: vertical-stack
+  - cards:
+    - name: $21_graphic_name$
+      styles:
+        card:
+        - text-transform: uppercase
+        - color: var(--dwains-theme-accent)
+        - font-size: 125%
+        - border-radius: 0%
+        - font-weight: 100
+        - letter-spacing: 10px
+        - height: 50px
+      type: custom:button-card
+    - days_to_show: $28_graphic_days_to_show$
+      entities:
+      - entity: $23_graphic_first_entity$
+        name: $22_graphic_first_entity_name$
+      type: statistics-graph
+    item_classes: col-xs-12 col-sm-8
+    type: vertical-stack
+  items_classes: col-xs-12
+  type: custom:dwains-flexbox-card
+data:
+  01_24_hours_box_title: 01_24_hours_box_title
+  02_24_hours_first_entity_name: 02_24_hours_first_entity_name
+  03_24_hours_first_entity_icon: 03_24_hours_first_entity_icon
+  04_24_hours_first_entity: 04_24_hours_first_entity
+  11_30_days_box_title: 11_30_days_box_title
+  12_30_days_first_entity_name: 12_30_days_first_entity_name
+  13_30_days_first_entity_icon: 13_30_days_first_entity_icon
+  14_30_days_first_entity: 14_30_days_first_entity
+  21_graphic_name: 21_graphic_name
+  22_graphic_first_entity_name: 22_graphic_first_entity_name
+  23_graphic_first_entity: 23_graphic_first_entity
+  28_graphic_days_to_show: 28_graphic_days_to_show
+type: custom:dwains-blueprint-card

@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        "**/.DS_Store": false,
+        "**/.git": false,
+        "**/.hg": false,
+        "**/.svn": false,
+        "**/*.crswap": false,
+        "**/*.db": true,
+        "**/*.db-shm": true,
+        "**/*.db-wal": true,
+        "**/CVS": false,
+        "**/Thumbs.db": false
+    }
+}

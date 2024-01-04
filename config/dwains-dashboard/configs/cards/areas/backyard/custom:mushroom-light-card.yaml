@@ -1,0 +1,15 @@
+col_span: '2'
+col_span_lg: '2'
+col_span_xl: '2'
+collapsible_controls: true
+entity: light.kitchen_wall_switch_left
+fill_container: true
+position: bottom
+row_span: '1'
+row_span_lg: '1'
+row_span_xl: '1'
+show_brightness_control: true
+show_color_control: true
+show_color_temp_control: true
+type: custom:mushroom-light-card
+use_light_color: true

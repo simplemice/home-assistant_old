@@ -1,0 +1,7 @@
+entity: sensor.sofa_presense
+show_icon: true
+show_name: true
+show_state: true
+tap_action:
+  action: toggle
+type: button

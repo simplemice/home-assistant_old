@@ -1,0 +1,13 @@
+- sensor:
+    name: coinmarketcap_curl
+    command: !secret coinmarketcap_curl
+    value_template: "{{ value_json.value }}"
+    scan_interval: 600 #10 mins refresh (this rate will use 144 credits per day out of the allocated 333 credits)
+    json_attributes:
+      - data
+
+- sensor:
+    unique_id: phuket_rent_uptime
+    name: Phuket Rent Uptime Sensor
+    command: !secret phuket_rent
+    scan_interval: 150

@@ -1,0 +1,9 @@
+- platform: xiaomi_miio
+  name: "Livingroom Remote Hub"
+  host: 192.168.3.22
+  token: !secret living_remote
+
+- platform: xiaomi_miio
+  name: "Bedroom Remote Hub"
+  host: 192.168.3.21
+  token: !secret bedroom_remote

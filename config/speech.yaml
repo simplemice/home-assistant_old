@@ -1,0 +1,12 @@
+- platform: amazon_polly
+  aws_access_key_id: !secret poly_id
+  aws_secret_access_key: !secret poly_key
+  text_type: ssml
+  #  voice: Brian
+  #  cache: True
+  engine: neural
+
+- platform: google_translate
+  cache: true
+  cache_dir: /tmp/tts
+  time_memory: 300

@@ -1,0 +1,117 @@
+input_boolean:
+  livingroom_curtains:
+    name: "Livingroom Curtains"
+    icon: mdi:curtains
+
+cover:
+  - platform: group
+    name: "Livingroom Curtains"
+    entities:
+      - cover.livingroom_curtain_l
+      - cover.livingroom_curtain_r
+
+automation:
+  - id: "1694139913118"
+    alias: Livingroom Curtains
+    description: ""
+    trigger:
+      - platform: tag
+        tag_id: c711da4d-74d1-42f2-ba00-ecdb7daf008b
+        id: curtaintag
+      - platform: state
+        entity_id:
+          - binary_sensor.all_doors
+        to: "off"
+    condition: []
+    action:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - curtaintag
+            sequence:
+              - if:
+                  - condition: state
+                    entity_id: switch.livingroom_curtains
+                    state: "off"
+                then:
+                  - service: switch.turn_on
+                    data: {}
+                    target:
+                      entity_id: switch.livingroom_curtains
+                else:
+                  - service: switch.turn_off
+                    data: {}
+                    target:
+                      entity_id: switch.livingroom_curtains
+                enabled: true
+          - conditions:
+              - condition: and
+                conditions:
+                  - condition: state
+                    entity_id: switch.livingroom_curtains
+                    state: "on"
+                  - condition: state
+                    entity_id: binary_sensor.all_doors
+                    state: "off"
+                  - condition: time
+                    after: "17:00:00"
+                    before: 08:00:00
+                    weekday:
+                      - mon
+                      - tue
+                      - wed
+                      - thu
+                      - fri
+                      - sat
+                      - sun
+            sequence:
+              - service: script.activate_alexa_actionable_notification
+                data_template:
+                  text: Do you want close curtains ?
+                  event_id: alexa_notification_curtains
+                  alexa_device: media_player.bedroom_speaker
+    mode: single
+
+script:
+  livingroom_curtains:
+    sequence:
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: switch.livingroom_curtains
+                state: "on"
+            sequence:
+              - service: cover.open_cover
+                data: {}
+                target:
+                  entity_id: cover.livingroom_curtains
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 18
+                  milliseconds: 0
+              - service: cover.stop_cover
+                data: {}
+                target:
+                  entity_id: cover.livingroom_curtains
+          - conditions:
+              - condition: state
+                entity_id: switch.livingroom_curtains
+                state: "off"
+            sequence:
+              - service: cover.close_cover
+                data: {}
+                target:
+                  entity_id: cover.livingroom_curtains
+              - delay:
+                  hours: 0
+                  minutes: 0
+                  seconds: 18
+                  milliseconds: 0
+              - service: cover.stop_cover
+                data: {}
+                target:
+                  entity_id: cover.livingroom_curtains
+    mode: single
+    icon: mdi:curtains

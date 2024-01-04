@@ -1,0 +1,5 @@
+entity: cover.livingroom_curtains
+fill_container: true
+show_buttons_control: true
+show_position_control: true
+type: custom:mushroom-cover-card

@@ -1,0 +1,1723 @@
+automation.garage_motion_notification:
+  hidden: true
+  disabled: true
+sensor.parking_cat_count:
+  hidden: true
+  disabled: false
+  custom_card: true
+  favorite: true
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '3'
+  row_span_lg: '1'
+  col_span_xl: '4'
+  row_span_xl: '1'
+  custom_popup: false
+  favorite_sort_order: 1
+sensor.parking_dog_count:
+  hidden: true
+  disabled: true
+sensor.parking_person_count:
+  hidden: true
+  disabled: true
+sensor.door_cat_count:
+  hidden: true
+  disabled: true
+sensor.door_dog_count:
+  hidden: true
+  disabled: true
+sensor.garage_plate_count:
+  hidden: true
+  disabled: true
+sensor.door_person_count:
+  hidden: true
+  disabled: true
+sensor.outside_car_count:
+  hidden: true
+  disabled: true
+sensor.parking_all_count:
+  hidden: true
+  disabled: true
+sensor.garage_motorcycle_count:
+  hidden: false
+  disabled: false
+  custom_card: true
+sensor.door_all_count:
+  hidden: true
+  disabled: true
+sensor.garage_cat_count:
+  hidden: true
+  disabled: true
+sensor.garage_dog_count:
+  hidden: true
+  disabled: true
+sensor.outside_plate_count:
+  hidden: true
+  disabled: true
+sensor.garage_person_count:
+  hidden: true
+  disabled: true
+sensor.door_mouse_count:
+  hidden: true
+  disabled: true
+sensor.parking_car_count:
+  hidden: true
+  disabled: true
+sensor.outside_motorcycle_count:
+  hidden: true
+  disabled: true
+sensor.garage_all_count:
+  hidden: true
+  disabled: true
+sensor.outside_cat_count:
+  hidden: true
+  disabled: true
+sensor.outside_dog_count:
+  hidden: true
+  disabled: true
+sensor.parking_plate_count:
+  hidden: true
+  disabled: true
+sensor.outside_person_count:
+  hidden: true
+  disabled: true
+sensor.garage_mouse_count:
+  hidden: true
+  disabled: true
+sensor.parking_motorcycle_count:
+  hidden: true
+  disabled: true
+sensor.garage_car_count:
+  hidden: true
+  disabled: true
+sensor.outside_all_count:
+  hidden: true
+  disabled: true
+camera.garage:
+  hidden: false
+  disabled: true
+  sort_order: 2
+  custom_card: true
+  devices_sort_order: 1
+camera.garage_plate:
+  hidden: true
+  disabled: true
+camera.garage_motorcycle:
+  hidden: true
+  disabled: true
+camera.garage_cat:
+  hidden: true
+  disabled: true
+camera.garage_dog:
+  hidden: true
+  disabled: true
+camera.garage_person:
+  hidden: true
+  disabled: true
+camera.garage_mouse:
+  hidden: true
+  disabled: true
+camera.garage_car:
+  hidden: true
+  disabled: true
+switch.garage_detect:
+  hidden: true
+  disabled: true
+switch.garage_motion:
+  hidden: true
+  disabled: true
+switch.garage_recordings:
+  hidden: true
+  disabled: true
+switch.garage_snapshots:
+  hidden: true
+  disabled: true
+binary_sensor.parking_cat_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.parking_dog_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.parking_person_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.door_cat_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.door_dog_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_plate_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.door_person_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_car_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.parking_all_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_motorcycle_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.door_all_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_cat_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_dog_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_plate_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_person_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.door_mouse_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.parking_car_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_motorcycle_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_all_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_cat_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_dog_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.parking_plate_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_person_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_mouse_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.parking_motorcycle_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_car_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.outside_all_occupancy:
+  hidden: true
+  disabled: true
+binary_sensor.garage_motion:
+  hidden: true
+  disabled: true
+sensor.garage_door_motion_battery:
+  hidden: true
+  disabled: true
+binary_sensor.garage_door_motion_occupancy:
+  hidden: false
+  disabled: false
+sensor.garage_temp_battery:
+  hidden: true
+  disabled: true
+sensor.garage_temp_temperature:
+  hidden: true
+  disabled: false
+sensor.garage_temp_humidity:
+  hidden: true
+  disabled: false
+light.garage_bulb:
+  hidden: false
+  disabled: false
+  favorite: false
+  custom_card: true
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_popup: false
+  sort_order: 1
+  favorite_sort_order: 1
+sensor.garage_light_sensor_battery:
+  hidden: true
+  disabled: true
+sensor.garage_light_sensor_illuminance_lux:
+  hidden: false
+  disabled: false
+  custom_card: true
+sensor.door_bell_battery:
+  hidden: true
+  disabled: true
+sensor.door_bell_action:
+  hidden: true
+  disabled: true
+light.awtrix_44dff8_matrix:
+  disabled: false
+  sort_order: 2
+  favorite: false
+  favorite_sort_order: 3
+  custom_card: true
+  grouped_sort_order: 8
+light.awtrix_44dff8_indicator_1:
+  disabled: true
+light.awtrix_44dff8_indicator_2:
+  disabled: true
+light.awtrix_44dff8_indicator_3:
+  disabled: true
+select.awtrix_44dff8_brightness_mode:
+  disabled: false
+  sort_order: 17
+  custom_card: true
+select.awtrix_44dff8_transition_effect:
+  disabled: false
+  sort_order: 18
+  custom_card: true
+button.awtrix_44dff8_dismiss_notification:
+  disabled: true
+button.awtrix_44dff8_start_update:
+  disabled: true
+switch.awtrix_44dff8_transition:
+  disabled: true
+sensor.awtrix_44dff8_current_app:
+  disabled: true
+sensor.awtrix_44dff8_device_topic:
+  disabled: true
+button.awtrix_44dff8_next_app:
+  disabled: true
+button.awtrix_44dff8_previous_app:
+  disabled: true
+sensor.awtrix_44dff8_temperature:
+  disabled: true
+sensor.awtrix_44dff8_humidity:
+  disabled: true
+sensor.awtrix_44dff8_battery:
+  disabled: true
+sensor.awtrix_44dff8_illuminance:
+  disabled: true
+sensor.awtrix_44dff8_version:
+  disabled: true
+sensor.awtrix_44dff8_wifi_strength:
+  disabled: true
+sensor.awtrix_44dff8_uptime:
+  disabled: true
+binary_sensor.awtrix_44dff8_button_left:
+  disabled: true
+binary_sensor.awtrix_44dff8_button_select:
+  disabled: true
+binary_sensor.awtrix_44dff8_button_right:
+  disabled: true
+sensor.awtrix_44dff8_free_ram:
+  disabled: true
+sensor.awtrix_44dff8_ip_address:
+  disabled: true
+light.sofa_ambient:
+  disabled: false
+  sort_order: 6
+  grouped_sort_order: 3
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '1'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+switch.sofa_ambient_do_not_disturb:
+  disabled: true
+select.sofa_ambient_color_power_on_behavior:
+  disabled: true
+sensor.livingroom_temp_battery:
+  disabled: true
+sensor.livingroom_temp_temperature:
+  disabled: false
+  sort_order: 21
+  hidden: true
+sensor.livingroom_temp_humidity:
+  disabled: false
+  sort_order: 22
+  hidden: true
+sensor.livingroom_light_sensor_battery:
+  disabled: true
+sensor.livingroom_light_sensor_illuminance_lux:
+  disabled: false
+  sort_order: 23
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '1'
+  row_span: '1'
+  col_span_lg: '1'
+  row_span_lg: '1'
+  col_span_xl: '1'
+  row_span_xl: '1'
+  custom_card: true
+  custom_popup: false
+sensor.livingroom_door_knock_battery:
+  disabled: true
+binary_sensor.livingroom_door_knock_vibration:
+  disabled: true
+sensor.livingroom_door_knock_action:
+  disabled: true
+sensor.livingroom_door_knock_strength:
+  disabled: true
+select.livingroom_door_knock_sensitivity:
+  disabled: true
+sensor.livingroom_door_knock_angle_x:
+  disabled: true
+sensor.livingroom_door_knock_angle_y:
+  disabled: true
+sensor.livingroom_door_knock_angle_z:
+  disabled: true
+sensor.livingroom_door_battery:
+  disabled: true
+binary_sensor.livingroom_door_contact:
+  disabled: false
+  sort_order: 12
+  grouped_sort_order: 1
+sensor.livingroom_door_motion_battery:
+  disabled: true
+binary_sensor.livingroom_door_motion_occupancy:
+  disabled: false
+  grouped_sort_order: 2
+sensor.livingroom_curtain_l_battery:
+  disabled: true
+cover.livingroom_curtain_l:
+  disabled: true
+select.livingroom_curtain_l_reverse_direction:
+  disabled: true
+select.livingroom_curtain_l_border:
+  disabled: true
+select.livingroom_curtain_l_click_control:
+  disabled: true
+sensor.livingroom_curtain_r_battery:
+  disabled: true
+cover.livingroom_curtain_r:
+  disabled: true
+select.livingroom_curtain_r_reverse_direction:
+  disabled: true
+select.livingroom_curtain_r_border:
+  disabled: true
+select.livingroom_curtain_r_click_control:
+  disabled: true
+sensor.sofa_presense_battery:
+  disabled: true
+sensor.sound_sensor_db_soundesp:
+  disabled: true
+sensor.sound_sensor_volume_soundesp:
+  disabled: true
+sensor.sound_sensor_raw_soundesp:
+  disabled: true
+number.sound_sensor_sensitivity_soundesp:
+  disabled: true
+switch.raspberry_outlet:
+  disabled: false
+  sort_order: 24
+sensor.raspberry_outlet_power:
+  disabled: true
+sensor.raspberry_outlet_energy:
+  disabled: true
+switch.raspberry_outlet_power_outage_memory:
+  disabled: true
+update.raspberry_outlet:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_temperature:
+  disabled: true
+switch.mikrotik_ether1_port:
+  disabled: true
+update.mikrotik_rb4011igs_5hacq2hnd_routeros_update:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_voltage:
+  disabled: true
+switch.mikrotik_ether2_port:
+  disabled: true
+update.mikrotik_rb4011igs_5hacq2hnd_routerboard_firmware_update:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_uptime:
+  disabled: true
+switch.mikrotik_ether3_port:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_cpu_load:
+  disabled: true
+switch.mikrotik_ether4_port:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_memory_usage:
+  disabled: true
+switch.mikrotik_ether5_port:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_hdd_usage:
+  disabled: true
+switch.mikrotik_ether6_port:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_wired_clients:
+  disabled: true
+switch.mikrotik_ether7_port:
+  disabled: true
+sensor.mikrotik_rb4011igs_5hacq2hnd_wireless_clients:
+  disabled: true
+switch.mikrotik_ether8_port:
+  disabled: true
+switch.mikrotik_ether9_port:
+  disabled: true
+switch.mikrotik_ether10_port:
+  disabled: true
+switch.mikrotik_sfp_sfpplus1_port:
+  disabled: true
+switch.mikrotik_wlan2_port:
+  disabled: true
+switch.mikrotik_vpnbook_port:
+  disabled: true
+switch.mikrotik_cap2_port:
+  disabled: true
+binary_sensor.mikrotik_ether1_connection:
+  disabled: true
+binary_sensor.mikrotik_ether2_connection:
+  disabled: true
+binary_sensor.mikrotik_ether3_connection:
+  disabled: true
+binary_sensor.mikrotik_ether4_connection:
+  disabled: true
+binary_sensor.mikrotik_ether5_connection:
+  disabled: true
+binary_sensor.mikrotik_ether6_connection:
+  disabled: true
+binary_sensor.mikrotik_ether7_connection:
+  disabled: true
+binary_sensor.mikrotik_ether8_connection:
+  disabled: true
+device_tracker.alarm_gateway:
+  disabled: true
+binary_sensor.mikrotik_ether9_connection:
+  disabled: true
+sensor.mikrotik_ether1_tx:
+  disabled: true
+binary_sensor.mikrotik_ether10_connection:
+  disabled: true
+sensor.mikrotik_ether2_tx:
+  disabled: true
+binary_sensor.mikrotik_sfp_sfpplus1_connection:
+  disabled: true
+sensor.mikrotik_ether3_tx:
+  disabled: true
+binary_sensor.mikrotik_vpnbook_connection:
+  disabled: true
+sensor.mikrotik_ether4_tx:
+  disabled: true
+binary_sensor.mikrotik_cap2_connection:
+  disabled: true
+sensor.mikrotik_ether5_tx:
+  disabled: true
+sensor.mikrotik_ether6_tx:
+  disabled: true
+sensor.mikrotik_ether7_tx:
+  disabled: true
+sensor.mikrotik_ether8_tx:
+  disabled: true
+sensor.mikrotik_ether9_tx:
+  disabled: true
+sensor.mikrotik_ether10_tx:
+  disabled: true
+sensor.mikrotik_sfp_sfpplus1_tx:
+  disabled: true
+sensor.mikrotik_wlan2_tx:
+  disabled: true
+sensor.mikrotik_vpnbook_tx:
+  disabled: true
+sensor.mikrotik_cap2_tx:
+  disabled: true
+sensor.mikrotik_ether1_rx:
+  disabled: true
+sensor.mikrotik_ether2_rx:
+  disabled: true
+sensor.mikrotik_ether3_rx:
+  disabled: true
+sensor.mikrotik_ether4_rx:
+  disabled: true
+device_tracker.livingroom_presense:
+  disabled: true
+sensor.mikrotik_ether5_rx:
+  disabled: true
+sensor.mikrotik_ether6_rx:
+  disabled: true
+sensor.mikrotik_ether7_rx:
+  disabled: true
+sensor.mikrotik_ether8_rx:
+  disabled: true
+sensor.mikrotik_ether9_rx:
+  disabled: true
+sensor.mikrotik_ether10_rx:
+  disabled: true
+device_tracker.mqtt:
+  disabled: true
+sensor.mikrotik_sfp_sfpplus1_rx:
+  disabled: true
+device_tracker.nodered:
+  disabled: true
+sensor.mikrotik_wlan2_rx:
+  disabled: true
+device_tracker.zigbee2mqtt:
+  disabled: true
+sensor.mikrotik_vpnbook_rx:
+  disabled: true
+sensor.mikrotik_cap2_rx:
+  disabled: true
+sensor.mikrotik_ether1_tx_total:
+  disabled: true
+sensor.mikrotik_ether2_tx_total:
+  disabled: true
+sensor.mikrotik_ether3_tx_total:
+  disabled: true
+sensor.mikrotik_ether4_tx_total:
+  disabled: true
+sensor.mikrotik_ether5_tx_total:
+  disabled: true
+sensor.mikrotik_ether6_tx_total:
+  disabled: true
+sensor.mikrotik_ether7_tx_total:
+  disabled: true
+sensor.mikrotik_ether8_tx_total:
+  disabled: true
+sensor.mikrotik_ether9_tx_total:
+  disabled: true
+sensor.mikrotik_ether10_tx_total:
+  disabled: true
+sensor.mikrotik_sfp_sfpplus1_tx_total:
+  disabled: true
+sensor.mikrotik_wlan2_tx_total:
+  disabled: true
+sensor.mikrotik_vpnbook_tx_total:
+  disabled: true
+sensor.mikrotik_cap2_tx_total:
+  disabled: true
+sensor.mikrotik_ether1_rx_total:
+  disabled: true
+sensor.mikrotik_ether2_rx_total:
+  disabled: true
+sensor.mikrotik_ether3_rx_total:
+  disabled: true
+sensor.mikrotik_ether4_rx_total:
+  disabled: true
+sensor.mikrotik_ether5_rx_total:
+  disabled: true
+sensor.mikrotik_ether6_rx_total:
+  disabled: true
+sensor.mikrotik_ether7_rx_total:
+  disabled: true
+sensor.mikrotik_ether8_rx_total:
+  disabled: true
+sensor.mikrotik_ether9_rx_total:
+  disabled: true
+sensor.mikrotik_ether10_rx_total:
+  disabled: true
+sensor.mikrotik_sfp_sfpplus1_rx_total:
+  disabled: true
+sensor.mikrotik_wlan2_rx_total:
+  disabled: true
+sensor.mikrotik_vpnbook_rx_total:
+  disabled: true
+sensor.mikrotik_cap2_rx_total:
+  disabled: true
+light.tv_table_ambient:
+  disabled: false
+  sort_order: 4
+  grouped_sort_order: 6
+switch.tv_table_ambient_do_not_disturb:
+  disabled: true
+select.tv_table_ambient_color_power_on_behavior:
+  disabled: true
+cover.livingroom_curtains:
+  disabled: false
+  sort_order: 9
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: true
+light.lightstrip:
+  disabled: false
+  custom_popup: true
+  custom_card: true
+  sort_order: 1
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  grouped_sort_order: 1
+sensor.lumi_gateway_v3_illuminance:
+  disabled: true
+light.lumi_gateway_v3_light:
+  disabled: false
+  sort_order: 5
+  grouped_sort_order: 2
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '1'
+  row_span: '1'
+  col_span_lg: '1'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: true
+  custom_popup: false
+alarm_control_panel.lumi_gateway_v3_alarm:
+  disabled: true
+fan.dmaker_p23_42a8_fan:
+  disabled: false
+  sort_order: 15
+  custom_card: true
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_popup: false
+climate.dmaker_p23_42a8_heater:
+  disabled: false
+  devices_sort_order: 2
+  sort_order: 10
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: true
+switch.dmaker_p23_42a8_horizontal_swing:
+  disabled: true
+number.dmaker_p23_42a8_off_delay_time:
+  disabled: true
+sensor.dmaker_p23_42a8_relative_humidity:
+  disabled: true
+light.dmaker_p23_42a8_indicator_light:
+  disabled: true
+switch.dmaker_p23_42a8_alarm:
+  disabled: true
+sensor.dmaker_p23_42a8_temperature:
+  disabled: true
+switch.dmaker_p23_42a8_physical_control_locked:
+  disabled: true
+switch.dmaker_p23_42a8_heating:
+  disabled: true
+fan.dmaker_p28_19b6_fan:
+  disabled: false
+  sort_order: 16
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+switch.dmaker_p28_19b6_horizontal_swing:
+  disabled: true
+number.dmaker_p28_19b6_off_delay_time:
+  disabled: true
+button.dmaker_p28_19b6_swing_updown_manual_0:
+  disabled: true
+select.dmaker_p28_19b6_horizontal_swing_included_angle:
+  disabled: true
+sensor.dmaker_p28_19b6_temperature:
+  disabled: true
+light.dmaker_p28_19b6_indicator_light:
+  disabled: true
+switch.dmaker_p28_19b6_vertical_swing:
+  disabled: true
+button.dmaker_p28_19b6_swing_updown_manual_1:
+  disabled: true
+select.dmaker_p28_19b6_vertical_swing_included_angle:
+  disabled: true
+sensor.dmaker_p28_19b6_relative_humidity:
+  disabled: true
+switch.dmaker_p28_19b6_alarm:
+  disabled: true
+button.dmaker_p28_19b6_swing_updown_manual_2:
+  disabled: true
+switch.dmaker_p28_19b6_physical_control_locked:
+  disabled: true
+button.dmaker_p28_19b6_swing_lr_manual_0:
+  disabled: true
+button.dmaker_p28_19b6_swing_lr_manual_1:
+  disabled: true
+button.dmaker_p28_19b6_swing_lr_manual_2:
+  disabled: true
+button.dmaker_p28_19b6_back_to_center_true:
+  disabled: true
+sensor.zhimi_v1_be80_battery_level:
+  disabled: true
+sensor.zhimi_v1_be80_charging_state:
+  disabled: true
+binary_sensor.sofa_presense:
+  disabled: true
+  sort_order: 14
+  grouped_sort_order: 4
+switch.chuangmi_hmi208_bbcd_usb_switch_status:
+  disabled: false
+  sort_order: 25
+switch.chuangmi_hmi208_bbcd_power_switch_status:
+  disabled: false
+  sort_order: 26
+sensor.chuangmi_hmi208_bbcd_temperature:
+  disabled: true
+light.gateway_light_04cf8ca9da39:
+  disabled: true
+sensor.illumination_04cf8ca9da39:
+  disabled: true
+binary_sensor.espresense_livingroom_connectivity:
+  disabled: true
+sensor.espresense_livingroom_uptime:
+  disabled: true
+sensor.espresense_livingroom_free_mem:
+  disabled: true
+button.espresense_livingroom_restart:
+  disabled: true
+number.espresense_livingroom_max_distance:
+  disabled: true
+number.espresense_livingroom_absorption:
+  disabled: true
+switch.espresense_livingroom_auto_update:
+  disabled: true
+switch.espresense_livingroom_arduino_ota:
+  disabled: true
+switch.espresense_livingroom_prerelease:
+  disabled: true
+button.espresense_livingroom_update:
+  disabled: true
+button.espresense_livingroom_enroll:
+  disabled: true
+light.livingroom_wardrobe_ambient:
+  disabled: false
+  sort_order: 7
+  grouped_sort_order: 4
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '1'
+  row_span: '1'
+  col_span_lg: '1'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+light.livingroom_door_ambient:
+  disabled: false
+  sort_order: 8
+  grouped_sort_order: 5
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '1'
+  row_span: '1'
+  col_span_lg: '1'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+button.scan_clients_home_theater:
+  disabled: true
+sensor.plex_home_theater:
+  disabled: true
+sensor.mcube_battery:
+  disabled: true
+sensor.mcube_action_angle:
+  disabled: true
+sensor.mcube_action_from_side:
+  disabled: true
+sensor.mcube_action_side:
+  disabled: true
+sensor.mcube_action_to_side:
+  disabled: true
+sensor.mcube_side:
+  disabled: true
+sensor.mcube_action:
+  disabled: true
+sensor.energy_meter_current:
+  disabled: true
+sensor.energy_meter_power:
+  disabled: true
+sensor.energy_meter_voltage:
+  disabled: true
+sensor.energy_meter_energy:
+  disabled: true
+sensor.energy_meter_linkquality:
+  disabled: true
+sensor.energy_meter_last_seen:
+  disabled: true
+sensor.tv_table_motion_battery:
+  disabled: true
+binary_sensor.tv_table_motion_occupancy:
+  disabled: false
+  sort_order: 13
+  grouped_sort_order: 3
+sensor.tv_table_motion_illuminance_lux:
+  disabled: true
+sensor.zhimi_airmonitor_v1:
+  disabled: true
+sensor.espresense_livingroom_tx:
+  disabled: true
+sensor.mqtt_tx:
+  disabled: true
+sensor.nodered_tx:
+  disabled: true
+sensor.zigbee2mqtt_tx:
+  disabled: true
+sensor.espresense_livingroom_rx:
+  disabled: true
+sensor.mqtt_rx:
+  disabled: true
+sensor.nodered_rx:
+  disabled: true
+sensor.zigbee2mqtt_rx:
+  disabled: true
+number.mcube_last_side:
+  disabled: true
+device_tracker.espresense_garage:
+  disabled: true
+sensor.espresense_garage_tx:
+  disabled: true
+sensor.espresense_garage_rx:
+  disabled: true
+binary_sensor.espresense_garage_connectivity:
+  disabled: true
+sensor.espresense_garage_uptime:
+  disabled: true
+sensor.espresense_garage_free_mem:
+  disabled: true
+button.espresense_garage_restart:
+  disabled: true
+number.espresense_garage_max_distance:
+  disabled: true
+number.espresense_garage_absorption:
+  disabled: true
+switch.espresense_garage_auto_update:
+  disabled: true
+switch.espresense_garage_arduino_ota:
+  disabled: true
+switch.espresense_garage_prerelease:
+  disabled: true
+button.espresense_garage_update:
+  disabled: true
+button.espresense_garage_enroll:
+  disabled: true
+binary_sensor.wled_matrix_firmware:
+  disabled: true
+button.wled_matrix_restart:
+  disabled: true
+light.wled_matrix:
+  disabled: false
+  sort_order: 3
+  grouped_sort_order: 7
+number.wled_matrix_speed:
+  disabled: true
+number.wled_matrix_intensity:
+  disabled: true
+select.wled_matrix_live_override:
+  disabled: true
+select.wled_matrix_playlist:
+  disabled: false
+  sort_order: 19
+  custom_card: true
+  favorite: true
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '1'
+  row_span_lg: '1'
+  col_span_xl: '1'
+  row_span_xl: '1'
+  custom_popup: false
+select.wled_matrix_preset:
+  disabled: false
+  sort_order: 20
+  custom_card: true
+select.wled_matrix_color_palette:
+  disabled: false
+  custom_card: true
+sensor.wled_matrix_estimated_current:
+  disabled: true
+sensor.wled_matrix_led_count:
+  disabled: true
+sensor.wled_matrix_max_current:
+  disabled: true
+sensor.wled_matrix_uptime:
+  disabled: true
+sensor.wled_matrix_free_memory:
+  disabled: true
+sensor.wled_matrix_wi_fi_channel:
+  disabled: true
+sensor.wled_matrix_ip:
+  disabled: true
+switch.wled_matrix_nightlight:
+  disabled: true
+switch.wled_matrix_sync_send:
+  disabled: true
+switch.wled_matrix_sync_receive:
+  disabled: true
+switch.wled_matrix_reverse:
+  disabled: true
+update.wled_matrix_firmware:
+  disabled: true
+sensor.monthly_energy_meter:
+  disabled: true
+sensor.power_day_meter:
+  disabled: true
+sensor.weekly_energy_meter:
+  disabled: true
+sensor.daily_energy_meter:
+  disabled: true
+button.eb98ac67nboqzntl_push:
+  disabled: true
+number.eb98ac67nboqzntl_down_position:
+  disabled: true
+number.eb98ac67nboqzntl_hold_time:
+  disabled: true
+number.eb98ac67nboqzntl_up_position:
+  disabled: true
+sensor.eb98ac67nboqzntl_battery:
+  disabled: true
+select.eb98ac67nboqzntl_fingerbot_mode:
+  disabled: true
+switch.eb98ac67nboqzntl_switch:
+  disabled: true
+switch.eb98ac67nboqzntl_reverse_positions:
+  disabled: true
+sensor.captive_portal_clients:
+  disabled: true
+kn2:
+  grouped_sort_order: 1
+s72:
+  grouped_sort_order: 2
+v7n:
+  grouped_sort_order: 3
+rcg:
+  grouped_sort_order: 4
+nxe:
+  grouped_sort_order: 5
+h6m:
+  grouped_sort_order: 6
+v7m:
+  grouped_sort_order: 3
+s9s:
+  grouped_sort_order: 2
+h6n:
+  grouped_sort_order: 6
+sensor.kirchen_router_transmit_power:
+  disabled: true
+number.kirchen_router_transmit_power:
+  disabled: true
+binary_sensor.gas_detector_gas:
+  disabled: false
+sensor.gas_detector_gas_density:
+  disabled: true
+select.gas_detector_gas_sensitivity:
+  disabled: true
+select.gas_detector_selftest:
+  disabled: true
+select.gas_detector_buzzer:
+  disabled: true
+switch.gas_detector_linkage_alarm:
+  disabled: true
+update.gas_detector:
+  disabled: true
+select.kitchen_wall_switch_power_on_behavior:
+  disabled: true
+select.kitchen_wall_switch_backlight_mode:
+  disabled: true
+sensor.kitchen_presense_illuminance:
+  disabled: true
+number.kitchen_presense_large_motion_detection_sensitivity:
+  disabled: true
+number.kitchen_presense_large_motion_detection_distance:
+  disabled: true
+number.kitchen_presense_fading_time:
+  disabled: true
+number.kitchen_presense_medium_motion_detection_distance:
+  disabled: true
+number.kitchen_presense_medium_motion_detection_sensitivity:
+  disabled: true
+switch.kitchen_presense_indicator:
+  disabled: true
+number.kitchen_presense_small_detection_distance:
+  disabled: true
+number.kitchen_presense_small_detection_sensitivity:
+  disabled: true
+sensor.kitchen_scene_switch_battery:
+  disabled: true
+sensor.kitchen_scene_switch_action:
+  disabled: true
+sensor.kitchen_button_battery:
+  disabled: true
+sensor.kitchen_button_action:
+  disabled: true
+light.kitchen_bottom_ambient:
+  disabled: false
+  grouped_sort_order: 3
+switch.kitchen_bottom_ambient_do_not_disturb:
+  disabled: true
+select.kitchen_bottom_ambient_color_power_on_behavior:
+  disabled: true
+light.kitchen_upper_ambient:
+  disabled: false
+  grouped_sort_order: 4
+switch.kitchen_upper_ambient_do_not_disturb:
+  disabled: true
+select.kitchen_upper_ambient_color_power_on_behavior:
+  disabled: true
+sensor.kitchen_table_knock_battery:
+  disabled: true
+binary_sensor.kitchen_table_knock_vibration:
+  disabled: true
+sensor.kitchen_table_knock_action:
+  disabled: true
+sensor.kitchen_table_knock_strength:
+  disabled: true
+select.kitchen_table_knock_sensitivity:
+  disabled: true
+sensor.kitchen_table_knock_angle_x:
+  disabled: true
+sensor.kitchen_table_knock_angle_y:
+  disabled: true
+sensor.kitchen_table_knock_angle_z:
+  disabled: true
+binary_sensor.kitchen_presense:
+  disabled: true
+light.kitchen_ambient:
+  disabled: false
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+  grouped_sort_order: 2
+sensor.kitchen_light_sensor_battery:
+  disabled: true
+sensor.kitchen_light_sensor_illuminance_lux:
+  disabled: false
+light.kitchen_wall_switch_center:
+  disabled: false
+  grouped_sort_order: 1
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '3'
+  row_span_lg: '1'
+  col_span_xl: '4'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+light.kitchen_wall_switch_left:
+  disabled: false
+  hidden: true
+light.kitchen_wall_switch_right:
+  disabled: false
+  hidden: true
+device_tracker.kitchen_presense:
+  disabled: true
+switch.cuco_sp5_9d1b_usb_switch_status:
+  disabled: true
+switch.cuco_sp5_9d1b_switch:
+  disabled: true
+switch.cuco_sp5_9d1b_switch_2:
+  disabled: true
+fan.kitchen_power_strip_switch:
+  disabled: false
+switch.kitchen_kettle:
+  disabled: false
+light.kitchen_power_strip_switch:
+  disabled: true
+sensor.kitchen_water_leak_battery:
+  disabled: true
+binary_sensor.espresense_kitchen_connectivity:
+  disabled: true
+sensor.espresense_kitchen_uptime:
+  disabled: true
+sensor.espresense_kitchen_free_mem:
+  disabled: true
+button.espresense_kitchen_restart:
+  disabled: true
+number.espresense_kitchen_max_distance:
+  disabled: true
+number.espresense_kitchen_absorption:
+  disabled: true
+switch.espresense_kitchen_auto_update:
+  disabled: true
+switch.espresense_kitchen_arduino_ota:
+  disabled: true
+switch.espresense_kitchen_prerelease:
+  disabled: true
+button.espresense_kitchen_update:
+  disabled: true
+button.espresense_kitchen_enroll:
+  disabled: true
+sensor.chunmi_n23l01_bcf8_oven:
+  disabled: true
+sensor.chunmi_n23l01_bcf8_left_time:
+  disabled: true
+switch.chunmi_n23l01_bcf8_oven_status:
+  disabled: true
+sensor.chunmi_eh3_e09c_cooker:
+  disabled: true
+button.chunmi_eh3_e09c_start_cook:
+  disabled: true
+button.chunmi_eh3_e09c_cancel_cooking:
+  disabled: true
+sensor.chunmi_eh3_e09c_left_time:
+  disabled: true
+select.chunmi_eh3_e09c_cook_mode:
+  disabled: false
+  custom_card: true
+switch.chunmi_eh3_e09c_cooker_status:
+  disabled: true
+sensor.careli_maf01_68e5_air_fryer:
+  disabled: true
+button.careli_maf01_68e5_start_cook:
+  disabled: true
+button.careli_maf01_68e5_cancel_cooking:
+  disabled: true
+button.careli_maf01_68e5_pause:
+  disabled: true
+number.careli_maf01_68e5_target_temperature:
+  disabled: true
+select.careli_maf01_68e5_target_time:
+  disabled: false
+  custom_card: true
+switch.careli_maf01_68e5_air_fryer_status:
+  disabled: true
+select.careli_maf01_68e5_target_temperature:
+  disabled: false
+  custom_card: true
+binary_sensor.smoke_detector:
+  disabled: false
+sensor.smoke_detector_battery:
+  disabled: true
+sensor.smoke_detector_signal_strength:
+  disabled: true
+sensor.smoke_detector_voltage:
+  disabled: true
+sensor.ble_battery_kitchen_temp:
+  disabled: true
+sensor.ble_humidity_kitchen_temp:
+  disabled: true
+sensor.ble_rssi_kitchen_temp:
+  disabled: true
+sensor.ble_temperature_kitchen_temp:
+  disabled: true
+sensor.kitchen_temp_battery:
+  disabled: true
+sensor.kitchen_temp_humidity:
+  disabled: false
+  hidden: true
+sensor.kitchen_temp_temperature:
+  disabled: false
+  hidden: true
+sensor.water_sensor:
+  disabled: false
+sensor.kcube_battery:
+  disabled: true
+sensor.kcube_action_angle:
+  disabled: true
+sensor.kcube_action_from_side:
+  disabled: true
+sensor.kcube_action_side:
+  disabled: true
+sensor.kcube_action_to_side:
+  disabled: true
+sensor.kcube_side:
+  disabled: true
+sensor.kcube_action:
+  disabled: true
+binary_sensor.kitchen_water_leak:
+  disabled: false
+sensor.espresense_kitchen_tx:
+  disabled: true
+sensor.espresense_kitchen_rx:
+  disabled: true
+media_player.xiaomi_x08e_2029_play_control_2:
+  disabled: true
+button.xiaomi_x08e_2029_stop_alarm:
+  disabled: true
+button.xiaomi_x08e_2029_wake_up:
+  disabled: true
+button.xiaomi_x08e_2029_tv_switchon:
+  disabled: true
+text.xiaomi_x08e_2029_play_text:
+  disabled: true
+text.xiaomi_x08e_2029_execute_text_directive:
+  disabled: true
+sensor.xiaomi_x08e_2029_conversation:
+  disabled: true
+number.kcube_last_side:
+  disabled: true
+automation.night_bedroom_climate_on:
+  disabled: true
+  sort_order: 14
+  hidden: false
+automation.night_bedroom_climate_off:
+  disabled: true
+  sort_order: 15
+  hidden: false
+sensor.bedroom_light_sensor_battery:
+  disabled: true
+sensor.bedroom_light_sensor_illuminance_lux:
+  disabled: false
+  custom_card: true
+sensor.bedroom_scene_switch_battery:
+  disabled: true
+sensor.bedroom_scene_switch_action:
+  disabled: true
+sensor.bedroom_wardrobe_light_power:
+  disabled: true
+sensor.bedroom_wardrobe_light_energy:
+  disabled: true
+switch.bedroom_wardrobe_light_power_outage_memory:
+  disabled: true
+update.bedroom_wardrobe_light:
+  disabled: true
+sensor.bedroom_door_motion_battery:
+  disabled: true
+binary_sensor.bedroom_door_motion_occupancy:
+  disabled: false
+  sort_order: 11
+  hidden: false
+sensor.bedroom_door_battery:
+  disabled: true
+binary_sensor.bedroom_door_contact:
+  disabled: false
+  sort_order: 6
+  hidden: false
+sensor.bedroom_button_battery:
+  disabled: true
+sensor.bedroom_button_action:
+  disabled: true
+sensor.bedroom_bed_motion_battery:
+  disabled: true
+binary_sensor.bedroom_bed_motion_occupancy:
+  disabled: false
+  sort_order: 12
+  hidden: false
+sensor.bedroom_temp_battery:
+  disabled: true
+sensor.bedroom_temp_temperature:
+  disabled: false
+  sort_order: 14
+  hidden: true
+sensor.bedroom_temp_humidity:
+  disabled: false
+  sort_order: 15
+  hidden: true
+sensor.bedroom_temp_pressure:
+  disabled: false
+  sort_order: 1
+  hidden: false
+  custom_card: true
+sensor.bedroom_wardrobe_door_battery:
+  disabled: true
+binary_sensor.bedroom_wardrobe_door_contact:
+  disabled: false
+  sort_order: 13
+  hidden: false
+sensor.garage_camera_light_power:
+  disabled: true
+sensor.garage_camera_light_energy:
+  disabled: true
+switch.garage_camera_light_power_outage_memory:
+  disabled: true
+update.garage_camera_light:
+  disabled: true
+device_tracker.bedroom_presense:
+  disabled: true
+binary_sensor.bed_presense:
+  disabled: false
+  sort_order: 8
+  hidden: false
+climate.bedroom_aircon:
+  disabled: false
+  favorite: true
+  devices_sort_order: 1
+  favorite_sort_order: 2
+  sort_order: 2
+  hidden: true
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+light.garage_camera_light:
+  disabled: true
+binary_sensor.bedroom_motion_group:
+  disabled: true
+  sort_order: 9
+light.bedside_lamp:
+  disabled: false
+  sort_order: 3
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+fan.zhimi_fa1_4020_fan:
+  disabled: false
+  sort_order: 4
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '2'
+  row_span_lg: '1'
+  col_span_xl: '2'
+  row_span_xl: '1'
+  custom_card: false
+  custom_popup: false
+switch.zhimi_fa1_4020_horizontal_swing:
+  disabled: true
+number.zhimi_fa1_4020_horizontal_angle:
+  disabled: true
+switch.zhimi_fa1_4020_vertical_swing:
+  disabled: true
+number.zhimi_fa1_4020_vertical_angle:
+  disabled: true
+switch.zhimi_fa1_4020_alarm:
+  disabled: true
+switch.zhimi_fa1_4020_physical_control_locked:
+  disabled: true
+light.bedroom_wardrobe_light:
+  disabled: false
+  sort_order: 9
+  hidden: false
+sensor.uvfive_slmap2_2e5e_germicidal_lamp:
+  disabled: true
+sensor.uvfive_slmap2_2e5e_left_time:
+  disabled: true
+switch.uvfive_slmap2_2e5e_radar_on:
+  disabled: false
+number.uvfive_slmap2_2e5e_target_time:
+  disabled: false
+  custom_card: true
+  hidden: false
+  excluded: false
+  friendly_name: ''
+  col_span: '2'
+  row_span: '1'
+  col_span_lg: '1'
+  row_span_lg: '1'
+  col_span_xl: '1'
+  row_span_xl: '1'
+  custom_popup: false
+switch.uvfive_slmap2_2e5e_physical_control_locked:
+  disabled: true
+switch.uvfive_slmap2_2e5e_switch_status:
+  disabled: false
+  sort_order: 16
+  hidden: false
+binary_sensor.espresense_bedroom:
+  disabled: true
+sensor.espresense_bedroom_uptime:
+  disabled: true
+sensor.espresense_bedroom_free_mem:
+  disabled: true
+button.espresense_bedroom_restart:
+  disabled: true
+number.espresense_bedroom_max_distance:
+  disabled: true
+number.espresense_bedroom_absorption:
+  disabled: true
+switch.espresense_bedroom_auto_update:
+  disabled: true
+switch.espresense_bedroom_arduino_ota:
+  disabled: true
+switch.espresense_bedroom_prerelease:
+  disabled: true
+button.espresense_bedroom_update:
+  disabled: true
+button.espresense_bedroom_enroll:
+  disabled: true
+sensor.ble_battery_bedroom_mosquito_repellent:
+  disabled: true
+sensor.ble_consumable_bedroom_mosquito_repellent:
+  disabled: true
+sensor.ble_rssi_bedroom_mosquito_repellent:
+  disabled: true
+binary_sensor.ble_switch_bedroom_mosquito_repellent:
+  disabled: true
+sensor.bedroom_window_battery:
+  disabled: true
+binary_sensor.bedroom_window_contact:
+  disabled: false
+  sort_order: 7
+  hidden: false
+media_player.bedroom_speaker:
+  disabled: false
+  sort_order: 5
+  hidden: false
+media_player.this_device:
+  disabled: true
+  sort_order: 14
+  hidden: false
+switch.bedroom_speaker_do_not_disturb_switch:
+  disabled: true
+switch.bedroom_speaker_shuffle_switch:
+  disabled: true
+switch.bedroom_speaker_repeat_switch:
+  disabled: true
+switch.this_device_do_not_disturb_switch:
+  disabled: true
+sensor.bedroom_speaker_next_alarm:
+  disabled: true
+sensor.bedroom_speaker_next_timer:
+  disabled: true
+sensor.bedroom_speaker_next_reminder:
+  disabled: true
+sensor.this_device_next_alarm:
+  disabled: true
+sensor.this_device_next_timer:
+  disabled: true
+sensor.this_device_next_reminder:
+  disabled: true
+sensor.bedroom_speaker_temperature:
+  disabled: true
+sensor.safe_door_battery:
+  disabled: true
+binary_sensor.safe_door_contact:
+  disabled: false
+  sort_order: 10
+  hidden: false
+sensor.safe_door_last_seen:
+  disabled: true
+sensor.espresense_bedroom_tx:
+  disabled: true
+sensor.espresense_bedroom_rx:
+  disabled: true
+device_tracker.bedroom_speaker:
+  disabled: true
+sensor.bedroom_speaker_rx:
+  disabled: true
+sensor.bedroom_speaker_tx:
+  disabled: true
+sensor.bathroom_presense_illuminance_lux:
+  disabled: false
+sensor.bathroom_presense_target_distance:
+  disabled: true
+sensor.bathroom_presense_radar_sensitivity:
+  disabled: true
+number.bathroom_presense_radar_sensitivity:
+  disabled: true
+sensor.bathroom_presense_minimum_range:
+  disabled: true
+number.bathroom_presense_minimum_range:
+  disabled: true
+sensor.bathroom_presense_maximum_range:
+  disabled: true
+number.bathroom_presense_maximum_range:
+  disabled: true
+sensor.bathroom_presense_detection_delay:
+  disabled: true
+number.bathroom_presense_detection_delay:
+  disabled: true
+sensor.bathroom_presense_fading_time:
+  disabled: true
+number.bathroom_presense_fading_time:
+  disabled: true
+sensor.bathroom_presense_self_test:
+  disabled: true
+binary_sensor.bathroom_presense:
+  disabled: false
+sensor.bathroom_water_leak_battery:
+  disabled: true
+sensor.smart_toothbrush_b0cf_battery:
+  disabled: true
+sensor.smart_toothbrush_b0cf_voltage:
+  disabled: true
+binary_sensor.smart_toothbrush_b0cf_toothbrush:
+  disabled: true
+sensor.smart_toothbrush_b0cf_counter:
+  disabled: true
+sensor.ble_battery_bathroom_temp:
+  disabled: true
+sensor.ble_rssi_bathroom_temp:
+  disabled: true
+sensor.ble_battery_toothbrush_t500:
+  disabled: false
+sensor.ble_rssi_toothbrush_t500:
+  disabled: true
+sensor.ble_score_toothbrush_t500:
+  disabled: true
+binary_sensor.ble_toothbrush_toothbrush_t500:
+  disabled: true
+sensor.smart_toothbrush_b0cf_consumable:
+  disabled: false
+sensor.bathroom_temp_humidity:
+  disabled: false
+  hidden: true
+sensor.bathroom_temp_temperature:
+  disabled: false
+  hidden: true
+binary_sensor.bathroom_water_leak:
+  disabled: false
+sensor.backyard_button_battery:
+  disabled: true
+sensor.backyard_button_action:
+  disabled: true
+sensor.backyard_door_battery:
+  disabled: true
+binary_sensor.backyard_door_contact:
+  disabled: false
+sensor.backyard_temp_battery:
+  disabled: true
+sensor.backyard_temp_temperature:
+  disabled: false
+  sort_order: 2
+  hidden: true
+sensor.backyard_temp_humidity:
+  disabled: false
+  sort_order: 3
+  hidden: true
+sensor.backyard_all_count:
+  disabled: true
+sensor.backyard_mouse_count:
+  disabled: true
+sensor.backyard_bird_count:
+  disabled: true
+sensor.backyard_motorcycle_count:
+  disabled: true
+sensor.backyard_bicycle_count:
+  disabled: true
+sensor.backyard_cat_count:
+  disabled: true
+sensor.backyard_dog_count:
+  disabled: true
+sensor.backyard_person_count:
+  disabled: true
+camera.backyard:
+  disabled: true
+  custom_card: true
+  devices_sort_order: 2
+  sort_order: 1
+camera.backyard_mouse:
+  disabled: true
+camera.backyard_bird:
+  disabled: true
+camera.backyard_motorcycle:
+  disabled: true
+camera.backyard_bicycle:
+  disabled: true
+camera.backyard_cat:
+  disabled: true
+camera.backyard_dog:
+  disabled: true
+camera.backyard_person:
+  disabled: true
+switch.backyard_detect:
+  disabled: true
+switch.backyard_motion:
+  disabled: true
+switch.backyard_recordings:
+  disabled: true
+switch.backyard_snapshots:
+  disabled: true
+binary_sensor.backyard_all_occupancy:
+  disabled: true
+binary_sensor.backyard_mouse_occupancy:
+  disabled: true
+binary_sensor.backyard_bird_occupancy:
+  disabled: true
+binary_sensor.backyard_motorcycle_occupancy:
+  disabled: true
+binary_sensor.backyard_bicycle_occupancy:
+  disabled: true
+binary_sensor.backyard_cat_occupancy:
+  disabled: true
+binary_sensor.backyard_dog_occupancy:
+  disabled: true
+binary_sensor.backyard_person_occupancy:
+  disabled: true
+binary_sensor.backyard_motion:
+  disabled: true
+sensor.rain_sensor_battery:
+  disabled: true
+binary_sensor.rain_sensor:
+  disabled: false
+  sort_order: 4
+sensor.ble_battery_night_light:
+  disabled: true
+sensor.ble_rssi_night_light:
+  disabled: true
+binary_sensor.ble_light_ccb5d1a1c2e4:
+  disabled: true
+binary_sensor.ble_motion_ccb5d1a1c2e4:
+  disabled: true
+sensor.backyard_window_motion_battery:
+  disabled: true
+binary_sensor.backyard_window_motion_occupancy:
+  disabled: false
+sensor.backyard_nightlight_battery:
+  disabled: true
+binary_sensor.backyard_nightlight_light:
+  disabled: true
+binary_sensor.backyard_nightlight_motion:
+  disabled: true
+sensor.backyard_nightlight_voltage:
+  disabled: true
+switch.livingroom_curtains:
+  sort_order: 11
+sensor.sofa_presense:
+  custom_card: true

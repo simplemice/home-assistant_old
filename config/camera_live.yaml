@@ -1,0 +1,21 @@
+- platform: platerecognizer
+  api_token: !secret platerecognizer
+  regions:
+    - th
+  save_file_folder: /config/www/plates/
+  save_timestamped_file: True
+  always_save_latest_file: True
+  source:
+    - entity_id: camera.garage
+
+- platform: doods
+  url: http://192.168.3.2:8080
+  detector: default
+  scan_interval: 2
+  source:
+    - entity_id: camera.garage
+  file_out: /config/www/doods/doods.jpg
+  confidence: 60
+  labels:
+    - name: person
+    - name: car

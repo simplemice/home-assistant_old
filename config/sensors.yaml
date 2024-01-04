@@ -1,0 +1,568 @@
+- platform: rest
+  name: sensor.todolist
+  method: GET
+  resource: https://api.todoist.com/sync/v9/projects/get_data
+  params:
+    project_id: !secret todolist_project
+  headers:
+    Authorization: !secret todolist_authorization
+  value_template: "{{ value_json['project']['id'] }}"
+  json_attributes:
+    - project
+    - items
+  scan_interval: 30
+
+- platform: template
+  sensors:
+    del_price:
+      friendly_name: "DEL Price"
+      unit_of_measurement: "USD"
+      value_template: "{{ ((states.sensor.coinmarketcap_curl.attributes.data.DEL.quote.USD.price) | float) | round(2) }}"
+
+- platform: time_date
+  display_options:
+    - "time"
+    - "date"
+    - "date_time"
+    - "date_time_utc"
+    - "date_time_iso"
+    - "time_date"
+    - "time_utc"
+    - "beat"
+
+- platform: worldclock
+  time_zone: Europe/Moscow
+
+- platform: sun2
+  monitored_conditions:
+    - sunrise
+    - solar_noon
+    - sunset
+    - dusk
+    - nautical_dusk
+    - astronomical_dusk
+    - daylight
+    - civil_daylight
+    - nautical_daylight
+    - astronomical_daylight
+    - night
+    - civil_night
+    - nautical_night
+    - astronomical_night
+    - elevation
+    - min_elevation
+    - max_elevation
+    - sun_phase
+    - deconz_daylight
+
+- platform: etherscan
+  name: "Cold Wallet"
+  address: "!secret eth_wallet
+
+- platform: template
+  sensors:
+    daily_sleep_time_rounded:
+      value_template: >
+        {{ timedelta(hours=states('binary_sensor.bed_presense') | float(0)) }}
+
+- platform: template
+  sensors:
+    darkness_sensor:
+      friendly_name: "Darkness sensor"
+      #delay_off: "00:02:00"
+      value_template: >-
+        {{ ( state_attr("sensor.garage_light_sensor_illuminance_lux", "illuminance") | float(0) < 1000 ) or ( state_attr('sun.sun', 'elevation') < -6 ) or ( state_attr("sensor.garage_light_sensor_illuminance_lux", "illuminance") | float(0) < 3000 ) or ( is_state( "cover.livingroom_curtains", "closed") and is_state( "binary_sensor.livingroom_door_contact", "closed")) or ( states("sensor.energy_meter_energy") | float(0) < 0.8 ) }}
+      icon_template: >-
+        {% if ( state_attr("sensor.garage_light_sensor_illuminance_lux", "illuminance") | float(0) < 1000 ) or ( state_attr('sun.sun', 'elevation') < -6 ) or ( state_attr("sensor.garage_light_sensor_illuminance_lux", "illuminance") | float(0) < 3000 ) or ( states("sensor.energy_meter_energy") | float(0) < 0.8 ) %}
+          mdi:brightness-4
+        {% else %}
+          mdi:brightness-5
+        {% endif %}
+
+- platform: template
+  sensors:
+    period_of_day:
+      friendly_name: "period of the day"
+      value_template: >-
+        {% if (as_timestamp(states.sun.sun.attributes.next_dusk)) - (as_timestamp(states.sun.sun.attributes.next_setting)) < 0 %}
+          dusk
+        {% elif (as_timestamp(states.sun.sun.attributes.next_rising)) - (as_timestamp(states.sun.sun.attributes.next_dawn)) < 0 %}
+          dawn
+        {% elif (states.sun.sun.attributes.elevation) < 0 %}
+          night
+        {% else %}
+          day
+        {% endif %}
+      icon_template: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          mdi:weather-sunny
+        {% else %}
+          mdi:weather-night
+        {% endif %}
+
+- platform: template
+  sensors:
+    day_duration:
+      friendly_name: "Day Duration"
+      value_template: >-
+        {% set sunrise = state_attr('sun.sun', 'next_rising') %}
+        {% set sunset = state_attr('sun.sun', 'next_setting') %}
+        {% set now = utcnow() %}
+        {% if now < sunrise %}
+          {{ (sunset - sunrise).total_seconds() }}
+        {% else %}
+          {{ (sunset - now).total_seconds() }}
+        {% endif %}
+      unit_of_measurement: seconds
+
+- platform: template
+  sensors:
+    night_duration:
+      friendly_name: "Night Duration"
+      value_template: >-
+        {% set sunrise = state_attr('sun.sun', 'next_rising') %}
+        {% set sunset = state_attr('sun.sun', 'next_setting') %}
+        {% set now = utcnow() %}
+        {% if now < sunrise %}
+          {{ (sunrise - now).total_seconds() }}
+        {% else %}
+          {{ (sunrise - sunset).total_seconds() }}
+        {% endif %}
+      unit_of_measurement: seconds
+
+- platform: template
+  sensors:
+    time_of_day:
+      friendly_name: "Time of day"
+      value_template: >-
+        {% set rising = (as_timestamp(states.sun.sun.attributes.next_rising)) < (as_timestamp(states.sun.sun.attributes.next_dawn)) %}
+        {% set setting = (as_timestamp(states.sun.sun.attributes.next_dusk)) < (as_timestamp(states.sun.sun.attributes.next_setting)) %}
+        {%- if is_state('sun.sun', 'above_horizon') %}
+          Day
+        {%- elif is_state('sensor.altura_do_dia', 'Day') and setting %}
+          Dusk
+        {%- elif is_state('sensor.altura_do_dia', 'Dusk') and not setting %}
+          Night
+        {%- elif is_state('sensor.altura_do_dia', 'unavailable') and is_state('sun.sun', 'below_horizon') %}
+          Night
+        {%- elif is_state('sensor.altura_do_dia', 'Night') and rising %}
+          Dawn
+        {%- else %}
+          {{ states('sensor.altura_do_dia') }}
+        {%- endif %}
+      icon_template: >-
+        {%- if is_state('sensor.altura_do_dia', 'Day') %}
+          mdi:weather-sunny
+        {%- elif is_state('sensor.time_of_day', 'Dusk') %}
+          mdi:weather-sunset-down
+        {%- elif is_state('sensor.height_of_day', 'Down') %}
+          mdi:weather-night
+        {%- elif is_state('sensor.altura_do_dia', 'Night') %}
+          mdi:weather-sunset-up
+        {%- else %}
+          mdi:alert-circle
+        {%- endif %}
+
+- platform: template
+  sensors:
+    xiaomi_alarm_hub:
+      friendly_name: "Alarm Gateway"
+      value_template: >-
+        {%- if is_state("device_tracker.alarm_gateway", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.alarm_gateway", "home") %}
+          mdi:router
+        {% else %}
+          mdi:router
+        {% endif %}
+
+- platform: template
+  sensors:
+    tuya_hub:
+      friendly_name: "Tuya Gateway"
+      value_template: >-
+        {%- if is_state("device_tracker.tuya_gateway_1", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.tuya_gateway_1", "home") %}
+          mdi:router
+        {% else %}
+          mdi:router
+        {% endif %}
+
+- platform: template
+  sensors:
+    bedroom_media_alexa:
+      friendly_name: "Bedroom Alexa"
+      value_template: >-
+        {%- if is_state("device_tracker.bedroom_speaker", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+
+- platform: template
+  sensors:
+    hacs_server:
+      friendly_name: "HACS Status"
+      value_template: >-
+        {%- if is_state("device_tracker.home_assistant", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+
+- platform: template
+  sensors:
+    zigbee_gateway:
+      friendly_name: "ZigBee Gateway"
+      value_template: >-
+        {%- if is_state("device_tracker.zigbee_hub", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.zigbee_hub", "home") %}
+          mdi:router
+        {% else %}
+          mdi:router
+        {% endif %}
+
+- platform: template
+  sensors:
+    kitchen_monitor:
+      friendly_name: "Kitchen Monitor Status"
+      value_template: >-
+        {%- if is_state("device_tracker.kitchen_monitor", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.kitchen_monitor", "home") %}
+          mdi:monitor
+        {% else %}
+          mdi:monitor
+        {% endif %}
+
+- platform: template
+  sensors:
+    bedroom_safe:
+      friendly_name: "Bedroom Safe"
+      value_template: >-
+        {%- if is_state("alarm_control_panel.safe", "armed_home" ) %}
+            Safe Armed
+        {%- else -%}
+            Safe Open
+        {%- endif %}
+      icon_template: >
+        {% if is_state("alarm_control_panel.safe", "armed_home") %}
+          mdi:safe
+        {% else %}
+          mdi:safe-square
+        {% endif %}
+
+- platform: template
+  sensors:
+    rain_sensor:
+      friendly_name: "Rain Sensor"
+      value_template: >-
+        {%- if is_state("binary_sensor.rain_sensor", "off" ) %}
+            No Rain
+        {%- else -%}
+            Rain Outside
+        {%- endif %}
+      icon_template: >
+        {% if is_state("binary_sensor.rain_sensor", "off") %}
+          mdi:weather-sunny
+        {% else %}
+          mdi:weather-pouring
+        {% endif %}
+
+- platform: template
+  sensors:
+    matrix_clock:
+      friendly_name: "Ulanzi Clock"
+      value_template: >-
+        {%- if is_state("device_tracker.ulanzi_clock", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.ulanzi_clock", "home") %}
+          mdi:clock
+        {% else %}
+          mdi:clock
+        {% endif %}
+
+- platform: template
+  sensors:
+    backcam_sensor:
+      friendly_name: "Backyard Camera"
+      value_template: >-
+        {%- if is_state("device_tracker.backyard_cam", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.backyard_cam", "home") %}
+          mdi:cctv
+        {% else %}
+          mdi:cctv-off
+        {% endif %}
+
+- platform: template
+  sensors:
+    garagecam_sensor:
+      friendly_name: "Garage Camera"
+      value_template: >-
+        {%- if is_state("device_tracker.garage_cam", "home" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.garage_cam", "home") %}
+          mdi:cctv
+        {% else %}
+          mdi:cctv-off
+        {% endif %}
+
+- platform: template
+  sensors:
+    micebook_sensor:
+      friendly_name: "Micebook Laptop"
+      value_template: >-
+        {%- if is_state("binary_sensor.micebook_status", "on" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("binary_sensor.micebook_status", "on") %}
+          mdi:laptop
+        {% else %}
+          mdi:laptop
+        {% endif %}
+
+- platform: template
+  sensors:
+    winbook_sensor:
+      friendly_name: "Windows Laptop"
+      value_template: >-
+        {%- if is_state("device_tracker.micebook_status", "on" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("device_tracker.micebook_status", "on") %}
+          mdi:laptop
+        {% else %}
+          mdi:laptop
+        {% endif %}
+
+- platform: template
+  sensors:
+    sofa_presense:
+      friendly_name: "Livingroom Sofa Presense"
+      unique_id: "0a7476cc-d6c1-40ba-8ae1-606518c3497f"
+      value_template: >-
+        {%- if is_state("binary_sensor.sofa_presense", "off" ) %}
+            Online
+        {%- else -%}
+            Offline
+        {%- endif %}
+      icon_template: >
+        {% if is_state("binary_sensor.sofa_presense", "off") %}
+          hue:room-living
+        {% else %}
+          hue:room-living-off
+        {% endif %}
+
+- platform: seventeentrack
+  username: !secret 17login
+  password: !secret 17pass
+
+- platform: template
+  sensors:
+    all_plugs_power:
+      unique_id: all_plugs_power
+      friendly_name: All Plugs Power
+      unit_of_measurement: Watt
+      value_template: >
+        {{ states('sensor.raspberry_outlet_power')| float(0) + states('sensor.garage_camera_light_power')| float(0) + states('sensor.bedroom_wardrobe_light_power')| float(0)}}
+
+- platform: openweathermap_all
+  api_key: !secret openweather_all
+  latitude: !secret weather_lat
+  longitude: !secret weather_long
+
+- platform: history_stats
+  name: ac_runtime_today_cool
+  unique_id: ac_runtime_today_cool
+  entity_id: climate.bedroom_aircon
+  state: "cool"
+  type: time
+  end: "{{ now().replace(hour=9, minute=0, second=0) }}"
+  duration:
+    hours: 15
+
+- platform: history_stats
+  name: ac_runtime_today_dry
+  unique_id: ac_runtime_today_dry
+  entity_id: climate.bedroom_aircon
+  state: "dry"
+  type: time
+  end: "{{ now().replace(hour=9, minute=0, second=0) }}"
+  duration:
+    hours: 15
+
+- platform: history_stats
+  name: Sleep TIme Duration
+  entity_id: binary_sensor.bed_presense
+  state: "on"
+  type: time
+  end: "{{ now().replace(hour=9, minute=0, second=0) }}"
+  duration:
+    hours: 15
+
+- platform: mqtt_room
+  device_id: "iBeacon:3e3d5952-a829-4d52-8e1e-c3ab9dbe69fa-100-1"
+  unique_id: micemob_ble
+  name: "micemob ble"
+  state_topic: "espresense/devices/iBeacon:3e3d5952-a829-4d52-8e1e-c3ab9dbe69fa-100-1"
+  timeout: 5
+  away_timeout: 30
+
+- platform: mqtt_room
+  device_id: "mifit:c890208b7c94"
+  unique_id: mifit_watch
+  name: "mifit watch"
+  state_topic: "espresense/devices/mifit:c890208b7c94"
+  timeout: 5
+  away_timeout: 30
+
+- platform: template
+  sensors:
+    proxmox_cpu_temp:
+      unique_id: proxmox_cpu_temp
+      friendly_name: "Proxmox CPU Temp"
+      value_template: '{{ states("input_number.proxmox_input_cpu_temp") | multiply(0.001) | round(1) }}'
+      unit_of_measurement: °C
+
+- platform: template
+  sensors:
+    ac_runtime_today:
+      unique_id: ac_runtime
+      friendly_name: "AC Runtime Today"
+      unit_of_measurement: "h"
+      value_template: "{{ (states('sensor.ac_runtime_today_cool') | float + states('sensor.ac_runtime_today_dry') | float) }}"
+      attribute_templates:
+        value: "{{ (60 * (states('sensor.ac_runtime_today_cool') | float + states('sensor.ac_runtime_today_dry') | float)) | int }}m"
+
+#====================================
+#=== Home Assistant Youtube
+#====================================
+
+- platform: youtube
+  channel_id: UCrVLgIniVg6jW38uVqDRIiQ
+
+- platform: youtube
+  channel_id: UCVtQ4AOSmCFUuvixddYiSxw
+
+- platform: youtube
+  channel_id: UCYLnawaM-36HncBBUeWrlGA
+
+- platform: youtube
+  channel_id: UC67SMH0qLMJ4b4Guud0mKjw
+
+- platform: youtube
+  channel_id: UCQRm_z7seHnGsBiWDNEWr6A
+
+- platform: youtube
+  channel_id: UCwOBG77Tm8cE24FPxHb_abw
+
+- platform: youtube
+  channel_id: UCOY6oNxodGWbFg6CjXtae5g
+
+- platform: youtube
+  channel_id: UCm-cVsRgJHChrEjeKENKJ-A
+
+- platform: youtube
+  channel_id: UC3VW-yo-88jkrWYbyHBxYUg
+
+- platform: youtube
+  channel_id: UCiyU6otsAn6v2NbbtM85npg
+
+- platform: youtube
+  channel_id: UCcq9onYHbs6go3kDpfBoqhg
+
+- platform: youtube
+  channel_id: UC2gyzKcHbYfqoXA5xbyGXtQ
+
+- platform: youtube
+  channel_id: UCipZJ6748kd8TbelSxcvcVg
+
+#====================================
+#=== Home Assistant Component counts
+#====================================
+- platform: template
+  sensors:
+    #----- Count Automations
+    count_automations:
+      value_template: "{{ states.automation | list | length }}"
+
+    #----- Count Scripts
+    count_scripts:
+      value_template: "{{ states.script| list | length }}"
+
+    #----- Count Device Trackers
+    count_device_trackers:
+      value_template: "{{ states.device_tracker | list | length }}"
+
+    #----- Count Binary Sensors
+    count_binary_sensors:
+      value_template: "{{ states.binary_sensor| list | length }}"
+
+    #----- Count Sensors
+    count_sensors:
+      value_template: "{{ states.sensor | list | length }}"
+
+    #----- Count Switches
+    count_switches:
+      value_template: "{{ states.switch | list | length }}"
+
+    #----- Count Zones
+    count_zones:
+      value_template: "{{ states.zone | list | length }}"
+
+    #----- Input Booleans
+    count_input_booleans:
+      value_template: "{{ states.input_boolean | list | length }}"
+
+    #----- Input Numbers
+    count_input_numbers:
+      value_template: "{{ states.input_number | list | length }}"
+
+    #----- Input Texts
+    count_input_texts:
+      value_template: "{{ states.input_text | list | length }}"
+
+    #----- Input Selects
+    count_input_selects:
+      value_template: "{{ states.input_select | list | length }}"
+
+    #----- Input Date Times
+    count_input_datetimes:
+      value_template: "{{ states.input_datetime | list | length }}"

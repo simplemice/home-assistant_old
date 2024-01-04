@@ -1,0 +1,9 @@
+entity: sensor.livingroom_light_sensor_illuminance_lux
+max: 300
+name: Livingroom Light Lux
+needle: true
+severity:
+  green: 0
+  red: 200
+  yellow: 100
+type: gauge

@@ -1,0 +1,17 @@
+cards:
+- artwork: cover
+  entity: media_player.spotify_simplemice
+  source: icon
+  type: custom:mini-media-player
+- entities:
+  - entity: input_select.playlist
+  - entity: input_select.speakers
+  type: entities
+col_span: '2'
+col_span_lg: '2'
+col_span_xl: '2'
+position: top
+row_span: '1'
+row_span_lg: '1'
+row_span_xl: '1'
+type: vertical-stack

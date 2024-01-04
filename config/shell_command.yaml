@@ -1,0 +1,4 @@
+suspend_micebook: "ssh -i /config/ssh_keys/id_rsa_homeassistant -o 'StrictHostKeyChecking=no' homeassistant@192.168.3.15 'sudo systemctl suspend'"
+turn_off_micebook: "ssh -i /config/ssh_keys/id_rsa_homeassistant -o 'StrictHostKeyChecking=no' homeassistant@remote_hostname sudo shutdown -h now"
+hibernate_micebook: "ssh -i /config/ssh_keys/id_rsa_homeassistant -o 'StrictHostKeyChecking=no' homeassistant@192.168.3.15 'sudo systemctl hibernate'"
+reboot_micebook: "ssh -i /config/ssh_keys/id_rsa_homeassistant -o 'StrictHostKeyChecking=no' homeassistant@192.168.3.15 'sudo systemctl reboot'"

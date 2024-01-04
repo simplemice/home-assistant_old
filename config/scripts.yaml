@@ -1,0 +1,372 @@
+aircon_on:
+  alias: Climate - Bedroom AirCon Cold Mode On
+  sequence:
+  - service: remote.send_command
+    data:
+      command: mk3mUwlk0mcxmEsmwAZTGazOYSyazgBEgAyAQgBmZyAyoELgDnMZrNgIVmgA5AdeBjAEDgMYB1gNuAIOCm4FKAZQB3gJvhiUBYoBFheeAPYO/hyeEh4CFBycBzAWEAleKRYbfhk+Aic1mM1AwKaACHMw3LCS8EfQ5fAY8KTwMfAYWAA=
+    target:
+      entity_id: remote.bedroom_remote_hub
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: remote.send_command
+    data:
+      command: mk0mswlk0mc0mEsms4mEsmM1m0wlk2mICJADkAhABHgRbNJyBDwCHgIQAP4JUTGazMBnwbfAigFXwkPAh8AcwAyAPcCjwEPCp8EHwMPAw8ChgwPDA8PXQAyAQgBnwB0msxGlOaTcaowHyEz8HLwe/GqgGiwrvD48CB4A
+    target:
+      entity_id: remote.bedroom_remote_hub
+  mode: single
+  icon: mdi:air-conditioner
+aircon_off:
+  alias: Climate - Bedroom AirCon Turn Off
+  sequence:
+  - service: remote.send_command
+    data:
+      command: mk0mkwlk0mc1mEsms3mEsmIAhzWcAIlOQEOAIUAMgGXAh0BjwS/AY8FPwMvAQ8AjwK/AZ8CLwZ6AyoDrwGPBK8CrwU/AH8AfwWvAI8AjwCImsxmwHJDVKAIQDagJECh4UXgQ+BkU2mACBAdeCX4DFwA=
+    target:
+      entity_id: remote.bedroom_remote_hub
+  mode: single
+  icon: mdi:air-conditioner
+laundry_start:
+  alias: Notification - Laundry Timer Start
+  sequence:
+  - service: timer.start
+    data:
+      duration: '{{ states(''input_datetime.time'') }}'
+    target:
+      entity_id: timer.laundry_timer
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.awtrix_laundry_timer
+  mode: single
+  icon: mdi:washing-machine-alert
+aircon_dry_on:
+  alias: Climate - Bedroom AirCon Dry Mode On
+  sequence:
+  - service: remote.send_command
+    data:
+      command: mk0m8wlk0mcxmEsms5mEsmM1m0wlk2AMKaADtMZrMwGfAHIBA5pOAByADIBjQECAYQDHJqBBoDCAQwCX4CEAp+Ed4BHgEIC94BHhV+DwwN/hh+DxIVXiD+J1IMfhh6AxQJXg6+AyU1mIoZTQUg5pMxAcBG8VbwzfCa8GegGPBTeAAA==
+    target:
+      entity_id: remote.bedroom_remote_hub
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: remote.send_command
+    data:
+      command: mk0mswlk0mc0mEsms4mEsmM1m0wlk2mICJADkAhABHgRbNJyBDwCHgIQAP4JUTGazMBnwbfAigFXwkPAh8AcwAyAPcCjwEPCp8EHwMPAw8ChgwPDA8PXQAyAQgBnwB0msxGlOaTcaowHyEz8HLwe/GqgGiwrvD48CB4A
+    target:
+      entity_id: remote.bedroom_remote_hub
+  mode: single
+  icon: mdi:air-conditioner
+livingroom_tv_on_off:
+  alias: Livingroom - Livingroom TV Turn On or Off
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 2
+      milliseconds: 0
+  - service: remote.send_command
+    data:
+      command: nMwmUwlk0mkxmEsmwBBzgAcpqAP4A/gDsBeUxm0zAY8CDZqCwYC/gD1MZtMAGPAY8BDwKfAH8CjwEPAQoAjwCKmEAA==
+    target:
+      entity_id: remote.livingroom_remote_hub
+  mode: single
+  icon: fas:tv
+cooking_timer:
+  alias: Notification - Cooking Timer Start
+  sequence:
+  - service: timer.start
+    data:
+      duration: '{{ states(''input_datetime.time'') }}'
+    target:
+      entity_id: timer.cooking_timer
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.cooking_timer_finish
+  mode: single
+  icon: mdi:chef-hat
+curtains:
+  alias: Livingroom - Open and Closed Curtains
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.livingroom_curtains
+        state: 'on'
+      sequence:
+      - service: cover.open_cover
+        data: {}
+        target:
+          entity_id: cover.livingroom_curtains
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 18
+          milliseconds: 0
+      - service: cover.stop_cover
+        data: {}
+        target:
+          entity_id: cover.livingroom_curtains
+    - conditions:
+      - condition: state
+        entity_id: switch.livingroom_curtains
+        state: 'off'
+      sequence:
+      - service: cover.close_cover
+        data: {}
+        target:
+          entity_id: cover.livingroom_curtains
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 18
+          milliseconds: 0
+      - service: cover.stop_cover
+        data: {}
+        target:
+          entity_id: cover.livingroom_curtains
+  mode: single
+  icon: mdi:curtains
+take_snapshot_of_states_before_away:
+  alias: Alarm - Take snapshot of states before away
+  sequence:
+  - service: scene.create
+    data:
+      scene_id: go_away_states
+      snapshot_entities:
+      - fan.dmaker_p23_42a8_fan
+      - fan.dmaker_p28_19b6_fan
+      - fan.kitchen_power_strip_switch
+      - light.lightstrip
+      - light.kitchen_wall_switch_left
+      - light.kitchen_wall_switch_right
+      - light.kitchen_wall_switch_center
+      - light.lumi_gateway_v3_light
+      - light.tv_table_ambient
+      - light.kitchen_ambient
+      - light.livingroom_night_ambient
+      - switch.raspberry_outlet
+      - switch.kitchen_kettle
+      - switch.livingroom_curtains
+      - light.wled_matrix
+  mode: single
+  icon: mdi:state-machine
+rice:
+  alias: Kitchen - Cube Action Rice Fine Cooking Mode
+  sequence:
+  - device_id: 48eeecb7f1853d34081e9f8c51ef9051
+    domain: select
+    entity_id: fbcb5c15b70edeb36a6b97fda23b04b2
+    type: select_option
+    option: Fine Cook
+  - type: turn_on
+    device_id: 48eeecb7f1853d34081e9f8c51ef9051
+    entity_id: 811599611bc817fda6020b2e353478ac
+    domain: switch
+  - service: timer.start
+    data:
+      duration: 01:00
+    target:
+      entity_id: timer.cooking_timer
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.cooking_timer_finish
+  mode: single
+  icon: mdi:rice
+'1697364362858':
+  alias: Notification - Garage Camera PopUp Window
+  sequence:
+  - service: browser_mod.popup
+    data:
+      dismissable: true
+      autoclose: true
+      title: Camera Motion
+      timeout: 14400
+      content:
+        cameras:
+        - camera_entity: camera.garage
+          icon: mdi:cctv
+          live_provider: auto
+          title: Garage
+          triggers:
+            entities:
+            - binary_sensor.garage_motion_group
+            motion: true
+        live:
+          microphone:
+            always_connected: true
+          preload: true
+        menu:
+          alignment: top
+          button_size: 35
+          style: overlay
+        type: custom:frigate-card
+        view:
+          default: live
+    target:
+      entity_id:
+      - media_player.micebook
+  mode: single
+  icon: mdi:cctv
+spotify_start_playback:
+  alias: Spotify Start Playback
+  sequence:
+  - service: spotcast.start
+    data:
+      device_name: '{{ states(''input_select.speakers'') }}'
+      force_playback: true
+      start_volume: 30
+      shuffle: true
+  mode: single
+  icon: mdi:spotify
+bedroom_sterilization:
+  alias: Bedroom - Turn on Sterilization Lamp for 30 min
+  sequence:
+  - service: notify.alexa_media_bedroom_speaker
+    data:
+      message: Sterilization will be start at 5 minutes!
+  - service: notify.mobile_app_micemob
+    data:
+      message: Sterilization will be start at 5 minutes!
+      title: Notification
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: number.set_value
+    data:
+      value: '30'
+    target:
+      entity_id: number.uvfive_slmap2_2e5e_target_time
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.uvfive_slmap2_2e5e_radar_on
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.uvfive_slmap2_2e5e_switch_status
+  mode: single
+  icon: mdi:bug
+activate_alexa_actionable_notification:
+  alias: activate_alexa_actionable_notification
+  description: Activates an actionable notification on a specific echo device
+  fields:
+    text:
+      description: The text you would like alexa to speak.
+      example: What would you like the thermostat set to?
+    event_id:
+      description: Correlation ID for event responses
+      example: ask_for_temperature
+    alexa_device:
+      description: Alexa device you want to trigger
+      example: media_player.bedroom_speaker
+    suppress_confirmation:
+      description: Set true if you want to suppress 'okay' confirmation
+      example: 'true'
+  sequence:
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.alexa_actionable_notification
+      value: '{"text": "{{ text }}", "event": "{{ event_id }}", "suppress_confirmation":
+        "{{ suppress_confirmation }}"}'
+  - service: media_player.play_media
+    data_template:
+      entity_id: '{{ alexa_device }}'
+      media_content_type: skill
+      media_content_id: amzn1.ask.skill.3302d350-d683-4e80-bbc6-1446201c1d24
+  mode: single
+'1702315855564':
+  alias: Youtube Test
+  use_blueprint:
+    path: fixtse/follow_yt_music.yaml
+    input:
+      yt_music_player: media_player.simplemice_youtube
+      media_player: media_player.bedroom_speaker
+      media_play:
+        entity_id: media_player.simplemice_youtube
+        media_content_id: ''
+        media_content_type: ''
+      shuffle: enable_shuffle
+  icon: fab:youtube
+radio_1_fm_deep_house:
+  alias: 'Media - Radio: 1.FM - Deep House'
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.micebook
+    data:
+      media_content_id: media-source://radio-browser/962a748b-0601-11e8-ae97-52543be04c81
+      media_content_type: music
+  mode: single
+  icon: mdi:playlist-music
+radio_1_fm_deep_house_ch:
+  alias: 'Media - Radio: 1.FM - Deep House ch'
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.micebook
+    data:
+      media_content_id: media-source://radio-browser/0ac7f5db-6f86-428f-8bb2-66ecce89ad1a
+      media_content_type: music
+  mode: single
+  icon: mdi:playlist-music
+radio_1_fm_trance:
+  alias: 'Media - Radio: 1.FM - Trance'
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.micebook
+    data:
+      media_content_id: media-source://radio-browser/962a61bf-0601-11e8-ae97-52543be04c81
+      media_content_type: music
+  mode: single
+  icon: mdi:playlist-music
+radio_1_fm_chillout:
+  alias: 'Media - Radio: 1.FM - Chillout'
+  sequence:
+  - service: media_player.play_media
+    target:
+      entity_id:
+      - media_player.micebook
+    data:
+      media_content_id: media-source://radio-browser/961fb4b2-0601-11e8-ae97-52543be04c81
+      media_content_type: music
+  mode: single
+  icon: mdi:playlist-music
+notification_door_bell:
+  alias: Notification - Police Effect on Wled Panel
+  sequence:
+  - service: select.select_option
+    metadata: {}
+    data:
+      option: Police
+    target:
+      entity_id: select.wled_matrix_preset
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: select.select_option
+    metadata: {}
+    data:
+      option: Black Hole
+    target:
+      entity_id: select.wled_matrix_preset
+  mode: single
+  icon: mdi:police-badge-outline

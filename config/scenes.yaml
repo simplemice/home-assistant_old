@@ -1,0 +1,407 @@
+- id: '1702912964640'
+  name: Livingroom - After Sunset Ambient
+  entities:
+    light.livingroom_door_ambient:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6993
+      min_mireds: 143
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 93
+      - 94
+      rgb_color:
+      - 123
+      - 255
+      - 15
+      xy_color:
+      - 0.263
+      - 0.666
+      friendly_name: Livingroom Door Ambient
+      supported_features: 40
+      state: 'on'
+    light.livingroom_wardrobe_ambient:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6993
+      min_mireds: 143
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 167
+      - 98
+      rgb_color:
+      - 5
+      - 255
+      - 200
+      xy_color:
+      - 0.157
+      - 0.439
+      friendly_name: Livingroom Wardrobe Ambient
+      supported_features: 40
+      state: 'on'
+    light.wled_matrix:
+      effect_list:
+      - Akemi
+      - Android
+      - Aurora
+      - Black Hole
+      - Blends
+      - Blink
+      - Blink Rainbow
+      - Blobs
+      - Blurz
+      - Bouncing Balls
+      - Bpm
+      - Breathe
+      - Candle
+      - Candle Multi
+      - Chase
+      - Chase 2
+      - Chase 3
+      - Chase Flash
+      - Chase Flash Rnd
+      - Chase Rainbow
+      - Chase Random
+      - Chunchun
+      - Colored Bursts
+      - Colorful
+      - Colorloop
+      - Colortwinkles
+      - Colorwaves
+      - Crazy Bees
+      - DJ Light
+      - DNA
+      - DNA Spiral
+      - Dancing Shadows
+      - Dissolve
+      - Dissolve Rnd
+      - Distortion Waves
+      - Drift
+      - Drift Rose
+      - Drip
+      - Dynamic
+      - Dynamic Smooth
+      - Fade
+      - Fairy
+      - Fairytwinkle
+      - Fill Noise
+      - Fire 2012
+      - Fire Flicker
+      - Firenoise
+      - Fireworks
+      - Fireworks 1D
+      - Fireworks Starburst
+      - Flow
+      - Flow Stripe
+      - Freqmap
+      - Freqmatrix
+      - Freqpixels
+      - Freqwave
+      - Frizzles
+      - Funky Plank
+      - GEQ
+      - Game Of Life
+      - Ghost Rider
+      - Glitter
+      - Gradient
+      - Gravcenter
+      - Gravcentric
+      - Gravfreq
+      - Gravimeter
+      - Halloween Eyes
+      - Heartbeat
+      - Hiphotic
+      - ICU
+      - Juggle
+      - Juggles
+      - Julia
+      - Lake
+      - Lighthouse
+      - Lightning
+      - Lissajous
+      - Loading
+      - Matripix
+      - Matrix
+      - Metaballs
+      - Meteor
+      - Meteor Smooth
+      - Midnoise
+      - Multi Comet
+      - Noise 1
+      - Noise 2
+      - Noise 3
+      - Noise 4
+      - Noise Pal
+      - Noise2D
+      - Noisefire
+      - Noisemeter
+      - Noisemove
+      - Octopus
+      - Oscillate
+      - Pacifica
+      - Palette
+      - Percent
+      - Perlin Move
+      - Phased
+      - Phased Noise
+      - Pixels
+      - Pixelwave
+      - Plasma
+      - Plasma Ball
+      - Plasmoid
+      - Polar Lights
+      - Popcorn
+      - Pride 2015
+      - Puddlepeak
+      - Puddles
+      - Pulser
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - RSVD
+      - Railway
+      - Rain
+      - Rainbow
+      - Rainbow Runner
+      - Random Colors
+      - Ripple
+      - Ripple Peak
+      - Ripple Rainbow
+      - Rocktaves
+      - Rolling Balls
+      - Running
+      - Running Dual
+      - Saw
+      - Scan
+      - Scan Dual
+      - Scanner
+      - Scanner Dual
+      - Scrolling Text
+      - Sindots
+      - Sine
+      - Sinelon
+      - Sinelon Dual
+      - Sinelon Rainbow
+      - Soap
+      - Solid
+      - Solid Glitter
+      - Solid Pattern
+      - Solid Pattern Tri
+      - Spaceships
+      - Sparkle
+      - Sparkle Dark
+      - Sparkle+
+      - Spots
+      - Spots Fade
+      - Squared Swirl
+      - Stream
+      - Stream 2
+      - Strobe
+      - Strobe Mega
+      - Strobe Rainbow
+      - Sun Radiation
+      - Sunrise
+      - Sweep
+      - Sweep Random
+      - Swirl
+      - TV Simulator
+      - Tartan
+      - Tetrix
+      - Theater
+      - Theater Rainbow
+      - Traffic Light
+      - Tri Fade
+      - Tri Wipe
+      - Twinkle
+      - Twinklecat
+      - Twinklefox
+      - Twinkleup
+      - Two Dots
+      - Washing Machine
+      - Waterfall
+      - Waverly
+      - Wavesins
+      - Waving Cell
+      - Wipe
+      - Wipe Random
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 64
+      hs_color:
+      - 282.118
+      - 100
+      rgb_color:
+      - 179
+      - 0
+      - 255
+      xy_color:
+      - 0.284
+      - 0.108
+      effect: Black Hole
+      icon: mdi:led-strip-variant
+      friendly_name: Matrix Panel
+      supported_features: 36
+      state: 'on'
+    select.wled_matrix_playlist:
+      options:
+      - Full Random
+      icon: mdi:play-speed
+      friendly_name: Matrix Panel Playlist
+      state: unknown
+    select.wled_matrix_preset:
+      options:
+      - Black Hole
+      - Colortwinkles
+      - DNA Spiral
+      - Drift
+      - Freqpixels
+      - Lightning
+      - Octopus
+      - Soap
+      - Sun Radiation
+      - Tetrix
+      - Twinklefox
+      - Waving Cell
+      - Welcome Home
+      icon: mdi:playlist-play
+      friendly_name: Panel Preset
+      state: unknown
+  icon: hue:bulb-group-candle-lightstrip
+  metadata: {}
+- id: '1704210603495'
+  name: Kitchen - Ambient After Sunset
+  entities:
+    light.kitchen_upper_ambient:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - xy
+      color_mode: xy
+      brightness: 128
+      hs_color:
+      - 197.48
+      - 99.608
+      rgb_color:
+      - 1
+      - 181
+      - 255
+      xy_color:
+      - 0.145
+      - 0.22
+      effect:
+      friendly_name: Kitchen Upper Ambient
+      supported_features: 44
+      state: 'on'
+    light.kitchen_bottom_ambient:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - xy
+      color_mode: xy
+      brightness: 128
+      hs_color:
+      - 307.131
+      - 95.686
+      rgb_color:
+      - 255
+      - 11
+      - 226
+      xy_color:
+      - 0.424
+      - 0.173
+      effect:
+      friendly_name: Kitchen Bottom Ambient
+      supported_features: 44
+      state: 'on'
+  icon: bha:led-strip
+  metadata:
+    light.kitchen_upper_ambient:
+      entity_only: true
+    light.kitchen_bottom_ambient:
+      entity_only: true
+- id: '1704210697479'
+  name: Kitchen - Ambient Day Mode
+  entities:
+    light.kitchen_upper_ambient:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - xy
+      friendly_name: Kitchen Upper Ambient
+      supported_features: 44
+      color_mode: xy
+      brightness: 255
+      hs_color:
+      - 73.077
+      - 91.765
+      rgb_color:
+      - 204
+      - 255
+      - 21
+      xy_color:
+      - 0.377
+      - 0.569
+      state: 'on'
+    light.kitchen_bottom_ambient:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - xy
+      friendly_name: Kitchen Bottom Ambient
+      supported_features: 44
+      color_mode: xy
+      brightness: 255
+      hs_color:
+      - 23.096
+      - 93.725
+      rgb_color:
+      - 255
+      - 108
+      - 16
+      xy_color:
+      - 0.636
+      - 0.351
+      state: 'on'
+  icon: bha:led-strip
+  metadata:
+    light.kitchen_upper_ambient:
+      entity_only: true
+    light.kitchen_bottom_ambient:
+      entity_only: true

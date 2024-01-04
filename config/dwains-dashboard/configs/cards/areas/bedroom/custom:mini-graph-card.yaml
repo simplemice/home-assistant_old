@@ -1,0 +1,29 @@
+col_span: '2'
+col_span_lg: '2'
+col_span_xl: '2'
+color_thresholds:
+- color: '#ff0000'
+  value: 32
+- color: '#ffd900'
+  value: 29
+- color: '#62ff00'
+  value: 28
+entities:
+- entity: sensor.bedroom_temp_temperature
+  name: Temp
+  show_state: true
+- entity: sensor.bedroom_temp_humidity
+  name: Humidity
+hour24: true
+hours_to_show: 24
+more_info: true
+name: Temperature
+points_per_hour: 6
+position: top
+row_span: '1'
+row_span_lg: '2'
+row_span_xl: '2'
+show:
+  extrema: true
+  legend: true
+type: custom:mini-graph-card

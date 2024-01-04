@@ -1,0 +1,3 @@
+cameras:
+- camera_entity: camera.garage
+type: custom:frigate-card

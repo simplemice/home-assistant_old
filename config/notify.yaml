@@ -1,0 +1,6 @@
+- name: telegram_group
+  platform: telegram
+  chat_id: !secret tg_group
+- name: telegram_to_me
+  platform: telegram
+  chat_id: !secret tg_me

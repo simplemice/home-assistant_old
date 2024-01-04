@@ -1,0 +1,15 @@
+col_span: '2'
+col_span_lg: '2'
+col_span_xl: '2'
+entity: climate.bedroom_aircon
+features:
+- hvac_modes:
+  - 'off'
+  - cool
+  - dry
+  type: climate-hvac-modes
+position: top
+row_span: '1'
+row_span_lg: '1'
+row_span_xl: '1'
+type: thermostat

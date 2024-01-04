@@ -1,0 +1,10 @@
+entity: sensor.bedroom_light_sensor_illuminance_lux
+max: 100
+min: 0
+name: Bedroom Light Lux
+needle: true
+severity:
+  green: 0
+  red: 70
+  yellow: 30
+type: gauge

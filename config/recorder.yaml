@@ -1,0 +1,22 @@
+db_url: !secret db_link
+purge_keep_days: 31
+auto_purge: true
+auto_repack: true
+exclude:
+  entities:
+    - sensor.date_time
+    - sensor.internet_time
+    - sensor.time
+    - sensor.time_utc
+    - sensor.date_time_iso
+    - sun.sun
+    - sensor.last_boot
+    - sensor.date
+    - sensor.moon_phase
+  domains:
+    - alarm_control_panel
+    - alert
+    - device_tracker
+    - camera
+  event_types:
+    - call_service

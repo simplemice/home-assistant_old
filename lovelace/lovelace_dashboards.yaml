@@ -1,0 +1,8 @@
+items:
+- icon: mdi:cellphone
+  id: dashboard_mobile
+  mode: storage
+  require_admin: false
+  show_in_sidebar: true
+  title: Mobile
+  url_path: dashboard-mobile

@@ -1,0 +1,4 @@
+name: Energy
+icon: mdi:transmission-tower
+show_in_navbar: true
+sort_order: 2

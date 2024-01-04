@@ -1,0 +1,9 @@
+entity: sensor.bedroom_temp_pressure
+max: 1100
+name: Atmospheric Pressure
+needle: true
+severity:
+  green: 0
+  red: 900
+  yellow: 760
+type: gauge

@@ -1,0 +1,11 @@
+doors_alert_open:
+  name: "Notify doors open"
+  message: "Doors Steel Open! Please, Close All Doors!"
+  done_message: "All Doors Are Closed!"
+  entity_id: input_boolean.security_all_doors_open
+  state: "on"
+  repeat: 5
+  can_acknowledge: false
+  skip_first: false
+  notifiers:
+    - mobile_app_micemob

@@ -1,0 +1,45 @@
+config:
+  views:
+  - cards:
+    - entity: sensor.captive_portal_clients
+      state_color: true
+      theme: yourname
+      type: entity
+      unit: Guest
+    - entity: counter.guest_counter
+      state_color: true
+      theme: yourname
+      type: entity
+      unit: People
+    - artwork: cover
+      entity: media_player.bedroom_speaker
+      icon: mdi:radio
+      info: short
+      name: Simplemice Laptop
+      shortcuts:
+        buttons:
+        - id: script.radio_1_fm_deep_house
+          name: 1fm House
+          type: script
+        - id: script.radio_1_fm_deep_house_ch
+          name: 1fm House CN
+          type: script
+        - id: script.radio_1_fm_chillout
+          name: 1fm Ambient
+          type: script
+        - id: script.radio_1_fm_trance
+          name: 1fm Trance
+          type: script
+        columns: 3
+      sound_mode: full
+      source: full
+      type: custom:mini-media-player
+    - cards:
+      - entity: media_player.spotify_simplemice
+        type: custom:mini-media-player
+      - entities:
+        - entity: input_select.playlist
+        - entity: input_select.speakers
+        type: entities
+      type: vertical-stack
+    title: Home

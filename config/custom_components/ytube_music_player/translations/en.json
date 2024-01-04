@@ -1,0 +1,218 @@
+{
+    "title": "yTubeMediaPlayer",
+    "config": {
+        "step": {
+            "oauth": {
+                "description": "Please open the URL below in a seperate browser window. Once you completed the setup please return to this page and go on",
+                "data": {
+                    "code": "Google Device Code"
+                }
+            },
+            "finish": {
+                "description": "Please enter the basic data. Further information available at https://github.com/KoljaWindeler/ytube_music_player",
+                "data": {
+                    "name": "Name for the entity (without 'media_player' prefix)",
+                    "speakers": "Select the default output device",
+                    "header_path": "File path for the header file",
+                    "advance_config": "Show advance configuration"
+                }
+            },
+            "adv_finish": {
+                "description": "Here you can change to entity ids of select fields, if you don't use the dropdowns just leave them as is",
+                "data": {
+                    "brand_id": "Enter a brand id if you are using a brand account",
+                    "select_speakers": "Entity id of input_select for speaker selection",
+                    "select_playmode":"Entity id of input_select for playmode selection",
+                    "select_source":"Entity id of input_select for playlist/radio selection",
+                    "select_playlist":"Entity id of input_select for playlist selection",
+                    "select_playcontinuous":"Entity id of input_boolean for play continouus selection",
+                    "proxy_path": "Local path for proxy mode, leave blank if you don't need it",
+                    "proxy_url": "Base URL for proxy mode, leave blank if you don't need it",
+                    "like_in_name": "Show like status in the name",
+                    "debug_as_error": "Show all debug output as ERROR in the log",
+                    "shuffle": "Turn on shuffle on startup",
+                    "track_limit": "Limit of simultaneously loaded tracks",
+                    "legacy_radio": "Create radio as watchlist of random playlist track",
+                    "sort_browser": "Sort results in the media browser",
+                    "extra_sensor": "Create sensor that provide extra information"
+                }
+            }
+        },
+        "error": {
+            "ERROR_GENERIC": "It looks like you haven't granted access to our request, please try again"
+        }
+    },
+    "options": {
+        "step": {
+            "finish": {
+                "description": "Please enter the basic data. Further information available at https://github.com/KoljaWindeler/ytube_music_player",
+                "data": {
+                    "name": "Name for the entity (without 'media_player' prefix)",
+                    "speakers": "Select the default output device",
+                    "header_path": "File path for the header file",
+                    "advance_config": "Show advance configuration"
+                }
+            },
+            "adv_finish": {
+                "description": "Here you can change to entity ids of select fields, if you don't use the dropdowns just leave them as is",
+                "data": {
+                    "brand_id": "Enter a brand id if you are using a brand account",
+                    "select_speakers": "Entity id of input_select for speaker selection",
+                    "select_playmode":"Entity id of input_select for playmode selection",
+                    "select_source":"Entity id of input_select for playlist/radio selection",
+                    "select_playlist":"Entity id of input_select for playlist selection",
+                    "select_playcontinuous":"Entity id of input_boolean for play continouus selection",
+                    "proxy_path": "Local path for proxy mode, leave blank if you don't need it",
+                    "proxy_url": "Base URL for proxy mode, leave blank if you don't need it",
+                    "like_in_name": "Show like status in the name",
+                    "debug_as_error": "Show all debug output as ERROR in the log",
+                    "shuffle": "Turn on shuffle on startup",
+                    "track_limit": "Limit of simultaneously loaded tracks",
+                    "legacy_radio": "Create radio as watchlist of random playlist track",
+                    "sort_browser": "Sort results in the media browser",
+                    "extra_sensor": "Create sensor that provide extra information"
+                }
+            }
+        },
+        "error": {
+            "ERROR_GENERIC": "It looks like you haven't granted access to our request, please try again"
+        }
+    },
+    "services": {
+        "add_to_playlist": {
+            "name": "Add song to playlist",
+            "description": "Adds a song to a playlist",
+            "fields": {
+                "entity_id": {
+                    "name": "Entity ID",
+                    "description": "Entity ID of the ytube media player"
+                },
+                "song_id": {
+                    "name": "Song ID",
+                    "description": "The id of the song, optional. By default the current song id is used. Only provide an argument to override this behavior."
+                },
+                "playlist_id": {
+                    "name": "Playlist ID",
+                    "description": "The id of the playlist, optional. By default the current playlist is used. Only provide an argument to override this behavior."
+                }
+            }
+        },
+        "remove_from_playlist": {
+            "name": "Remove song from playlist",
+            "description": "Removes a song from a playlist",
+            "fields": {
+                "entity_id": {
+                    "name": "Entity ID",
+                    "description": "Entity ID of the ytube media player"
+                },
+                "song_id": {
+                    "name": "Song ID",
+                    "description": "The id of the song, optional. By default the current song id is used. Only provide an argument to override this behavior."
+                },
+                "playlist_id": {
+                    "name": "Playlist ID",
+                    "description": "The id of the playlist, optional. By default the current playlist is used. Only provide an argument to override this behavior."
+                }
+            }
+        },
+        "call_method": {
+            "name": "Call a submethod of ytubemusic player",
+            "description": "Call a custom command.",
+            "fields": {
+                "entity_id": {
+                    "name": "Entity ID",
+                    "description": "Name(s) of the yTube music player entity where to run the custom command.",
+                    "example": "media_player.ytube_music_player"
+                },
+                "command": {
+                    "name": "Command",
+                    "description": "Command to pass to LyTube music player.",
+                    "example": "rate_track"
+                },
+                "parameters": {
+                    "name": "Parameter",
+                    "description": "Array of additional parameters, optional and depends on command.",
+                    "example": "thumb_up"
+                }
+            }
+        },
+        "search": {
+            "description": "Search for music / album / etc on Ytube YouTube Music Player",
+            "name": "Search",
+            "fields":{
+                "entity_id": {
+                    "name": "Entity ID",
+                    "description": "Name(s) of the yTube music player entity where to run the custom command.",
+                    "example": "media_player.ytube_music_player"
+                },
+                "query": {
+                    "name": "Query",
+                    "description": "The search query",
+                    "example": "2pm tetris"
+                },
+                "filter": {
+                    "name": "Filter",
+                    "description": "filter for query, values can be 'albums', 'playlists','artists' or 'songs'. Leave this out to get all types."
+                },
+                "limit": {
+                    "name": "Limit",
+                    "description": "Limits the amount of resuls",
+                    "example": "20"
+                }
+            }
+        },
+        "rate_track": {
+            "name": "Rate a track",
+            "description": "Rates a song",
+            "fields":  {
+                "entity_id": {
+                    "name": "Entity ID",
+                    "description": "Name(s) of the yTube music player entity where to run the custom command.",
+                    "example": "media_player.ytube_music_player"
+                },
+                "rating": {
+                    "name":"Rating",
+                    "description": "The rating of the song, can be 'thumb_up' / 'thumb_down' / 'thumb_middle' / 'thumb_toggle_up_middle'.",
+                    "example": "thumb_up"
+                },
+                "song_id": {
+                    "name": "Song ID",
+                    "description": "The id of the song, optional. By default the current song id is used. Only provide an argument to override this behavior.",
+                    "example": ""
+                }
+            }
+        },
+        "limit_count": {
+            "name": "Limit song count",
+            "description": "Limits the count of loaded tracks",
+            "fields": {
+                "entity_id": {
+                    "name": "Entity ID",
+                    "description": "Name(s) of the yTube music player entity where to run the custom command.",
+                    "example": "media_player.ytube_music_player"
+                },
+                "limit": {
+                    "name": "Limit",
+                    "description": "The amount of tracks, loaded per call",
+                    "example": "20"
+                }
+            }
+        },
+        "start_radio": {
+            "name": "Radio",
+            "description": "Creates a radio of the current track",
+            "fields": {
+              "entity_id": {
+                "name": "Entity ID",
+                "description": "Name(s) of the yTube music player entity where to run the command.",
+                "example": "media_player.ytube_music_player"
+              },
+              "interrupt": {
+                "name": "Interrupt",
+                "description": "interrupt the current playback or not",
+                "example": "true"
+              }
+            }
+        }
+    }
+}

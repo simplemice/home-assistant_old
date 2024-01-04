@@ -1,0 +1,3 @@
+name: Weather
+icon: mdi:weather-partly-cloudy
+show_in_navbar: true

@@ -1,0 +1,77 @@
+default_config:
+history:
+ffmpeg:
+wake_on_lan:
+
+homeassistant:
+  customize: !include customize.yaml
+  #  packages: !include_dir_named packages
+  whitelist_external_dirs:
+    - /config/www/camera_snaps
+  auth_providers:
+    - type: trusted_networks
+      trusted_networks:
+        - 192.168.3.0/24
+    - type: homeassistant
+
+logger:
+  default: info
+  logs:
+    homeassistant.components.amazon_polly: debug
+
+http:
+  #  ssl_certificate: /config/homeassistant.pem
+  #  ssl_key: /config/homeassistant-key.pem
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.0.0/24
+    - 192.168.3.0/24
+    - 192.168.2.0/24
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+smartir:
+
+#lovelace:
+#  mode: storage
+# Add yaml dashboards
+#  dashboards:
+#    tablet-yaml:
+#      mode: yaml
+#      title: Tablet
+#      icon: mdi:tablet-dashboard
+#      show_in_sidebar: true
+#      filename: monitor-ui-dashboard.yaml
+
+template: !include sidebar.yaml
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
+switch: !include switch.yaml
+device_tracker: !include device_tracker.yaml
+remote: !include remote.yaml
+telegram_bot: !include telegram.yaml
+calendar: !include calendar.yaml
+spotcast: !include spotcast.yaml
+notify: !include notify.yaml
+rest_command: !include rest_command.yaml
+input_boolean: !include input_boolean.yaml
+command_line: !include command_line.yaml
+tts: !include speech.yaml
+zone: !include zone.yaml
+panel_iframe: !include iframe.yaml
+shell_command: !include shell_command.yaml
+image_processing: !include camera_live.yaml
+alert: !include alerts.yaml
+climate: !include climate.yaml
+mqtt: !include mqtt.yaml
+recorder: !include recorder.yaml
+
+geo_location:
+  - platform: usgs_earthquakes_feed
+    feed_type: "past_day_all_earthquakes"
+    radius: 1500
+    minimum_magnitude: 0.0
