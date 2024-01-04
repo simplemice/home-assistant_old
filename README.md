@@ -7,6 +7,23 @@
   </h4>
 </div>
 
+#### Proxmox
+* VM's:
+  * MQTT
+  * Zigbee2MQTT
+  * MariaDB
+  * Plex
+  * ESPHome
+  * Node-Red
+  * HaOS
+  
+* Hardware
+  * ATHome Zigbee Gateway
+  * Sonoff Zigbee Stick P as Router
+  * Mikrotik 4011
+
+* Screenshots
+
 <img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_PC.png" alt="UI" style="max-width: 20%;">
 
 <img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_Mob.jpg" alt="UI" style="max-width: 20%;">
