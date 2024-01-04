@@ -24,8 +24,8 @@
 ### Network
 * Hardware
   * Mikrotik RB4011iGS+5HacQ2HnD-IN
-  * ATHome Zigbee Gateway as Coordinator
-  * Sonoff Zigbee Stick P as Router
+  * [ATHome Zigbee Gateway](https://athom.tech/blank-1/zigbee-gateway) as Coordinator
+  * [Sonoff Zigbee Dongle Plus](https://sonoff.tech/product/gateway-and-sensors/sonoff-zigbee-3-0-usb-dongle-plus-p) as [Router](https://github.com/Koenkk/Z-Stack-firmware/tree/master/router/Z-Stack_3.x.0/bin)
 
 #### Other Hardware
 * Hardware
@@ -38,7 +38,7 @@
 * Xiaomi
 * Aqara
 * Tuya
-* Wled
+* [Wled](https://kno.wled.ge) DIY led strips and matrix panels
 
 #### Camera
 * Sonoff Cam Slim
@@ -47,7 +47,7 @@
 * Xiaomi
 * Aqara
 * Tuya
-* ESP32 DIY
+* ESP32 DIY Sensors
 
 #### Outlets / Switches
 * Xiaomi
