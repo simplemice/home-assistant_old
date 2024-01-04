@@ -8,6 +8,9 @@
 </div>
 
 #### Proxmox
+* Hardware
+  * ZX01 (N5105 DDR4 8GB 254GB DDR4)
+    
 * VM's:
   * MQTT
   * Zigbee2MQTT
@@ -15,12 +18,15 @@
   * Plex
   * ESPHome
   * Node-Red
+  * Frigate
   * HaOS
   
+### Network
 * Hardware
-  * ATHome Zigbee Gateway
+  * Mikrotik RB4011iGS+5HacQ2HnD-IN
+  * ATHome Zigbee Gateway as Coordinator
   * Sonoff Zigbee Stick P as Router
-  * Mikrotik 4011
+
 
 * Screenshots
 
