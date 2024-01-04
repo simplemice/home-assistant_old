@@ -11,15 +11,15 @@
 * Hardware
   * ZX01 (N5105 DDR4 8GB 254GB DDR4)
     
-* VM's:
+* Containers:
+  * HAOS
   * MQTT
   * Zigbee2MQTT
-  * MariaDB
-  * Plex
   * ESPHome
   * Node-Red
+  * MariaDB
   * Frigate
-  * HaOS
+  * Plex
   
 ### Network
 * Hardware
@@ -27,10 +27,49 @@
   * ATHome Zigbee Gateway as Coordinator
   * Sonoff Zigbee Stick P as Router
 
+#### Other Hardware
+* Hardware
+  * Raspberry Pi 3 for [Spotify Monitor](https://github.com/simplemice/Nowify)
+  * Ulanzi Smart Pixel Clock
+
+## Devices
+
+### Lights
+* Xiaomi
+* Aqara
+* Tuya
+* Wled
+
+#### Camera
+* Sonoff Cam Slim
+
+#### Sensors
+* Xiaomi
+* Aqara
+* Tuya
+* ESP32 DIY
+
+#### Outlets / Switches
+* Xiaomi
+* Aqara
+* Tuya
+
+#### Climate/Air Quality
+* Xiaomi
+* FIVE Smart Sterilization Lamp
+
+#### Cover
+* Zemismart Tuya Zigbee Electric Curtain Robot
+
+### Media
+* Amazon Echo
+
+### Occupancy
+* [ESPresense](https://espresense.com) at each room
+
+########################################################################
+
+[Buy Me Coffy](https://www.buymeacoffee.com/simplemice)
+
 
 * Screenshots
-
-<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_PC.png" alt="UI" style="max-width: 20%;">
-
-<img src="https://github.com/simplemice/home-assistant/blob/main/screenshots/Screenshot_Mob.jpg" alt="UI" style="max-width: 20%;">
-
