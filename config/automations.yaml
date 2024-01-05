@@ -1459,7 +1459,8 @@
     for:
       hours: 0
       minutes: 0
-      seconds: 0
+      seconds: 30
+    from: 'on'
   condition:
   - condition: and
     conditions:
@@ -1542,7 +1543,7 @@
     target:
       entity_id: select.wled_matrix_preset
     data:
-      option: Octopus
+      option: Black Hole
   - service: fan.turn_on
     target:
       entity_id:
@@ -2230,8 +2231,8 @@
       cache: false
       entity_id: media_player.bedroom_speaker
       message: "{{ [ \n  \"Good Night from Mice House. \", \n  \"Time to shut down
-        this party. Good Night from Mice House. \",\n  \"I'm feeling tired. Think
-        I'll take a quick nap. Good Night!\",\n  \"Things are getting quiet. Time
+        this party. Good Night from Mice House. \",\n  \"I am feeling tired. Think
+        I will take a quick nap. Good Night!\",\n  \"Things are getting quiet. Time
         to say Good Night.\",\n  \"We have come to the end of our broadcast day. Oh,
         who am I kidding. I''ll be up all night watching over Mice House. \" \n  ]
         | random }}\n"
@@ -2391,6 +2392,12 @@
       - fri
       - sat
       - sun
+    - type: is_illuminance
+      condition: device
+      device_id: e4809ced09fc43fbaac9521e5109919e
+      entity_id: 04ca4d3ec4e97d9acae9922e4d878455
+      domain: sensor
+      below: 50
   action:
   - delay:
       hours: 0
@@ -3497,7 +3504,7 @@
           entity_id: media_player.bedroom_speaker
           message: "{{ [ \"It is dark inside the house due to the conditions outside
             the house so I am turning on the inside lights.\",\n      \"When it gets
-            dark enough outside I turn on the inside lights. \",\n      'Lights, camera,
+            dark enough outside I turn on the inside lights.\",\n      'Lights, camera,
             action! It is dark at Mice Home, so I have activated the lightstrip to
             set the mood.',\n      'Darkness alert at Mice Home! Fear not, I have
             summoned the lightstrip to brighten your surroundings.',\n      \"Since
@@ -3526,14 +3533,13 @@
           cache: false
           entity_id: media_player.bedroom_speaker
           message: "{{ [ \"Radiance overload at Mice Home! The illuminance is above
-            100, so I am gracefully dimming down the lightstrip. If you need more
-            light later, just say me. Enjoy the natural brightness!\",\n     'Sunshine
-            is flooding in at Mice Home! With an illuminance above 100, I have gently
-            turned off the lightstrip',\n     'Luminosity alert at Mice Home! The
-            illuminance is soaring above 100, so I have gracefully turned off the
-            lightstrip',\n     \"Bathed in light at Mice Home! The illuminance has
-            surpassed 100, prompting me to gracefully turn off the lightstrip.\"\n
-            \ ] | random }}\n"
+            100, so I am gracefully dimming down the lightstrip. Enjoy the natural
+            brightness!\",\n     'Sunshine is flooding in at Mice Home! With an illuminance
+            above 100, I have gently turned off the lightstrip',\n     'Luminosity
+            alert at Mice Home! The illuminance is soaring above 100, so I have gracefully
+            turned off the lightstrip',\n     \"Bathed in light at Mice Home! The
+            illuminance has surpassed 100, prompting me to gracefully turn off the
+            lightstrip.\"\n  ] | random }}\n"
       - service: light.turn_off
         data: {}
         target:
@@ -3563,7 +3569,7 @@
     device_id: 63af9f46a83df92ec07c9ab86e59d6ad
     entity_id: fcbe701b1c58f7a11269eb337bea9f64
     domain: sensor
-    below: 24.5
+    below: 25
     id: temp_off
   - type: humidity
     platform: device

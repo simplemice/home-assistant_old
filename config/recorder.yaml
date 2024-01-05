@@ -18,5 +18,8 @@ exclude:
     - alert
     - device_tracker
     - camera
+    - image_processing
+    - remote
+    - update
   event_types:
     - call_service

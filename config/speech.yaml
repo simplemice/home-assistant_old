@@ -3,7 +3,7 @@
   aws_secret_access_key: !secret poly_key
   text_type: ssml
   #  voice: Brian
-  #  cache: True
+  cache: true
   engine: neural
 
 - platform: google_translate

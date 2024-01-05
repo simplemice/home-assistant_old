@@ -69,7 +69,6 @@
   sensors:
     darkness_sensor:
       friendly_name: "Darkness sensor"
-      #delay_off: "00:02:00"
       value_template: >-
         {{ ( state_attr("sensor.garage_light_sensor_illuminance_lux", "illuminance") | float(0) < 1000 ) or ( state_attr('sun.sun', 'elevation') < -6 ) or ( state_attr("sensor.garage_light_sensor_illuminance_lux", "illuminance") | float(0) < 3000 ) or ( is_state( "cover.livingroom_curtains", "closed") and is_state( "binary_sensor.livingroom_door_contact", "closed")) or ( states("sensor.energy_meter_energy") | float(0) < 0.8 ) }}
       icon_template: >-
